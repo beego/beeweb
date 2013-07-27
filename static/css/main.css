@@ -125,6 +125,9 @@ span.read-more {
 .social .github {
   background-position: -59px 2px;
 }
+.social .googleplus {
+  background-position: -118px 2px;
+}
 form table th {
   vertical-align: top;
   text-align: right;
@@ -194,13 +197,14 @@ footer .ligaturesymbols a,
 }
 
 #top {
-  background-color: #71afc0;
+  background-color: #F5F5F5;
   position: relative;
   left: 0;
   right: 0;
 }
+
 #main-image {
-  width: 350px;
+  width: 213px;
   margin: 20px;
 }
 .main-banner {
@@ -210,7 +214,7 @@ footer .ligaturesymbols a,
   margin-top: 15px;
 }
 .tweets-container {
-  height: 230px;
+  height: 250px;
   overflow-x: scroll;
   overflow-y: hidden;
 }
@@ -274,7 +278,7 @@ footer .ligaturesymbols a,
   margin-top: 80px;
 }
 .tweet-surface {
-  width: 4600px;
+  width: 950px;
   height: 200px;
 }
 .primary-action-button,

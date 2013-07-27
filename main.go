@@ -24,7 +24,7 @@ import (
 )
 
 const (
-	APP_VER = "0.0.1.0725 Beta"
+	APP_VER = "0.0.2.0727"
 )
 
 func init() {
@@ -52,6 +52,7 @@ func main() {
 
 	// Register routers.
 	beego.Router("/", &routers.HomeRouter{})
+	beego.Router("/about", &routers.AboutRouter{})
 
 	// Register template functions.
 

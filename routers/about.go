@@ -18,16 +18,16 @@ import (
 	"github.com/astaxie/beego"
 )
 
-// HomeRouter serves home page.
-type HomeRouter struct {
+// AboutRouter serves about page.
+type AboutRouter struct {
 	beego.Controller
 }
 
-// Get implemented Get method for HomeRouter.
-func (this *HomeRouter) Get() {
+// Get implemented Get method for AboutRouter.
+func (this *AboutRouter) Get() {
 	// Set language version.
 	curLang := globalSetting(this.Ctx, this.Input(), this.Data)
 
-	this.Data["IsHome"] = true
-	this.TplNames = "home_" + curLang.Lang + ".html"
+	this.Data["IsAbout"] = true
+	this.TplNames = "about_" + curLang.Lang + ".html"
 }
