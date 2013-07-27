@@ -26,38 +26,32 @@
 			</div>
 
 			<div class="row">
-			        <div class="span4">
-			          <h2>Synchronous</h2>
-			          <p>
-			            The <a href="http://gowalker.org/net/http">Go HTTP server</a>
-			            runs each request in its own
-			            <a href="http://golang.org/doc/effective_go.html#goroutines">goroutine</a>.
-			            Write simple callback-free code without guilt.
-			          </p>
-			        </div>
-			        <div class="span4">
-			          <h2>Stateless</h2>
-			          <p>
-			            Revel provides primitives that keep the web tier stateless for
-			            predictable scaling. For example, session data is stored in the user
-			            cookie, and the cache is backed by a memcached cluster.
-			          </p>
-			        </div>
-			        <div class="span4">
-			          <h2>Modular</h2>
-			          <p>
-			            Revel is built around composable middleware called <b>filters</b>,
-			            which implement nearly all request-processing
-			            functionality. Developers have the freedom to replace the default
-			            filters with custom implementations (e.g. a custom router).
-			          </p>
-			        </div>
-			      </div>
+			    <div class="span4">
+					<h2>Synchronous</h2>
+					<p>
+						Beego uses <a href="http://gowalker.org/net/http">Go HTTP server</a> underlying to serve each request in its own <a href="http://golang.org/doc/effective_go.html#goroutines">goroutine</a> and logic processes without affecting others. Low pay of goroutines gives you ability to build high-concurrency web applications, like RESTful API services.
+					</p>
+			    </div>
+
+				<div class="span4">
+					<h2>Stateless</h2>
+					<p>
+						Beego provides session support in memory, files, Redis or MySQL and cache support in memory, Redis or Memcache. For simple usage, Beego also has thread-safe map for storing temporary data during the runtime.
+					</p>
+				</div>
+
+				<div class="span4">
+					<h2>Free & Open</h2>
+					<p>
+						Beego gives developers freedom to replace or integrate default modules with customized implementations. You are also able to integrate third-party applications with customized <a href="http://gowalker.org/net/http#Handler">http.Handler</a>(router).
+					</p>
+				</div>
+			</div>
 
 			<div class="page-header">
 			    <h1>Features</h1>
 			    <p>
-			    	beego is an open-source, high-performance web framework for the Go programming language. This web framework has been already used for building web servers and tools in SNDA's CDN system.
+			    	Beego is an open-source, high-performance web framework for the Go programming language. This web framework has been already used for building web servers and tools in SNDA's CDN system.
 			    </p>
 			</div>
 
@@ -65,37 +59,25 @@
 				<div class="span4">
 					<h2>Hot Complie</h2>
 					<p>
-						Edit, save, and refresh.  Bee tool compiles your code and templates for you, so you don't miss a beat.  Code doesn't compile?  It gives you a <a href="img/CompilationError.png">helpful description</a>. Run-time code panic? Revel <a href="img/Panic.png">has you covered</a>.
+						Edit, save, and refresh. <a href="https://github.com/astaxie/bee">Bee</a> tool compiles your code and templates when you're coding. Developers should put more focus on how to make things work not wait.
 					</p>
 				</div>
 
 				<div class="span4">
-					<h2>Comprehensive</h2>
+					<h2>Simple & Powerful</h2>
 					<p>
-						Revel provides
-						<a href="manual/routing.html">routing</a>,
-						<a href="manual/binding.html">parameter parsing</a>,
-						<a href="manual/validation.html">validation</a>,
-						<a href="manual/sessionflash.html">session/flash</a>,
-						<a href="manual/templates.html">templating</a>,
-						<a href="manual/cache.html">caching</a>,
-						<a href="manual/jobs.html">job running</a>,
-						<a href="manual/testing.html">a testing framework</a>,
-						and even <a href="manual/i18n-messages.html">internationalization</a>.
+						Including intelligent routing, parameter parsing, templating, caching, validation, session, logging, safe map, and even integrated third-party applications. All of these just need few lines of code.
 					</p>
 				</div>
 
 				<div class="span4">
 					<h2>High Performance</h2>
 					<p>
-						Revel builds on top of the Go HTTP server, which was
-						<a href="http://www.techempower.com/benchmarks/#section=data-r5">recently
-						benchmarked</a> to serve <b>three to ten times</b> as many requests
-						as Rails across a variety of loads.
+						Beego builds on top of the Go HTTP server, which was <a href="http://www.techempower.com/benchmarks/#section=data-r6">recently benchmarked</a> to serve <b>three to ten times</b> as many requests as Rails across a variety of loads.
 					</p>
 				</div>
 			</div>
 		</div>
-		{{template "footer_zh" .}}
+		{{template "footer_en" .}}
 	</body>
 </html>
