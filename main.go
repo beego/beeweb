@@ -12,7 +12,7 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-// Beego Web is official blog and documentation website for Beego web framework.
+// An open source project for official blog and documentation website for Beego web framework.
 package main
 
 import (
