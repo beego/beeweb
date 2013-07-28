@@ -75,6 +75,7 @@
 {{end}}
 
 {{define "static_file"}}
+{{if .IsHome}}
 <script type="text/javascript">
     function moveRight() {
         $('#tweets-container').scrollTo( '+=620px', 300 );
@@ -93,6 +94,7 @@
         $('#tweets-container').scroll(showLeftShadow);
     })
 </script>
+{{end}}
 
 <script type="text/javascript">
     // Function to make the sticky header possible
