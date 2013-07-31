@@ -20,23 +20,22 @@ import (
 	"runtime"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beegoweb/routers"
+	"github.com/beego/website/routers"
 )
 
 const (
-	APP_VER = "0.0.6.0728"
+	APP_VER = "0.0.6.0731"
 )
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	// Set application log level.
+	// Set App version and log level.
 	if beego.AppConfig.String("runmode") == "pro" {
 		beego.SetLevel(beego.LevelInfo)
 
 		beego.Info("Beego Web", APP_VER)
 
-		// Initialize log file.
 		os.Mkdir("./log", os.ModePerm)
 		filew := beego.NewFileWriter("log/log", true)
 		err := filew.StartLogger()

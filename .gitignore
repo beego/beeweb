@@ -1,4 +1,5 @@
 *.exe
 *.exe~
-beegoweb
+website
 .DS_Store
+bee
