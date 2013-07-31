@@ -53,6 +53,7 @@ func main() {
 	beego.Router("/", &routers.HomeRouter{})
 	beego.Router("/about", &routers.AboutRouter{})
 	beego.Router("/community", &routers.CommunityRouter{})
+	beego.Router("/quickstart", &routers.QuickStartRouter{})
 
 	// Register template functions.
 

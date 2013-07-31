@@ -96,6 +96,17 @@
 </script>
 {{end}}
 
+{{if .IsHasMarkdown}}
+<script type="text/javascript" src="/static/js/showdown.js"></script>
+<script type="text/javascript">
+    var converter = new Showdown.converter({});
+    var readme = document.getElementById("markdown");
+    readme.innerHTML = converter.makeHtml(document.getElementById("markdown").innerHTML);
+    readme.innerHTML = readme.innerHTML.replace("&amp;", "&");
+    readme.style.display = "block";
+</script>
+{{end}}
+
 <script type="text/javascript">
     // Function to make the sticky header possible
     var shiftWindow = function() {
