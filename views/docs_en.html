@@ -1,0 +1,50 @@
+{{template "header_en" .}}
+		<title>Beego - Simple & powerful Go web framework</title>
+	</head>	
+
+	<body>
+		{{template "navbar_en" .}}
+		<div class="container">
+			<div class="row">
+			    <div class="span2">
+			        <div class="leftnav">
+			  			<ul class="nav nav-list">
+							<li class="nav-header">Overview</li>
+			  				<li {{if .IsIntro}}class="active"{{end}}><a href="/docs">Introduction</a></li>
+				    		<li {{if .IsConcepts}}class="active"{{end}}><a href="/docs/concepts">Concepts</a></li>
+				    		<li {{if .IsOrganization}}class="active"{{end}}><a href="/docs/organization">Organization</a></li>
+
+				    		<li class="nav-header">Controllers</li>
+				    		<li><a href="/docs/controller">Controller</a></li>
+				    		<li><a href="/docs/routing">Routing</a></li>
+				    		<li><a href="/docs/parameters">Parameters</a></li>
+				    		<li><a href="/docs/templates">Templates</a></li>
+				    		<li><a href="/docs/filters">Filters</a></li>
+				    		<li><a href="/docs/validation">Validation</a></li>
+				    		<li><a href="/docs/session">Session</a></li>
+			    			<li><a href="/docs/cache">Cache</a></li>
+
+			    			<li class="nav-header">Operational</li>
+			    			<li><a href="/docs/logging">Logging</a></li>
+			    			<li><a href="/docs/deployment">Deployment</a></li>
+
+			    			<li class="nav-header">Reference</li>
+			    			<li><a href="/docs/app.conf">app.conf</a></li>
+			    			<li><a href="/docs/bee">Bee tool</a></li>
+			    			<li><a href="/docs/fAQ">FAQ</a></li>
+			    		</ul>
+					</div>
+			    </div>
+
+			    <div class="span10">
+			        <div class="page-header">
+			        	<h1>{{.Title}}</h1>
+			        </div>
+
+			        <div id="markdown" class="span12" style="display:none;">{{.Data}}</div>
+			    </div>
+			</div>
+		</div>
+		{{template "footer_en" .}}
+	</body>
+</html>
