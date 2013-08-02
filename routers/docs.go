@@ -48,6 +48,7 @@ func init() {
 		"Overview_Introduction",
 		"Overview_Concepts",
 		"Overview_Organization",
+		"Controllers_Overview",
 	}
 
 	for _, v := range names {

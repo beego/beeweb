@@ -1,21 +1,21 @@
 {{template "header_en" .}}
-		<title>Beego - Simple & powerful Go web framework</title>
+		<title>Beego - 简约 & 强大并存的 Go Web 框架</title>
 	</head>	
 
 	<body>
-		{{template "navbar_en" .}}
+		{{template "navbar_zh" .}}
 		<div class="container">
 			<div class="row">
 			    <div class="span2">
 			        <div class="leftnav">
 			  			<ul class="nav nav-list">
-							<li class="nav-header">Overview</li>
-			  				<li {{if .Overview_Introduction}}class="active"{{end}}><a href="/docs/Overview_Introduction">Introduction</a></li>
-				    		<li {{if .Overview_Concepts}}class="active"{{end}}><a href="/docs/Overview_Concepts">Concepts</a></li>
-				    		<li {{if .Overview_Organization}}class="active"{{end}}><a href="/docs/Overview_Organization">Organization</a></li>
+							<li class="nav-header">文档概述</li>
+			  				<li {{if .Overview_Introduction}}class="active"{{end}}><a href="/docs/Overview_Introduction">基本说明</a></li>
+				    		<li {{if .Overview_Concepts}}class="active"{{end}}><a href="/docs/Overview_Concepts">框架概念</a></li>
+				    		<li {{if .Overview_Organization}}class="active"{{end}}><a href="/docs/Overview_Organization">项目组织</a></li>
 
-				    		<li class="nav-header">Controllers</li>
-				    		<li {{if .Controllers_Overview}}class="active"{{end}}><a href="/docs/Controllers_Overview">Overview</a></li>
+				    		<li class="nav-header">控制器</li>
+				    		<li {{if .Controllers_Overview}}class="active"{{end}}><a href="/docs/Controllers_Overview">概述</a></li>
 				    		<li><a href="/docs/routing">Routing</a></li>
 				    		<li><a href="/docs/parameters">Parameters</a></li>
 				    		<li><a href="/docs/templates">Templates</a></li>
@@ -45,6 +45,6 @@
 			    </div>
 			</div>
 		</div>
-		{{template "footer_en" .}}
+		{{template "footer_zh" .}}
 	</body>
 </html>

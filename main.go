@@ -20,11 +20,11 @@ import (
 	"runtime"
 
 	"github.com/astaxie/beego"
-	"github.com/beego/website/routers"
+	"github.com/beego/beeweb/routers"
 )
 
 const (
-	APP_VER = "0.0.7.0801"
+	APP_VER = "0.0.7.0802"
 )
 
 func init() {
