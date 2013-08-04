@@ -17,11 +17,11 @@
 				    		<li class="nav-header">控制器</li>
 				    		<li {{if .Controllers_Overview}}class="active"{{end}}><a href="/docs/Controllers_Overview">概述</a></li>
 				    		<li {{if .Controllers_Routing}}class="active"{{end}}><a href="/docs/Controllers_Routing">智能路由</a></li>
-				    		<li><a href="/docs/parameters">Parameters</a></li>
-				    		<li><a href="/docs/templates">Templates</a></li>
-				    		<li><a href="/docs/filters">Filters</a></li>
-				    		<li><a href="/docs/validation">Validation</a></li>
-				    		<li><a href="/docs/session">Session/Flash</a></li>
+				    		<li {{if .Controllers_Parameters}}class="active"{{end}}><a href="/docs/Controllers_Parameters">参数解析</a></li>
+				    		<li {{if .Controllers_Templates}}class="active"{{end}}><a href="/docs/Controllers_Templates">模板处理</a></li>
+				    		<li {{if .Controllers_Filters}}class="active"{{end}}><a href="/docs/Controllers_Filters">过滤器</a></li>
+				    		<li {{if .Controllers_Validation}}class="active"{{end}}><a href="/docs/Controllers_Validation">表单验证</a></li>
+				    		<li {{if .Controllers_Session}}class="active"{{end}}><a href="/docs/Controllers_Session">Session/Flash</a></li>
 			    			<li><a href="/docs/cache">Cache</a></li>
 
 			    			<li class="nav-header">Operational</li>

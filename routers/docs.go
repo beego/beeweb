@@ -44,13 +44,7 @@ func init() {
 	// ------------------------------
 
 	// Generate 'docTree'.
-	names := []string{
-		"Overview_Introduction",
-		"Overview_Concepts",
-		"Overview_Organization",
-		"Controllers_Overview",
-		"Controllers_Routing",
-	}
+	names := strings.Split(beego.AppConfig.String("navs"), "|")
 
 	for _, v := range names {
 		docTree.Tree = append(docTree.Tree, &docNode{Path: v})
