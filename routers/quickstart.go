@@ -15,10 +15,8 @@
 package routers
 
 import (
-	"errors"
-	"os"
-
 	"github.com/astaxie/beego"
+	"github.com/beego/beeweb/models"
 )
 
 // QuickStartRouter serves about page.
@@ -32,30 +30,9 @@ func (this *QuickStartRouter) Get() {
 	curLang := globalSetting(this.Ctx, this.Input(), this.Data)
 
 	this.Data["IsQuickStart"] = true
-
-	d, err := loadDoc(curLang.Lang + "/quickstart.md")
-	if err != nil {
-		this.Data["Data"] = err.Error()
-	} else {
-		this.Data["Data"] = d
-	}
+	df := models.GetDoc("quickstart", curLang.Lang)
+	this.Data["Title"] = df.Title
+	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
 	this.TplNames = "quickstart_" + curLang.Lang + ".html"
-}
-
-// loadDoc returns string of file data by given path.
-func loadDoc(path string) (string, error) {
-	f, err := os.Open("docs/" + path)
-	if err != nil {
-		return "", errors.New("Fail to open documentation file: " + err.Error())
-	}
-
-	fi, err := f.Stat()
-	if err != nil {
-		return "", errors.New("Fail to get file information: " + err.Error())
-	}
-
-	p := make([]byte, fi.Size())
-	f.Read(p)
-	return string(p), nil
 }

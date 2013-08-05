@@ -18,45 +18,8 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/beego/beeweb/models"
 )
-
-type docNode struct {
-	Type string
-	Sha  string
-	Path string
-}
-
-// docTree descriables a documentation file strcuture tree.
-var docTree struct {
-	Tree []*docNode
-}
-
-type docFile struct {
-	Title string
-	Data  []byte
-}
-
-var docMap map[string]*docFile
-
-func init() {
-	// ------------------------------
-	// Temporary operations.
-	// ------------------------------
-
-	// Generate 'docTree'.
-	names := strings.Split(beego.AppConfig.String("navs"), "|")
-
-	for _, v := range names {
-		docTree.Tree = append(docTree.Tree, &docNode{Path: v})
-	}
-
-	// ------------- END ------------
-
-	docMap = make(map[string]*docFile)
-	for _, v := range docTree.Tree {
-		docMap[v.Path] = &docFile{}
-	}
-}
 
 // DocsRouter serves about page.
 type DocsRouter struct {
@@ -83,16 +46,9 @@ func (this *DocsRouter) Get() {
 		this.Data[sec] = true
 	}
 
-	d, err := loadDoc(curLang.Lang + "/" + sec + ".md")
-	if err != nil {
-		this.Data["Data"] = err.Error()
-	} else {
-		i := strings.Index(d, "\n")
-		docMap[sec].Title = strings.TrimSpace(
-			strings.Replace(d[:i+1], "#", "", -1))
-		this.Data["Title"] = docMap[sec].Title
-		this.Data["Data"] = strings.TrimSpace(d[i+2:])
-	}
+	df := models.GetDoc(sec, curLang.Lang)
+	this.Data["Title"] = df.Title
+	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
 	this.TplNames = "docs_" + curLang.Lang + ".html"
 }

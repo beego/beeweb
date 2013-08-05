@@ -22,18 +22,19 @@
 				    		<li {{if .Controllers_Filters}}class="active"{{end}}><a href="/docs/Controllers_Filters">Filters</a></li>
 				    		<li {{if .Controllers_Validation}}class="active"{{end}}><a href="/docs/Controllers_Validation">Validation</a></li>
 				    		<li {{if .Controllers_Session}}class="active"{{end}}><a href="/docs/Controllers_Session">Session/Flash</a></li>
-			    			<li><a href="/docs/cache">Cache</a></li>
-			    			<li><a href="/docs/cache">Safe map</a></li>
+			    			<li {{if .Controllers_Cache}}class="active"{{end}}><a href="/docs/Controllers_Cache">Cache</a></li>
+			    			<li {{if .Controllers_SafeMap}}class="active"{{end}}><a href="/docs/Controllers_SafeMap">Safe map</a></li>
+			    			<li {{if .Controllers_IntegrateApp}}class="active"{{end}}><a href="/docs/Controllers_IntegrateApp">Integrate App</a></li>
 
 			    			<li class="nav-header">Operational</li>
-			    			<li><a href="/docs/logging">Logging</a></li>
-			    			<li><a href="/docs/deployment">Deployment</a></li>
-			    			<li><a href="/docs/deployment">Hot upgrade</a></li>
+			    			<li {{if .Operational_Logging}}class="active"{{end}}><a href="/docs/Operational_Logging">Logging</a></li>
+			    			<li {{if .Operational_Deployment}}class="active"{{end}}><a href="/docs/Operational_Deployment">Deployment</a></li>
+			    			<li {{if .Operational_HotUpgrade}}class="active"{{end}}><a href="/docs/Operational_HotUpgrade">Hot upgrade</a></li>
 
 			    			<li class="nav-header">Reference</li>
-			    			<li><a href="/docs/app.conf">app.conf</a></li>
-			    			<li><a href="/docs/bee">Bee tool</a></li>
-			    			<li><a href="/docs/fAQ">FAQ</a></li>
+			    			<li {{if .Reference_AppConf}}class="active"{{end}}><a href="/docs/Reference_AppConf">app.conf</a></li>
+			    			<li {{if .Reference_BeeTool}}class="active"{{end}}><a href="/docs/Reference_BeeTool">Bee tool</a></li>
+			    			<li {{if .Reference_FAQ}}class="active"{{end}}><a href="/docs/Reference_FAQ">FAQ</a></li>
 			    		</ul>
 					</div>
 			    </div>
