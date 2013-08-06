@@ -47,6 +47,10 @@ func (this *DocsRouter) Get() {
 	}
 
 	df := models.GetDoc(sec, curLang.Lang)
+	if df == nil {
+		this.Redirect("/docs/Overview_Introduction", 302)
+		return
+	}
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
