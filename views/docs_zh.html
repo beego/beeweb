@@ -14,7 +14,7 @@
 				    		<li {{if .Overview_Concepts}}class="active"{{end}}><a href="/docs/Overview_Concepts">框架概念</a></li>
 				    		<li {{if .Overview_Organization}}class="active"{{end}}><a href="/docs/Overview_Organization">项目组织</a></li>
 
-				    		<li class="nav-header">控制器</li>
+				    		<li class="nav-header">框架结构</li>
 				    		<li {{if .Controllers_Overview}}class="active"{{end}}><a href="/docs/Controllers_Overview">概述</a></li>
 				    		<li {{if .Controllers_Routing}}class="active"{{end}}><a href="/docs/Controllers_Routing">智能路由</a></li>
 				    		<li {{if .Controllers_Parameters}}class="active"{{end}}><a href="/docs/Controllers_Parameters">参数解析</a></li>
@@ -25,7 +25,8 @@
 			    			<li {{if .Controllers_Cache}}class="active"{{end}}><a href="/docs/Controllers_Cache">数据缓存</a></li>
 			    			<li {{if .Controllers_SafeMap}}class="active"{{end}}><a href="/docs/Controllers_SafeMap">安全 Map</a></li>
 			    			<li {{if .Controllers_IntegrateApp}}class="active"{{end}}><a href="/docs/Controllers_IntegrateApp">集成应用</a></li>
-
+						<li {{if .Controllers_XSRF}}class="active"{{end}}><a href="/docs/Controllers_XSRF">跨站伪造请求的防范</a></li>
+			    			
 			    			<li class="nav-header">运维管理</li>
 			    			<li {{if .Operational_Logging}}class="active"{{end}}><a href="/docs/Operational_Logging">日志记录</a></li>
 			    			<li {{if .Operational_Deployment}}class="active"{{end}}><a href="/docs/Operational_Deployment">发行部署</a></li>
