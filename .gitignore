@@ -4,3 +4,5 @@ website
 .DS_Store
 bee
 /docs
+app.ini
+docTree.json
