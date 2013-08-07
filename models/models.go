@@ -71,10 +71,10 @@ func init() {
 	initDocMap()
 
 	// Start check ticker.
-	checkTicker = time.NewTicker(5 * time.Minute)
-	go checkTickerTimer(checkTicker.C)
+	// checkTicker = time.NewTicker(5 * time.Minute)
+	// go checkTickerTimer(checkTicker.C)
 
-	checkDocUpdates()
+	// checkDocUpdates()
 }
 
 func initDocMap() {
@@ -199,7 +199,7 @@ func checkDocUpdates() {
 		// Trim ".md".
 		name := node.Path[:len(node.Path)-3]
 		if checkSHA(name, node.Sha) {
-			beego.Trace("Need to update:", name)
+			beego.Info("Need to update:", name)
 			files = append(files, &source{
 				name:   name,
 				rawURL: "https://raw.github.com/beego/beedoc/master/" + node.Path,

@@ -14,11 +14,16 @@
 				    		<li {{if .Overview_Concepts}}class="active"{{end}}><a href="/docs/Overview_Concepts">框架概念</a></li>
 				    		<li {{if .Overview_Organization}}class="active"{{end}}><a href="/docs/Overview_Organization">项目组织</a></li>
 
-				    		<li class="nav-header">框架结构</li>
+				    		<li class="nav-header">模型（Models）</li>
+				    		<li {{if .Models_Overview}}class="active"{{end}}><a href="/docs/Models_Overview">概述</a></li>
+
+				    		<li class="nav-header">视图（Views）</li>
+				    		<li {{if .Views_Templates}}class="active"{{end}}><a href="/docs/Views_Templates">模板处理</a></li>
+
+				    		<li class="nav-header">控制器（Ctrlers）</li>
 				    		<li {{if .Controllers_Overview}}class="active"{{end}}><a href="/docs/Controllers_Overview">概述</a></li>
 				    		<li {{if .Controllers_Routing}}class="active"{{end}}><a href="/docs/Controllers_Routing">智能路由</a></li>
 				    		<li {{if .Controllers_Parameters}}class="active"{{end}}><a href="/docs/Controllers_Parameters">参数解析</a></li>
-				    		<li {{if .Controllers_Templates}}class="active"{{end}}><a href="/docs/Controllers_Templates">模板处理</a></li>
 				    		<li {{if .Controllers_Filters}}class="active"{{end}}><a href="/docs/Controllers_Filters">过滤器</a></li>
 				    		<li {{if .Controllers_Validation}}class="active"{{end}}><a href="/docs/Controllers_Validation">表单验证</a></li>
 				    		<li {{if .Controllers_Session}}class="active"{{end}}><a href="/docs/Controllers_Session">Session/Flash</a></li>

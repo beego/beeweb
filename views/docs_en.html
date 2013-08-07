@@ -14,11 +14,16 @@
 				    		<li {{if .Overview_Concepts}}class="active"{{end}}><a href="/docs/Overview_Concepts">Concepts</a></li>
 				    		<li {{if .Overview_Organization}}class="active"{{end}}><a href="/docs/Overview_Organization">Organization</a></li>
 
+				    		<li class="nav-header">Models</li>
+				    		<li {{if .Models_Overview}}class="active"{{end}}><a href="/docs/Models_Overview">Overview</a></li>
+
+				    		<li class="nav-header">Views</li>
+				    		<li {{if .Views_Templates}}class="active"{{end}}><a href="/docs/Views_Templates">Templates</a></li>
+
 				    		<li class="nav-header">Controllers</li>
 				    		<li {{if .Controllers_Overview}}class="active"{{end}}><a href="/docs/Controllers_Overview">Overview</a></li>
 				    		<li {{if .Controllers_Routing}}class="active"{{end}}><a href="/docs/Controllers_Routing">Routing</a></li>
 				    		<li {{if .Controllers_Parameters}}class="active"{{end}}><a href="/docs/Controllers_Parameters">Parameters</a></li>
-				    		<li {{if .Controllers_Templates}}class="active"{{end}}><a href="/docs/Controllers_Templates">Templates</a></li>
 				    		<li {{if .Controllers_Filters}}class="active"{{end}}><a href="/docs/Controllers_Filters">Filters</a></li>
 				    		<li {{if .Controllers_Validation}}class="active"{{end}}><a href="/docs/Controllers_Validation">Validation</a></li>
 				    		<li {{if .Controllers_Session}}class="active"{{end}}><a href="/docs/Controllers_Session">Session/Flash</a></li>
