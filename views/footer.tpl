@@ -30,9 +30,6 @@
         <!-- end of footer -->
     </div>
 </div>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/jquery.scrollTo-min.js"></script>
 {{template "static_file" .}}
 {{end}}
 
@@ -68,13 +65,14 @@
         <!-- end of footer -->
     </div>
 </div>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/jquery.scrollTo-min.js"></script>
 {{template "static_file" .}}
 {{end}}
 
 {{define "static_file"}}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.scrollTo-min.js"></script>
+
 {{if .IsHome}}
 <script type="text/javascript">
     function moveRight() {
