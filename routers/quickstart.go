@@ -16,6 +16,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/beego/beewatch"
 	"github.com/beego/beeweb/models"
 )
 
@@ -28,6 +29,7 @@ type QuickStartRouter struct {
 func (this *QuickStartRouter) Get() {
 	// Set language version.
 	curLang := globalSetting(this.Ctx, this.Input(), this.Data)
+	beewatch.Display(beewatch.Trace, "curLang", curLang)
 
 	this.Data["IsQuickStart"] = true
 	df := models.GetDoc("quickstart", curLang.Lang)

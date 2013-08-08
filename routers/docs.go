@@ -18,6 +18,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/beego/beewatch"
 	"github.com/beego/beeweb/models"
 )
 
@@ -51,6 +52,9 @@ func (this *DocsRouter) Get() {
 		this.Redirect("/docs/Overview_Introduction", 302)
 		return
 	}
+
+	beewatch.Display(beewatch.Info, "docFile.Title", df.Title,
+		"section", sec)
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
