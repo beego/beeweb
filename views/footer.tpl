@@ -101,8 +101,9 @@
 <script type="text/javascript">
     var converter = new Showdown.converter({});
     var readme = document.getElementById("markdown");
-    readme.innerHTML = converter.makeHtml(document.getElementById("markdown").innerHTML);
-    readme.innerHTML = readme.innerHTML.replace("&amp;", "&");
+    var content = converter.makeHtml(document.getElementById("markdown").innerHTML);
+    content = content.replace(/&amp;/g, "&");
+    readme.innerHTML = content;
     readme.style.display = "block";
 </script>
 {{end}}
