@@ -20,12 +20,11 @@ import (
 	"runtime"
 
 	"github.com/astaxie/beego"
-	"github.com/beego/beewatch"
 	"github.com/beego/beeweb/routers"
 )
 
 const (
-	APP_VER = "0.2.0.0808"
+	APP_VER = "0.2.0.0812"
 )
 
 func init() {
@@ -44,7 +43,7 @@ func init() {
 			beego.Critical("NewFileWriter ->", err)
 		}
 	} else {
-		beewatch.Start(beewatch.Trace)
+		// beewatch.Start(beewatch.Trace)
 	}
 }
 

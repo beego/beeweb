@@ -9,7 +9,6 @@
 		<meta name="keywords" content="Go, golang, Beego, API documentation">
 
 		 <!-- Stylesheets -->
-		 <link href="//fonts.googleapis.com/css?family=Cabin:400,700,400italic" rel="stylesheet" type="text/css">
 		<link href="/static/css/bootstrap-custom.css" rel="stylesheet" />
 		<link href="/static/css/css.css" rel="stylesheet" />
 		<link href="/static/css/main.css" rel="stylesheet" />
@@ -26,7 +25,6 @@
 		<meta name="keywords" content="Go, golang, Go语言, Beego, API文档">
 
 		 <!-- Stylesheets -->
-		 <link href="//fonts.googleapis.com/css?family=Cabin:400,700,400italic" rel="stylesheet" type="text/css">
 		<link href="/static/css/bootstrap-custom.css" rel="stylesheet" />
 		<link href="/static/css/css.css" rel="stylesheet" />
 		<link href="/static/css/main.css" rel="stylesheet" />
