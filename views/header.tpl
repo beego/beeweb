@@ -10,7 +10,6 @@
 
 		 <!-- Stylesheets -->
 		<link href="/static/css/bootstrap-custom.css" rel="stylesheet" />
-		<link href="/static/css/css.css" rel="stylesheet" />
 		<link href="/static/css/main.css" rel="stylesheet" />
 {{end}}
 
@@ -26,6 +25,5 @@
 
 		 <!-- Stylesheets -->
 		<link href="/static/css/bootstrap-custom.css" rel="stylesheet" />
-		<link href="/static/css/css.css" rel="stylesheet" />
 		<link href="/static/css/main.css" rel="stylesheet" />
 {{end}}
