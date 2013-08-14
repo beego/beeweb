@@ -1,0 +1,32 @@
+{{template "header_en" .}}
+		<title>beego - 简约 & 强大并存的 Go 应用框架</title>
+	</head>	
+
+	<body>
+		{{template "navbar_zh" .}}
+		<div class="container">
+			<div class="row">
+			    <div class="span2">
+			        <div class="leftnav">
+			  			<ul class="nav nav-list">
+							<li class="nav-header">示例程序</li>
+			  				<li {{if .Samples_Introduction}}class="active"{{end}}><a href="/samples/Samples_Introduction">基本说明</a></li>
+			  				<li {{if .Samples_Chat}}class="active"{{end}}><a href="/samples/Samples_Chat">在线聊天</a></li>
+			  				<li {{if .Samples_ShortURL}}class="active"{{end}}><a href="/samples/Samples_ShortURL">短域名服务</a></li>
+			  				<li {{if .Samples_TodoList}}class="active"{{end}}><a href="/samples/Samples_TodoList">Todo 列表</a></li>
+			    		</ul>
+					</div>
+			    </div>
+
+			    <div class="span10">
+			        <div class="page-header">
+			        	<h1>{{.Title}}</h1>
+			        </div>
+
+			        <div id="markdown" class="span12" style="display:none;">{{.Data}}</div>
+			    </div>
+			</div>
+		</div>
+		{{template "footer_zh" .}}
+	</body>
+</html>

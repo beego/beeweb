@@ -1,6 +1,6 @@
 # What is this?
 
-An open source project for official blog and documentation website for Beego web framework.
+An open source project for official blog and documentation website for beego App framework.
 
 ## License
 
