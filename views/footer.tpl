@@ -95,13 +95,34 @@
 {{end}}
 
 {{if .IsHasMarkdown}}
-<script type="text/javascript" src="/static/js/showdown.js"></script>
+<script type="text/javascript" src="/static/js/marked.js"></script>
 <script type="text/javascript">
-    var converter = new Showdown.converter({});
+    // var converter = new Showdown.converter({});
+    // var readme = document.getElementById("markdown");
+    // var content = converter.makeHtml(document.getElementById("markdown").innerHTML);
+    // content = content.replace(/&amp;/g, "&");
+    // readme.innerHTML = content;
+    // readme.style.display = "block";
+    marked.setOptions({
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false,
+        langPrefix: 'lang-'
+    });
     var readme = document.getElementById("markdown");
-    var content = converter.makeHtml(document.getElementById("markdown").innerHTML);
+    var content = marked.parser(marked.lexer(document.getElementById("markdown").innerHTML));
     content = content.replace(/&amp;/g, "&");
     readme.innerHTML = content;
+    $.each($("h3"), function(){
+        var node = $(this);
+        var val = encodeURIComponent(node.text().replace(" ", "-"));
+        node.html('<a name="'+ val +'" class="anchor" href=#"'+ val +
+            '"><span class="octicon octicon-link"></span></a>' + node.text());
+    });
     readme.style.display = "block";
 </script>
 {{end}}
