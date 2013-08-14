@@ -1,12 +1,12 @@
 {{template "header_zh" .}}
-		<title>关于 Beego - 简约 & 强大并存的 Go Web 框架</title>
+		<title>关于 beego - 简约 & 强大并存的 Go 应用框架</title>
 	</head>	
 
 	<body>
 		{{template "navbar_zh" .}}
 		<div class="container">
 			<div class="page-header">
-			    <h1>Beego 的由来</h1>
+			    <h1>beego 的由来</h1>
 			    <p>
 			    	我以前经常用PHP的CI框架和python的tornado框架，这些框架都是非常轻量级的，轻量级就有利于我们：
 
@@ -31,21 +31,21 @@
 			    <div class="span4">
 					<h2>同步并发</h2>
 					<p>
-						Beego 底层使用 <a target="_blank" href="http://gowalker.org/net/http">Go HTTP 服务器</a> 来为每个请求创建一个 <a target="_blank" href="http://docs.studygolang.com/doc/effective_go.html#goroutines">goroutine</a> 与相应的逻辑处理程序，从而使得每个请求都各自独立、互不影响。这也同时为您创造了构建高并发 Web 应用程序的条件，例如：RESTful API 服务.
+						beego 底层使用 <a target="_blank" href="http://gowalker.org/net/http">Go HTTP 服务器</a> 来为每个请求创建一个 <a target="_blank" href="http://docs.studygolang.com/doc/effective_go.html#goroutines">goroutine</a> 与相应的逻辑处理程序，从而使得每个请求都各自独立、互不影响。这也同时为您创造了构建高并发 Web 应用程序的条件，例如：RESTful API 服务.
 					</p>
 			    </div>
 
 				<div class="span4">
 					<h2>数据管理</h2>
 					<p>
-						Beego 支持将 <a href="/docs/Controllers_Session">Session</a> 存储在内存、文件、Redis 或 MySQL 中，也支持将 <a href="/docs/Controllers_Cache">缓存</a> 存储在内存、Redis 或 Memcache 内。对于一些简单的数据存储，Beego 同样提供线程安全的 Map 在运行时存放您的临时数据。
+						beego 支持将 <a href="/docs/Controllers_Session">Session</a> 存储在内存、文件、Redis 或 MySQL 中，也支持将 <a href="/docs/Controllers_Cache">缓存</a> 存储在内存、Redis 或 Memcache 内。对于一些简单的数据存储，Beego 同样提供线程安全的 Map 在运行时存放您的临时数据。
 					</p>
 				</div>
 
 				<div class="span4">
 					<h2>自由 & 开放</h2>
 					<p>
-						Beego 给予了开发者们使用自定义实现的模块来替换或集成默认模块的自由。您也可以通过自定义实现后的 <a href="http://gowalker.org/net/http#Handler">http.Handler</a>（路由）向基于 Beego 的 Web 应用程序集成第三方应用。
+						beego 给予了开发者们使用自定义实现的模块来替换或集成默认模块的自由。您也可以通过自定义实现后的 <a href="http://gowalker.org/net/http#Handler">http.Handler</a>（路由）向基于 Beego 的 Web 应用程序集成第三方应用。
 					</p>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 			<div class="page-header">
 			    <h1>丰富特性</h1>
 			    <p>
-			    	Beego 是一个开源的、高性能的 Go 语言 Web 框架。该框架已经被实际应用于构建盛大 CDN 系统的 Web 服务器。
+			    	beego 是一个开源的、高性能的 Go 语言 Web 框架。该框架已经被实际应用于构建盛大 CDN 系统的 Web 服务器。
 			    </p>
 			</div>
 
@@ -75,7 +75,7 @@
 				<div class="span4">
 					<h2>高性能</h2>
 					<p>
-						Beego 构建于 Go HTTP 服务器之上，而 Go 在最近的 <a target="_blank" href="http://www.techempower.com/benchmarks/#section=data-r6">性能评测</a> 中显示其可同时服务多于 Rails <b>三至十倍</b> 的请求。
+						beego 构建于 Go HTTP 服务器之上，而 Go 在最近的 <a target="_blank" href="http://www.techempower.com/benchmarks/#section=data-r6">性能评测</a> 中显示其可同时服务多于 Rails <b>三至十倍</b> 的请求。
 					</p>
 				</div>
 			</div>
