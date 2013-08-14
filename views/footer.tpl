@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="span12 footer">
                     <div class="span8 tbox">
-                    	Beego web framework is an open source project, launched by <a href="https://github.com/astaxie">AstaXie</a>, and maintained by Beego developer community. Under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">apache 2.0 licence</a>.
+                    	Beego App framework is an open source project, launched by <a href="https://github.com/astaxie">AstaXie</a>, and maintained by beego developer community. Under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">apache 2.0 licence</a>.
                         <strong>Language:</strong>
 					    <div class="btn-group dropup">
 						    <button class="btn dropdown-toggle" data-toggle="dropdown">{{.CurLang}} <span class="caret"></span></button>
@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="span12 footer">
                     <div class="span8 tbox">
-                    	Beego Web 框架是一个开源项目，初经 <a href="https://github.com/astaxie">Asta谢</a> 发起，现由 Beego 开发者社区维护。授权许可遵循 <a href="http://www.apache.org/licenses/LICENSE-2.0.html">apache 2.0 licence</a>。
+                    	beego 应用框架是一个开源项目，初经 <a href="https://github.com/astaxie">Asta谢</a> 发起，现由 beego 开发者社区维护。授权许可遵循 <a href="http://www.apache.org/licenses/LICENSE-2.0.html">apache 2.0 licence</a>。
                         <strong>语言选项：</strong>
 					    <div class="btn-group dropup">
 						    <button class="btn dropdown-toggle" data-toggle="dropdown">{{.CurLang}} <span class="caret"></span></button>
