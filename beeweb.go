@@ -24,7 +24,7 @@ import (
 )
 
 const (
-	APP_VER = "0.2.0.0812"
+	APP_VER = "0.3.0.0814"
 )
 
 func init() {
@@ -58,6 +58,8 @@ func main() {
 	beego.Router("/quickstart", &routers.QuickStartRouter{})
 	beego.Router("/docs", &routers.DocsRouter{})
 	beego.Router("/docs/:all", &routers.DocsRouter{})
+	beego.Router("/samples", &routers.SamplesRouter{})
+	beego.Router("/samples/:all", &routers.SamplesRouter{})
 
 	// Register template functions.
 

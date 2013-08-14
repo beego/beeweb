@@ -81,6 +81,8 @@ func initDocMap() {
 	// Get documentation names.
 	docNames := strings.Split(beego.AppConfig.String("navs"), "|")
 	docNames = append(docNames, "quickstart")
+	docNames = append(docNames,
+		strings.Split(beego.AppConfig.String("samples"), "|")...)
 
 	isConfExist := isExist("conf/docTree.json")
 	if isConfExist {
