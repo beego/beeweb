@@ -117,13 +117,30 @@
     var content = marked.parser(marked.lexer(document.getElementById("markdown").innerHTML));
     content = content.replace(/&amp;/g, "&");
     readme.innerHTML = content;
+    readme.style.display = "block";
+    
+    //encode url
+    $.each($("a"), function(){
+        var node = $(this);
+        var link = node.attr("href");
+        var index = link.indexOf("#");
+        if (index <  0 || index+1 > link.length) {
+            return;
+        }
+        var val = encodeURIComponent(link.substring(index+1, link.length));
+        var end = index;
+        if (index-3 > 0 && link.substring(index-3, index) == ".md") {
+            end = index - 3;
+        };
+        node.attr("href", link.substring(0, end)+"#"+val);
+    });
+    //  set anchor
     $.each($("h3"), function(){
         var node = $(this);
         var val = encodeURIComponent(node.text().replace(" ", "-"));
-        node.html('<a name="'+ val +'" class="anchor" href=#"'+ val +
+        node.html('<a name="'+ val +'" class="anchor" href="#'+ val +
             '"><span class="octicon octicon-link"></span></a>' + node.text());
     });
-    readme.style.display = "block";
 </script>
 {{end}}
 
