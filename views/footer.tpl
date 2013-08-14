@@ -135,7 +135,7 @@
         node.attr("href", link.substring(0, end)+"#"+val);
     });
     //  set anchor
-    $.each($("h3"), function(){
+    $.each($("h3, h2"), function(){
         var node = $(this);
         var val = encodeURIComponent(node.text().replace(" ", "-"));
         node.html('<a name="'+ val +'" class="anchor" href="#'+ val +
