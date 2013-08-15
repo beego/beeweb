@@ -63,6 +63,5 @@ func main() {
 
 	// Register template functions.
 
-	// For all unknown pages.
 	beego.Run()
 }

@@ -16,6 +16,14 @@
 
 				    		<li class="nav-header">模型（Models）</li>
 				    		<li {{if .Models_Overview}}class="active"{{end}}><a href="/docs/Models_Overview">概述</a></li>
+				    		<li {{if .Models_ORM}}class="active"{{end}}><a href="/docs/Models_ORM">简单示例</a></li>
+				    		<li {{if .Models_Object}}class="active"{{end}}><a href="/docs/Models_Object">ORM 对象</a></li>
+				    		<li {{if .Models_Query}}class="active"{{end}}><a href="/docs/Models_Query">高级查询</a></li>
+				    		<li {{if .Models_RawSQL}}class="active"{{end}}><a href="/docs/Models_RawSQL">原生 SQL</a></li>
+				    		<li {{if .Models_Transaction}}class="active"{{end}}><a href="/docs/Models_Transaction">事务处理</a></li>
+				    		<li {{if .Models_Models}}class="active"{{end}}><a href="/docs/Models_Models">模型定义</a></li>
+				    		<li {{if .Models_CustomFields}}class="active"{{end}}><a href="/docs/Models_CustomFields">自定义字段</a></li>
+				    		<li {{if .Models_FAQ}}class="active"{{end}}><a href="/docs/Models_FAQ">FAQ</a></li>
 
 				    		<li class="nav-header">视图（Views）</li>
 				    		<li {{if .Views_Templates}}class="active"{{end}}><a href="/docs/Views_Templates">模板处理</a></li>
@@ -51,7 +59,7 @@
 			        	<h1>{{.Title}}</h1>
 			        </div>
 
-			        <div id="markdown" class="span12" style="display:none;">{{.Data}}</div>
+			        <div id="markdown" class="span10" style="display:none;">{{.Data}}</div>
 			    </div>
 			</div>
 		</div>
