@@ -1,0 +1,33 @@
+@charset "UTF-8";
+@font-face{font-family:'octicons';src:url("/static/octicons.eot");src:url("/static/octicons.eot#iefix") format("embedded-opentype"),url("/static/octicons.woff") format("woff"),url("/static/octicons.ttf") format("truetype");font-weight:normal;font-style:normal}
+#markdown h3 a {
+    color: #4183c4;
+    text-decoration: none;
+}
+
+#markdown h3 a.anchor {
+    text-decoration:none;
+    line-height:1;
+    padding-left:0;
+    /*margin-left:22px;*/
+    top:15%
+}
+
+#markdown a span.octicon {
+    font: normal normal 16px octicons;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+#markdown a span.octicon-link {
+    display: none;
+    color: #000;
+}
+
+#markdown a span.octicon-link:before {
+    content: '\f05c';
+}
+
+#markdown h3:hover .octicon-link{display:inline-block}

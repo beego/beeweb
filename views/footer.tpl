@@ -95,14 +95,9 @@
 {{end}}
 
 {{if .IsHasMarkdown}}
+<link href="/static/css/link.css" rel="stylesheet" />
 <script type="text/javascript" src="/static/js/marked.js"></script>
 <script type="text/javascript">
-    // var converter = new Showdown.converter({});
-    // var readme = document.getElementById("markdown");
-    // var content = converter.makeHtml(document.getElementById("markdown").innerHTML);
-    // content = content.replace(/&amp;/g, "&");
-    // readme.innerHTML = content;
-    // readme.style.display = "block";
     marked.setOptions({
         gfm: true,
         tables: true,
