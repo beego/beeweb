@@ -96,10 +96,15 @@
 
 {{if .IsHasMarkdown}}
 <link href="/static/css/link.css" rel="stylesheet" />
+<link href="/static/css/googlecode.css" rel="stylesheet" />
+<script type="text/javascript" src="/static/js/highlight.pack.js"></script>
 <script type="text/javascript" src="/static/js/marked.js"></script>
 <script type="text/javascript">
     marked.setOptions({
         gfm: true,
+        highlight: function (code, lang) {
+            return hljs.highlightAuto(code).value;
+        },
         tables: true,
         breaks: false,
         pedantic: false,

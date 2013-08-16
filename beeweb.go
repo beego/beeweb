@@ -17,7 +17,7 @@ package main
 
 import (
 	"os"
-	"runtime"
+	// "runtime"
 
 	"github.com/astaxie/beego"
 	"github.com/beego/beeweb/routers"
