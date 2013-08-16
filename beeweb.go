@@ -28,7 +28,7 @@ const (
 )
 
 func init() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
+	//runtime.GOMAXPROCS(runtime.NumCPU())
 
 	// Set App version and log level.
 	if beego.AppConfig.String("runmode") == "pro" {
