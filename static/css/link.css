@@ -1,11 +1,11 @@
 @charset "UTF-8";
 @font-face{font-family:'octicons';src:url("/static/octicons.eot");src:url("/static/octicons.eot#iefix") format("embedded-opentype"),url("/static/octicons.woff") format("woff"),url("/static/octicons.ttf") format("truetype");font-weight:normal;font-style:normal}
-#markdown h3 a {
+#markdown h1 a, #markdown h2 a, #markdown h3 a {
     color: #4183c4;
     text-decoration: none;
 }
 
-#markdown h3 a.anchor {
+#markdown h1 a.anchor, #markdown h2 a.anchor, #markdown h3 a.anchor {
     text-decoration:none;
     line-height:1;
     padding-left:0;
@@ -30,4 +30,4 @@
     content: '\f05c';
 }
 
-#markdown h3:hover .octicon-link{display:inline-block}
+#markdown h1:hover .octicon-link, #markdown h2:hover .octicon-link, #markdown h3:hover .octicon-link{display:inline-block}
