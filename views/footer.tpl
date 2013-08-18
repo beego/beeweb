@@ -119,7 +119,7 @@
     readme.innerHTML = content;
     readme.style.display = "block";
     
-    //encode url
+    // Encode url.
     $.each($("a"), function(){
         var node = $(this);
         var link = node.attr("href");
@@ -134,12 +134,11 @@
         };
         node.attr("href", link.substring(0, end)+"#"+val);
     });
-    //  set anchor
+    // Set anchor.
     $.each($("h3, h2"), function(){
         var node = $(this);
         var val = encodeURIComponent(node.text().replace(" ", "-"));
-        node.html('<a name="'+ val +'" class="anchor" href="#'+ val +
-            '"><span class="octicon octicon-link"></span></a>' + node.text());
+        node.html(node.text() + '<a name="' + val + '" class="anchor" href="#' + val + '"><span class="octicon octicon-link"></span></a>');
     });
 </script>
 {{end}}
@@ -158,12 +157,12 @@
 </script>
 
 <script>
-    // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    // m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    // })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    // ga('create', 'UA-40109089-3', 'beego.me');
-    // ga('send', 'pageview');
+    ga('create', 'UA-40109089-3', 'beego.me');
+    ga('send', 'pageview');
 </script>
 {{end}}
