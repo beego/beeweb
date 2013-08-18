@@ -56,6 +56,10 @@ func setGithubCredentials(id, secret string) {
 }
 
 func init() {
+	if !isExist("conf/app.ini") {
+		os.Create("conf/app.ini")
+	}
+
 	var err error
 	Cfg, err = goconfig.LoadConfigFile("conf/app.ini")
 	if err == nil {
