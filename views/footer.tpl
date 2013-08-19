@@ -137,7 +137,7 @@
     // Set anchor.
     $.each($("h3, h2"), function(){
         var node = $(this);
-        var val = encodeURIComponent(node.text().replace(" ", "-"));
+        var val = encodeURIComponent(node.text().replace(/\s+/g, "-"));
         node.html(node.text() + '<a name="' + val + '" class="anchor" href="#' + val + '"><span class="octicon octicon-link"></span></a>');
     });
 </script>
