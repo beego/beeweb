@@ -11,6 +11,8 @@
 		 <!-- Stylesheets -->
 		<link href="/static/css/bootstrap-custom.css" rel="stylesheet" />
 		<link href="/static/css/main.css" rel="stylesheet" />
+		<link href="/static/css/link.css" rel="stylesheet" />
+		<link href="/static/css/github.css" rel="stylesheet" />
 {{end}}
 
 {{define "header_zh"}}
@@ -26,4 +28,6 @@
 		 <!-- Stylesheets -->
 		<link href="/static/css/bootstrap-custom.css" rel="stylesheet" />
 		<link href="/static/css/main.css" rel="stylesheet" />
+		<link href="/static/css/link.css" rel="stylesheet" />
+		<link href="/static/css/github.css" rel="stylesheet" />
 {{end}}

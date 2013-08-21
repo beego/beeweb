@@ -25,6 +25,7 @@ import (
 
 	"github.com/Unknwon/goconfig"
 	"github.com/astaxie/beego"
+	"github.com/slene/blackfriday"
 )
 
 var Cfg *goconfig.ConfigFile
@@ -127,24 +128,7 @@ func initDocMap() {
 				fullName = l + "/" + v.Path
 			}
 
-			d, err := loadDoc(fullName + ".md")
-			df := &docFile{}
-			if err != nil {
-				df.Data = []byte(err.Error())
-			} else {
-				s := string(d)
-				i := strings.Index(s, "\n")
-				if i > -1 {
-					// Has title.
-					df.Title = strings.TrimSpace(
-						strings.Replace(s[:i+1], "#", "", -1))
-					df.Data = []byte(strings.TrimSpace(s[i+2:]))
-				} else {
-					df.Data = d
-				}
-			}
-
-			docMap[fullName] = df
+			docMap[fullName] = getDoc(fullName)
 		}
 	}
 }
@@ -166,11 +150,45 @@ func loadDoc(path string) ([]byte, error) {
 	return d, nil
 }
 
+func markdown(raw []byte) (out []byte) {
+	return blackfriday.MarkdownCommon(raw)
+}
+
+func getDoc(fullName string) *docFile {
+	df := &docFile{}
+	d, err := loadDoc(fullName + ".md")
+	if err != nil {
+		df.Data = []byte(err.Error())
+	} else {
+		s := string(d)
+		i := strings.Index(s, "\n")
+		if i > -1 {
+			// Has title.
+			df.Title = strings.TrimSpace(
+				strings.Replace(s[:i+1], "#", "", -1))
+			df.Data = []byte(strings.TrimSpace(s[i+2:]))
+		} else {
+			df.Data = d
+		}
+
+		df.Data = markdown(df.Data)
+	}
+
+	return df
+}
+
 // GetDoc returns 'docFile' by given name and language version.
 func GetDoc(path, lang string) *docFile {
 	docLock.RLock()
 	defer docLock.RUnlock()
-	return docMap[lang+"/"+path]
+
+	fullName := lang + "/" + path
+
+	if beego.RunMode == "dev" {
+		return getDoc(fullName)
+	} else {
+		return docMap[fullName]
+	}
 }
 
 var checkTicker *time.Ticker

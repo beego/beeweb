@@ -95,67 +95,49 @@
 {{end}}
 
 {{if .IsHasMarkdown}}
-<link href="/static/css/link.css" rel="stylesheet" />
-<link href="/static/css/googlecode.css" rel="stylesheet" />
 <script type="text/javascript" src="/static/js/highlight.pack.js"></script>
-<script type="text/javascript" src="/static/js/marked.js"></script>
 <script type="text/javascript">
-    marked.setOptions({
-        gfm: true,
-        highlight: function (code, lang) {
-            return hljs.highlightAuto(code).value;
-        },
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        sanitize: true,
-        smartLists: true,
-        smartypants: false,
-        langPrefix: 'lang-'
-    });
-    var readme = document.getElementById("markdown");
-    var content = marked.parser(marked.lexer(document.getElementById("markdown").innerHTML));
-    content = content.replace(/&amp;/g, "&");
-    readme.innerHTML = content;
-    readme.style.display = "block";
-    
-    // Encode url.
-    $.each($("a"), function(){
-        var node = $(this);
-        var link = node.attr("href");
-        var index = link.indexOf("#");
-        if (index <  0 || index+1 > link.length) {
-            return;
-        }
-        var val = encodeURIComponent(link.substring(index+1, link.length));
-        var end = index;
-        if (index-3 > 0 && link.substring(index-3, index) == ".md") {
-            end = index - 3;
-        };
-        node.attr("href", link.substring(0, end)+"#"+val);
-    });
-    // Set anchor.
-    $.each($("h3, h2"), function(){
-        var node = $(this);
-        var val = encodeURIComponent(node.text().replace(/\s+/g, "-"));
-        node.html(node.text() + '<a name="' + val + '" class="anchor" href="#' + val + '"><span class="octicon octicon-link"></span></a>');
-    });
+    (function($){
+
+        var doc = $("#markdown");
+
+        // highlight
+    	doc.find("code").each(function(k, e){
+    		var code = $(e);
+    		if (code.attr("class") == undefined) {
+    			code.attr("class", "no-highlight");
+    		}
+    		hljs.highlightBlock(code.get(0), hljs.tabReplace);
+    	});
+
+        // Encode url.
+        doc.find("a").each(function(){
+            var node = $(this);
+            var link = node.attr("href");
+            var index = link.indexOf("#");
+            if (index <  0 || index+1 > link.length) {
+                return;
+            }
+            link = decodeURIComponent(link).toLowerCase()
+            var val = encodeURIComponent(link.substring(index+1, link.length));
+            var end = index;
+            if (index-3 > 0 && link.substring(index-3, index) == ".md") {
+                end = index - 3;
+            };
+            node.attr("href", link.substring(0, end)+"#"+val);
+        });
+
+        // Set anchor.
+        doc.find("h1, h2, h3, h4, h5, h6").each(function(){
+            var node = $(this);
+            var val = encodeURIComponent(node.text().toLowerCase().replace(/\s+/g, "-"));
+            node = node.wrap('<div id="' + val + '" class="anchor-wrap" ></div>');
+            node.append('<a class="anchor" href="#' + val + '"><span class="octicon octicon-link"></span></a>')
+        });
+
+    })(jQuery);
 </script>
 {{end}}
-
-<script type="text/javascript">
-    // Function to make the sticky header possible
-    var shiftWindow = function() {
-        scrollBy(0, -80);
-    };
-    window.addEventListener("hashchange", shiftWindow);
-    $(window).load(function() {
-        if (window.location.hash) {
-            shiftWindow();
-        }
-    });
-</script>
-
 <script>
     // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
