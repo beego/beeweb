@@ -115,11 +115,14 @@
             var node = $(this);
             var link = node.attr("href");
             var index = link.indexOf("#");
+            if (link.indexOf("http") == 0 && link.indexOf(window.location.hostname) == -1) {
+                return
+            }
             if (index <  0 || index+1 > link.length) {
                 return;
             }
-            link = decodeURIComponent(link).toLowerCase()
-            var val = encodeURIComponent(link.substring(index+1, link.length));
+            var val = link.substring(index+1, link.length);
+            val = encodeURIComponent(decodeURIComponent(val).toLowerCase().replace(/\s+/g, "-"));
             var end = index;
             if (index-3 > 0 && link.substring(index-3, index) == ".md") {
                 end = index - 3;
