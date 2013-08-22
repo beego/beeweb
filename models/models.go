@@ -16,7 +16,6 @@
 package models
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
 	"os"
@@ -26,7 +25,7 @@ import (
 
 	"github.com/Unknwon/goconfig"
 	"github.com/astaxie/beego"
-	"github.com/slene/goskirt"
+	"github.com/slene/blackfriday"
 )
 
 var Cfg *goconfig.ConfigFile
@@ -77,10 +76,10 @@ func init() {
 	initDocMap()
 
 	// Start check ticker.
-	// checkTicker = time.NewTicker(5 * time.Minute)
-	// go checkTickerTimer(checkTicker.C)
+	checkTicker = time.NewTicker(5 * time.Minute)
+	go checkTickerTimer(checkTicker.C)
 
-	// checkDocUpdates()
+	checkDocUpdates()
 }
 
 func initDocMap() {
@@ -152,16 +151,7 @@ func loadDoc(path string) ([]byte, error) {
 }
 
 func markdown(raw []byte) (out []byte) {
-	if len(raw) == 0 {
-		return
-	}
-	md := goskirt.Goskirt{
-		goskirt.EXT_AUTOLINK | goskirt.EXT_STRIKETHROUGH | goskirt.EXT_SUPERSCRIPT | goskirt.EXT_TABLES | goskirt.EXT_FENCED_CODE | goskirt.EXT_LAX_SPACING | goskirt.EXT_SPACE_HEADERS | goskirt.EXT_NO_INTRA_EMPHASIS,
-		0,
-	}
-	buf := bytes.NewBufferString("")
-	md.WriteHTML(buf, raw)
-	return buf.Bytes()
+	return blackfriday.MarkdownCommon(raw)
 }
 
 func getDoc(fullName string) *docFile {
