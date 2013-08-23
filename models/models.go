@@ -28,6 +28,8 @@ import (
 	"github.com/slene/blackfriday"
 )
 
+const _CFG_PATH = "conf/app.ini"
+
 var Cfg *goconfig.ConfigFile
 
 type docNode struct {
@@ -57,12 +59,12 @@ func setGithubCredentials(id, secret string) {
 }
 
 func init() {
-	if !isExist("conf/app.ini") {
-		os.Create("conf/app.ini")
+	if !isExist(_CFG_PATH) {
+		os.Create(_CFG_PATH)
 	}
 
 	var err error
-	Cfg, err = goconfig.LoadConfigFile("conf/app.ini")
+	Cfg, err = goconfig.LoadConfigFile(_CFG_PATH)
 	if err == nil {
 		beego.Info("Initialize app.ini")
 	}
@@ -76,10 +78,10 @@ func init() {
 	initDocMap()
 
 	// Start check ticker.
-	// checkTicker = time.NewTicker(5 * time.Minute)
-	// go checkTickerTimer(checkTicker.C)
+	checkTicker = time.NewTicker(5 * time.Minute)
+	go checkTickerTimer(checkTicker.C)
 
-	// checkDocUpdates()
+	checkDocUpdates()
 }
 
 func initDocMap() {
@@ -212,6 +214,7 @@ func checkDocUpdates() {
 		return
 	}
 
+	updated := Cfg.MustValue("log", "updated")
 	// Compare SHA.
 	files := make([]*source, 0, len(tmpTree.Tree))
 	for _, node := range tmpTree.Tree {
@@ -232,7 +235,14 @@ func checkDocUpdates() {
 
 		// For save purpose, reset name.
 		node.Path = name
+
+		// Add to updated list for syncing docs. of multiple languages.
+		if strings.Index(updated, name+"|") == -1 {
+			updated += name + "|"
+		}
 	}
+	Cfg.SetValue("log", "updated", updated)
+	goconfig.SaveConfigFile(Cfg, _CFG_PATH)
 
 	// Fetch files.
 	if err := fetchFiles(httpClient, files, nil); err != nil {
