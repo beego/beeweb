@@ -23,6 +23,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Unknwon/com"
 	"github.com/Unknwon/goconfig"
 	"github.com/astaxie/beego"
 	"github.com/slene/blackfriday"
@@ -76,6 +77,8 @@ func init() {
 
 	// Load documentation.
 	initDocMap()
+
+	// ATTENTION: you'd better comment following code when developing.
 
 	// Start check ticker.
 	checkTicker = time.NewTicker(5 * time.Minute)
@@ -202,13 +205,35 @@ func checkTickerTimer(checkChan <-chan time.Time) {
 	}
 }
 
+type rawFile struct {
+	name   string
+	rawURL string
+	data   []byte
+}
+
+func (rf *rawFile) Name() string {
+	return rf.name
+}
+
+func (rf *rawFile) RawURL() string {
+	return rf.rawURL
+}
+
+func (rf *rawFile) Data() []byte {
+	return rf.data
+}
+
+func (rf *rawFile) SetData(p []byte) {
+	rf.data = p
+}
+
 func checkDocUpdates() {
 	beego.Trace("Checking documentation updates")
 
 	var tmpTree struct {
 		Tree []*docNode
 	}
-	err := httpGetJSON(httpClient, "https://api.github.com/repos/beego/beedoc/git/trees/master?recursive=1&"+githubCred, &tmpTree)
+	err := com.HttpGetJSON(httpClient, "https://api.github.com/repos/beego/beedoc/git/trees/master?recursive=1&"+githubCred, &tmpTree)
 	if err != nil {
 		beego.Error("models.checkDocUpdates -> get trees:", err.Error())
 		return
@@ -216,7 +241,7 @@ func checkDocUpdates() {
 
 	updated := Cfg.MustValue("log", "updated")
 	// Compare SHA.
-	files := make([]*source, 0, len(tmpTree.Tree))
+	files := make([]com.RawFile, 0, len(tmpTree.Tree))
 	for _, node := range tmpTree.Tree {
 		// Skip non-md files and "README.MD".
 		if !strings.HasSuffix(node.Path, ".md") || node.Path == "README.md" {
@@ -227,7 +252,7 @@ func checkDocUpdates() {
 		name := node.Path[:len(node.Path)-3]
 		if checkSHA(name, node.Sha) {
 			beego.Info("Need to update:", name)
-			files = append(files, &source{
+			files = append(files, &rawFile{
 				name:   name,
 				rawURL: "https://raw.github.com/beego/beedoc/master/" + node.Path,
 			})
@@ -245,20 +270,20 @@ func checkDocUpdates() {
 	goconfig.SaveConfigFile(Cfg, _CFG_PATH)
 
 	// Fetch files.
-	if err := fetchFiles(httpClient, files, nil); err != nil {
+	if err := com.FetchFiles(httpClient, files, nil); err != nil {
 		beego.Error("models.checkDocUpdates -> fetch files:", err.Error())
 		return
 	}
 
 	// Update data.
 	for _, f := range files {
-		fw, err := os.Create("docs/" + f.name + ".md")
+		fw, err := os.Create("docs/" + f.Name() + ".md")
 		if err != nil {
 			beego.Error("models.checkDocUpdates -> open file:", err.Error())
 			return
 		}
 
-		_, err = fw.Write(f.data)
+		_, err = fw.Write(f.Data())
 		fw.Close()
 		if err != nil {
 			beego.Error("models.checkDocUpdates -> write data:", err.Error())

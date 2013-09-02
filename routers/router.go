@@ -22,7 +22,11 @@ import (
 	"github.com/astaxie/beego"
 )
 
-var AppVer string
+var (
+	AppVer string
+	IsPro  bool
+)
+
 var langTypes []*langType // Languages are supported.
 
 // langType represents a language type.
@@ -47,6 +51,8 @@ func init() {
 func globalSetting(ctx *beego.Context, input url.Values, data map[interface{}]interface{}) (curLang langType) {
 	// Setting application version.
 	data["AppVer"] = AppVer
+	// Setting deploy mode.
+	data["IsPro"] = IsPro
 
 	// Setting language version.
 	curLang = setLangVer(ctx, input, data)

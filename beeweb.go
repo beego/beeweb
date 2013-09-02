@@ -24,14 +24,15 @@ import (
 )
 
 const (
-	APP_VER = "0.4.0.0823"
+	APP_VER = "0.4.1.0902"
 )
 
 func init() {
 	//runtime.GOMAXPROCS(runtime.NumCPU())
 
 	// Set App version and log level.
-	if beego.AppConfig.String("runmode") == "pro" {
+	routers.IsPro = beego.AppConfig.String("runmode") == "pro"
+	if routers.IsPro {
 		beego.SetLevel(beego.LevelInfo)
 
 		beego.Info("Beego Web", APP_VER)
