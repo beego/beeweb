@@ -65,18 +65,18 @@ func setLangVer(ctx *beego.Context, input url.Values, data map[interface{}]inter
 		if err == nil {
 			lang = ck.Value
 		}
-	} else {
-		// Check again in case someone modify by purpose.
-		isValid := false
-		for _, v := range langTypes {
-			if lang == v.Lang {
-				isValid = true
-				break
-			}
+	}
+
+	// Check again in case someone modify by purpose.
+	isValid := false
+	for _, v := range langTypes {
+		if lang == v.Lang {
+			isValid = true
+			break
 		}
-		if !isValid {
-			lang = ""
-		}
+	}
+	if !isValid {
+		lang = ""
 	}
 
 	// 3. Get language information from 'Accept-Language'.
