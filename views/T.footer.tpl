@@ -72,7 +72,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/jquery.scrollTo-min.js"></script>
-
+   
 {{if .IsHome}}
 <script type="text/javascript">
     function moveRight() {
