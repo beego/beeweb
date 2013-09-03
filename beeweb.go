@@ -12,19 +12,18 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-// An open source project for official blog and documentation website for Beego web framework.
+// An open source project for official documentation website of beego app framework.
 package main
 
 import (
 	"os"
-	// "runtime"
 
 	"github.com/astaxie/beego"
 	"github.com/beego/beeweb/routers"
 )
 
 const (
-	APP_VER = "0.4.1.0902"
+	APP_VER = "0.4.2.0903"
 )
 
 func init() {
