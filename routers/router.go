@@ -47,17 +47,19 @@ func init() {
 	}
 }
 
-// globalSetting sets global applications configuration for every response.
-func globalSetting(ctx *beego.Context, input url.Values, data map[interface{}]interface{}) (curLang langType) {
-	// Setting application version.
-	data["AppVer"] = AppVer
-	// Setting deploy mode.
-	data["IsPro"] = IsPro
+// BaseRouter implemented global settings for all other routers.
+type BaseRouter struct {
+	beego.Controller
+}
+
+// Prepare implemented Prepare method for BaseRouter.
+func (this *BaseRouter) Prepare() {
+	// Setting properties.
+	this.Data["AppVer"] = AppVer
+	this.Data["IsPro"] = IsPro
 
 	// Setting language version.
-	curLang = setLangVer(ctx, input, data)
-
-	return curLang
+	this.Data["LangVer"] = setLangVer(this.Ctx, this.Input(), this.Data)
 }
 
 // setLangVer sets site language version.

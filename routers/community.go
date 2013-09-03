@@ -14,20 +14,16 @@
 
 package routers
 
-import (
-	"github.com/astaxie/beego"
-)
-
 // CommunityRouter serves community page.
 type CommunityRouter struct {
-	beego.Controller
+	BaseRouter
 }
 
 // Get implemented Get method for CommunityRouter.
 func (this *CommunityRouter) Get() {
-	// Set language version.
-	curLang := globalSetting(this.Ctx, this.Input(), this.Data)
-
 	this.Data["IsCommunity"] = true
+
+	// Get language.
+	curLang, _ := this.Data["LangVer"].(langType)
 	this.TplNames = "community_" + curLang.Lang + ".html"
 }

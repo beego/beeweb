@@ -17,20 +17,16 @@ package routers
 import (
 	"strings"
 
-	"github.com/astaxie/beego"
 	"github.com/beego/beeweb/models"
 )
 
 // SamplesRouter serves about page.
 type SamplesRouter struct {
-	beego.Controller
+	BaseRouter
 }
 
 // Get implemented Get method for SamplesRouter.
 func (this *SamplesRouter) Get() {
-	// Set language version.
-	curLang := globalSetting(this.Ctx, this.Input(), this.Data)
-
 	this.Data["IsSamples"] = true
 
 	reqUrl := this.Ctx.Request.URL.String()
@@ -46,6 +42,8 @@ func (this *SamplesRouter) Get() {
 		this.Data[sec] = true
 	}
 
+	// Get language.
+	curLang, _ := this.Data["LangVer"].(langType)
 	df := models.GetDoc(sec, curLang.Lang)
 	if df == nil {
 		this.Redirect("/samples/Samples_Introduction", 302)

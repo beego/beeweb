@@ -15,21 +15,20 @@
 package routers
 
 import (
-	"github.com/astaxie/beego"
 	"github.com/beego/beeweb/models"
 )
 
 // QuickStartRouter serves about page.
 type QuickStartRouter struct {
-	beego.Controller
+	BaseRouter
 }
 
 // Get implemented Get method for QuickStartRouter.
 func (this *QuickStartRouter) Get() {
-	// Set language version.
-	curLang := globalSetting(this.Ctx, this.Input(), this.Data)	
-
 	this.Data["IsQuickStart"] = true
+
+	// Get language.
+	curLang, _ := this.Data["LangVer"].(langType)
 	df := models.GetDoc("quickstart", curLang.Lang)
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)

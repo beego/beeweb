@@ -17,20 +17,16 @@ package routers
 import (
 	"strings"
 
-	"github.com/astaxie/beego"
 	"github.com/beego/beeweb/models"
 )
 
 // DocsRouter serves about page.
 type DocsRouter struct {
-	beego.Controller
+	BaseRouter
 }
 
 // Get implemented Get method for DocsRouter.
 func (this *DocsRouter) Get() {
-	// Set language version.
-	curLang := globalSetting(this.Ctx, this.Input(), this.Data)
-
 	this.Data["IsDocs"] = true
 
 	reqUrl := this.Ctx.Request.URL.String()
@@ -46,6 +42,8 @@ func (this *DocsRouter) Get() {
 		this.Data[sec] = true
 	}
 
+	// Get language.
+	curLang, _ := this.Data["LangVer"].(langType)
 	df := models.GetDoc(sec, curLang.Lang)
 	if df == nil {
 		this.Redirect("/docs/Overview_Introduction", 302)

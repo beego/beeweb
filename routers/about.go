@@ -14,20 +14,16 @@
 
 package routers
 
-import (
-	"github.com/astaxie/beego"
-)
-
 // AboutRouter serves about page.
 type AboutRouter struct {
-	beego.Controller
+	BaseRouter
 }
 
 // Get implemented Get method for AboutRouter.
 func (this *AboutRouter) Get() {
-	// Set language version.
-	curLang := globalSetting(this.Ctx, this.Input(), this.Data)
-
 	this.Data["IsAbout"] = true
+
+	// Get language.
+	curLang, _ := this.Data["LangVer"].(langType)
 	this.TplNames = "about_" + curLang.Lang + ".html"
 }

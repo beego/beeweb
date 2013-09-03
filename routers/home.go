@@ -14,20 +14,16 @@
 
 package routers
 
-import (
-	"github.com/astaxie/beego"
-)
-
 // HomeRouter serves home page.
 type HomeRouter struct {
-	beego.Controller
+	BaseRouter
 }
 
 // Get implemented Get method for HomeRouter.
 func (this *HomeRouter) Get() {
-	// Set language version.
-	curLang := globalSetting(this.Ctx, this.Input(), this.Data)
-
 	this.Data["IsHome"] = true
+
+	// Get language.
+	curLang, _ := this.Data["LangVer"].(langType)
 	this.TplNames = "home_" + curLang.Lang + ".html"
 }
