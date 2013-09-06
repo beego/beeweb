@@ -58,12 +58,20 @@ func (this *BaseRouter) Prepare() {
 	this.Data["AppVer"] = AppVer
 	this.Data["IsPro"] = IsPro
 
-	// Setting language version.
-	this.Data["LangVer"] = setLangVer(this.Ctx, this.Input(), this.Data)
+	var isNeedRedir bool
+	isNeedRedir, this.Data["LangVer"] = setLangVer(this.Ctx, this.Input(), this.Data)
+	// Redirect to make URL clean.
+	if isNeedRedir {
+		this.Data["IsNeedRedir"] = true
+		i := strings.Index(this.Ctx.Request.RequestURI, "?")
+		this.Data["RedirURL"] = this.Ctx.Request.RequestURI[:i]
+	}
 }
 
 // setLangVer sets site language version.
-func setLangVer(ctx *beego.Context, input url.Values, data map[interface{}]interface{}) langType {
+func setLangVer(ctx *beego.Context, input url.Values, data map[interface{}]interface{}) (bool, langType) {
+	isNeedRedir := false
+
 	// 1. Check URL arguments.
 	lang := input.Get("lang")
 
@@ -73,6 +81,8 @@ func setLangVer(ctx *beego.Context, input url.Values, data map[interface{}]inter
 		if err == nil {
 			lang = ck.Value
 		}
+	} else {
+		isNeedRedir = true
 	}
 
 	// Check again in case someone modify by purpose.
@@ -85,6 +95,7 @@ func setLangVer(ctx *beego.Context, input url.Values, data map[interface{}]inter
 	}
 	if !isValid {
 		lang = ""
+		isNeedRedir = false
 	}
 
 	// 3. Get language information from 'Accept-Language'.
@@ -104,6 +115,7 @@ func setLangVer(ctx *beego.Context, input url.Values, data map[interface{}]inter
 	// 4. DefaucurLang language is English.
 	if len(lang) == 0 {
 		lang = "en"
+		isNeedRedir = false
 	}
 
 	curLang := langType{
@@ -127,5 +139,5 @@ func setLangVer(ctx *beego.Context, input url.Values, data map[interface{}]inter
 	data["CurLang"] = curLang.Name
 	data["RestLangs"] = restLangs
 
-	return curLang
+	return isNeedRedir, curLang
 }
