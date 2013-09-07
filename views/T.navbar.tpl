@@ -1,7 +1,4 @@
 {{define "navbar_en"}}
-{{if .IsNeedRedir}}
-<script>window.location.href = "{{.RedirURL}}"</script>
-{{end}}
 <div class="navbar navbar-static-top">
     <div class="navbar-inner navbar-fixed-top ">
         <div class="container">
@@ -27,9 +24,6 @@
 {{end}}
 
 {{define "navbar_zh"}}
-{{if .IsNeedRedir}}
-<script>window.location.href = "{{.RedirURL}}"</script>
-{{end}}
 <div class="navbar navbar-static-top">
     <div class="navbar-inner navbar-fixed-top ">
         <div class="container">
