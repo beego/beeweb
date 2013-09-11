@@ -14,22 +14,6 @@
 				    		<li {{if .Overview_Concepts}}class="active"{{end}}><a href="/docs/Overview_Concepts">框架概念</a></li>
 				    		<li {{if .Overview_Organization}}class="active"{{end}}><a href="/docs/Overview_Organization">项目组织</a></li>
 
-				    		<li class="nav-header">模型（Models）</li>
-				    		<li {{if .Models_Overview}}class="active"{{end}}><a href="/docs/Models_Overview">概述</a></li>
-				    		<li {{if .Models_ORM}}class="active"{{end}}><a href="/docs/Models_ORM">ORM 使用</a></li>
-				    		<li {{if .Models_Object}}class="active"{{end}}><a href="/docs/Models_Object">CRUD 操作</a></li>
-				    		<li {{if .Models_Query}}class="active"{{end}}><a href="/docs/Models_Query">高级查询</a></li>
-				    		<li {{if .Models_RawSQL}}class="active"{{end}}><a href="/docs/Models_RawSQL">原生 SQL 查询</a></li>
-				    		<li {{if .Models_Transaction}}class="active"{{end}}><a href="/docs/Models_Transaction">事务处理</a></li>
-				    		<li {{if .Models_Models}}class="active"{{end}}><a href="/docs/Models_Models">模型定义</a></li>
-				    		<li {{if .Models_Cmd}}class="active"{{end}}><a href="/docs/Models_Cmd">命令模式</a></li>
-				    		<li {{if .Models_Test}}class="active"{{end}}><a href="/docs/Models_Test">Test</a></li>
-				    		<li {{if .Models_CustomFields}}class="active"{{end}}><a href="/docs/Models_CustomFields">自定义字段</a></li>
-				    		<li {{if .Models_FAQ}}class="active"{{end}}><a href="/docs/Models_FAQ">FAQ</a></li>
-
-				    		<li class="nav-header">视图（Views）</li>
-				    		<li {{if .Views_Templates}}class="active"{{end}}><a href="/docs/Views_Templates">模板处理</a></li>
-
 				    		<li class="nav-header">控制器（Ctrlers）</li>
 				    		<li {{if .Controllers_Overview}}class="active"{{end}}><a href="/docs/Controllers_Overview">概述</a></li>
 				    		<li {{if .Controllers_Routing}}class="active"{{end}}><a href="/docs/Controllers_Routing">智能路由</a></li>
@@ -42,7 +26,23 @@
 			    			<li {{if .Controllers_SafeMap}}class="active"{{end}}><a href="/docs/Controllers_SafeMap">安全 Map</a></li>
 			    			<li {{if .Controllers_IntegrateApp}}class="active"{{end}}><a href="/docs/Controllers_IntegrateApp">集成应用</a></li>
 
-			    			<li class="nav-header">运维管理</li>
+							<li class="nav-header">视图（Views）</li>
+				    		<li {{if .Views_Templates}}class="active"{{end}}><a href="/docs/Views_Templates">模板处理</a></li>
+
+							<li class="nav-header">模型（Models）</li>
+				    		<li {{if .Models_Overview}}class="active"{{end}}><a href="/docs/Models_Overview">概述</a></li>
+				    		<li {{if .Models_ORM}}class="active"{{end}}><a href="/docs/Models_ORM">ORM 使用</a></li>
+				    		<li {{if .Models_Object}}class="active"{{end}}><a href="/docs/Models_Object">CRUD 操作</a></li>
+				    		<li {{if .Models_Query}}class="active"{{end}}><a href="/docs/Models_Query">高级查询</a></li>
+				    		<li {{if .Models_RawSQL}}class="active"{{end}}><a href="/docs/Models_RawSQL">原生 SQL 查询</a></li>
+				    		<li {{if .Models_Transaction}}class="active"{{end}}><a href="/docs/Models_Transaction">事务处理</a></li>
+				    		<li {{if .Models_Models}}class="active"{{end}}><a href="/docs/Models_Models">模型定义</a></li>
+				    		<li {{if .Models_Cmd}}class="active"{{end}}><a href="/docs/Models_Cmd">命令模式</a></li>
+				    		<li {{if .Models_Test}}class="active"{{end}}><a href="/docs/Models_Test">Test</a></li>
+				    		<li {{if .Models_CustomFields}}class="active"{{end}}><a href="/docs/Models_CustomFields">自定义字段</a></li>
+				    		<li {{if .Models_FAQ}}class="active"{{end}}><a href="/docs/Models_FAQ">FAQ</a></li>
+			    			
+							<li class="nav-header">运维管理</li>
 			    			<li {{if .Operational_Logging}}class="active"{{end}}><a href="/docs/Operational_Logging">日志记录</a></li>
 			    			<li {{if .Operational_Deployment}}class="active"{{end}}><a href="/docs/Operational_Deployment">发行部署</a></li>
 			    			<li {{if .Operational_Supervisord}}class="active"{{end}}><a href="/docs/Operational_Supervisord">Supervisord</a></li>
