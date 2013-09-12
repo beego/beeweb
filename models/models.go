@@ -81,10 +81,10 @@ func init() {
 	// ATTENTION: you'd better comment following code when developing.
 
 	// Start check ticker.
-	checkTicker = time.NewTicker(5 * time.Minute)
-	go checkTickerTimer(checkTicker.C)
+	// checkTicker = time.NewTicker(5 * time.Minute)
+	// go checkTickerTimer(checkTicker.C)
 
-	checkDocUpdates()
+	// checkDocUpdates()
 }
 
 func initDocMap() {
@@ -239,7 +239,6 @@ func checkDocUpdates() {
 		return
 	}
 
-	updated := Cfg.MustValue("log", "updated")
 	// Compare SHA.
 	files := make([]com.RawFile, 0, len(tmpTree.Tree))
 	for _, node := range tmpTree.Tree {
@@ -260,14 +259,7 @@ func checkDocUpdates() {
 
 		// For save purpose, reset name.
 		node.Path = name
-
-		// Add to updated list for syncing docs. of multiple languages.
-		if strings.Index(updated, name+"|") == -1 {
-			updated += name + "|"
-		}
 	}
-	Cfg.SetValue("log", "updated", updated)
-	goconfig.SaveConfigFile(Cfg, _CFG_PATH)
 
 	// Fetch files.
 	if err := com.FetchFiles(httpClient, files, nil); err != nil {

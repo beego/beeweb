@@ -1,9 +1,14 @@
 {
 	"go_install": true,
+	"watch_ext": [
+		".ini", ".conf"
+	],
 	"dir_structure":{
 		"controllers": "routers",
 		"models": "",
-		"others": []
+		"others": [
+			"conf"
+		]
 	},
 	"bale": {
 		"import": "github.com/beego/beeweb/bale",

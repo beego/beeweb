@@ -23,7 +23,7 @@ import (
 )
 
 const (
-	APP_VER = "0.4.3.0903"
+	APP_VER = "0.4.4.0912"
 )
 
 func init() {
@@ -37,11 +37,7 @@ func init() {
 		beego.Info("Beego Web", APP_VER)
 
 		os.Mkdir("./log", os.ModePerm)
-		filew := beego.NewFileWriter("log/log", true)
-		err := filew.StartLogger()
-		if err != nil {
-			beego.Critical("NewFileWriter ->", err)
-		}
+		beego.BeeLogger.SetLogger("file", "log/log")
 	} else {
 		// beewatch.Start(beewatch.Trace)
 	}

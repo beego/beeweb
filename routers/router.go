@@ -20,6 +20,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
 )
 
 var (
@@ -64,11 +65,12 @@ func (this *BaseRouter) Prepare() {
 	if isNeedRedir {
 		i := strings.Index(this.Ctx.Request.RequestURI, "?")
 		this.Redirect(this.Ctx.Request.RequestURI[:i], 302)
+		return
 	}
 }
 
 // setLangVer sets site language version.
-func setLangVer(ctx *beego.Context, input url.Values, data map[interface{}]interface{}) (bool, langType) {
+func setLangVer(ctx *context.Context, input url.Values, data map[interface{}]interface{}) (bool, langType) {
 	isNeedRedir := false
 
 	// 1. Check URL arguments.
