@@ -52,6 +52,7 @@
 						    	{{end}}
 						    </ul>
 					    </div>
+				        <a class="btn btn-success" href="/donate">捐助我们</a>
                     </div>
 
                     <div class="span4 tbox textright social links">
