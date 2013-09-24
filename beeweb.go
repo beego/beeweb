@@ -1,4 +1,4 @@
-// Copyright 2013 Unknown
+// Copyright 2013 Beego Web authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License"): you may
 // not use this file except in compliance with the License. You may obtain
@@ -24,7 +24,7 @@ import (
 )
 
 const (
-	APP_VER = "0.5.0.0923"
+	APP_VER = "0.5.2.0924"
 )
 
 // We have to call a initialize function manully
