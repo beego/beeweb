@@ -22,7 +22,7 @@ import (
 
 // SamplesRouter serves about page.
 type SamplesRouter struct {
-	BaseRouter
+	baseRouter
 }
 
 // Get implemented Get method for SamplesRouter.

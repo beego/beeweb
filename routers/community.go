@@ -16,7 +16,7 @@ package routers
 
 // CommunityRouter serves community page.
 type CommunityRouter struct {
-	BaseRouter
+	baseRouter
 }
 
 // Get implemented Get method for CommunityRouter.

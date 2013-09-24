@@ -16,7 +16,7 @@ package routers
 
 // HomeRouter serves home page.
 type HomeRouter struct {
-	BaseRouter
+	baseRouter
 }
 
 // Get implemented Get method for HomeRouter.

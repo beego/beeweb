@@ -59,7 +59,7 @@ func setGithubCredentials(id, secret string) {
 	githubCred = "client_id=" + id + "&client_secret=" + secret
 }
 
-func init() {
+func InitModels() {
 	if !isExist(_CFG_PATH) {
 		os.Create(_CFG_PATH)
 	}
@@ -89,10 +89,10 @@ func init() {
 
 func initDocMap() {
 	// Get documentation names.
-	docNames := strings.Split(beego.AppConfig.String("navs"), "|")
+	docNames := strings.Split(Cfg.MustValue("app", "navs"), "|")
 	docNames = append(docNames, "quickstart")
 	docNames = append(docNames,
-		strings.Split(beego.AppConfig.String("samples"), "|")...)
+		strings.Split(Cfg.MustValue("app", "samples"), "|")...)
 
 	isConfExist := isExist("conf/docTree.json")
 	if isConfExist {
@@ -215,7 +215,7 @@ func (rf *rawFile) Name() string {
 	return rf.name
 }
 
-func (rf *rawFile) RawURL() string {
+func (rf *rawFile) RawUrl() string {
 	return rf.rawURL
 }
 

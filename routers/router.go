@@ -21,6 +21,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
+	"github.com/beego/beeweb/models"
 )
 
 var (
@@ -35,10 +36,10 @@ type langType struct {
 	Lang, Name string
 }
 
-func init() {
+func InitRouter() {
 	// Initialized language type list.
-	langs := strings.Split(beego.AppConfig.String("langs"), "|")
-	names := strings.Split(beego.AppConfig.String("langNames"), "|")
+	langs := strings.Split(models.Cfg.MustValue("lang", "types"), "|")
+	names := strings.Split(models.Cfg.MustValue("lang", "names"), "|")
 	langTypes = make([]*langType, 0, len(langs))
 	for i, v := range langs {
 		langTypes = append(langTypes, &langType{
@@ -48,13 +49,13 @@ func init() {
 	}
 }
 
-// BaseRouter implemented global settings for all other routers.
-type BaseRouter struct {
+// baseRouter implemented global settings for all other routers.
+type baseRouter struct {
 	beego.Controller
 }
 
-// Prepare implemented Prepare method for BaseRouter.
-func (this *BaseRouter) Prepare() {
+// Prepare implemented Prepare method for baseRouter.
+func (this *baseRouter) Prepare() {
 	// Setting properties.
 	this.Data["AppVer"] = AppVer
 	this.Data["IsPro"] = IsPro

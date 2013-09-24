@@ -22,7 +22,7 @@ import (
 
 // DocsRouter serves about page.
 type DocsRouter struct {
-	BaseRouter
+	baseRouter
 }
 
 // Get implemented Get method for DocsRouter.

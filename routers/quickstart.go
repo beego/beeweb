@@ -20,7 +20,7 @@ import (
 
 // QuickStartRouter serves about page.
 type QuickStartRouter struct {
-	BaseRouter
+	baseRouter
 }
 
 // Get implemented Get method for QuickStartRouter.

@@ -19,33 +19,41 @@ import (
 	"os"
 
 	"github.com/astaxie/beego"
+	"github.com/beego/beeweb/models"
 	"github.com/beego/beeweb/routers"
 )
 
 const (
-	APP_VER = "0.4.4.0912"
+	APP_VER = "0.5.0.0923"
 )
 
-func init() {
-	//runtime.GOMAXPROCS(runtime.NumCPU())
+// We have to call a initialize function manully
+// because we use `bee bale` to pack static resources
+// and we cannot make sure that which init() execute first.
+func initialize() {
+	models.InitModels()
+	routers.InitRouter()
 
 	// Set App version and log level.
-	routers.IsPro = beego.AppConfig.String("runmode") == "pro"
+	beego.AppName = models.Cfg.MustValue("beego", "app_name")
+	beego.RunMode = models.Cfg.MustValue("beego", "run_mode")
+	beego.HttpPort = models.Cfg.MustInt("beego", "http_port_"+beego.RunMode)
+
+	routers.IsPro = beego.RunMode == "pro"
 	if routers.IsPro {
-		beego.SetLevel(beego.LevelInfo)
-
-		beego.Info("Beego Web", APP_VER)
-
 		os.Mkdir("./log", os.ModePerm)
 		beego.BeeLogger.SetLogger("file", "log/log")
+		beego.SetLevel(beego.LevelInfo)
+		beego.Info(beego.AppName, APP_VER)
 	} else {
-		// beewatch.Start(beewatch.Trace)
+		// beewatch.Start(beewatch.Trace)r
 	}
 }
 
 func main() {
-	beego.AppName = "Beego Web"
-	beego.Info("Beego Web", APP_VER)
+	initialize()
+
+	beego.Info(beego.AppName, APP_VER)
 
 	// Register routers.
 	beego.Router("/", &routers.HomeRouter{})

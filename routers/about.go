@@ -16,7 +16,7 @@ package routers
 
 // AboutRouter serves about page.
 type AboutRouter struct {
-	BaseRouter
+	baseRouter
 }
 
 // Get implemented Get method for AboutRouter.

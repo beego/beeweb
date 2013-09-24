@@ -1,7 +1,7 @@
 {
 	"go_install": true,
 	"watch_ext": [
-		".ini", ".conf"
+		".ini"
 	],
 	"dir_structure":{
 		"controllers": "routers",
@@ -13,7 +13,7 @@
 	"bale": {
 		"import": "github.com/beego/beeweb/bale",
 		"dirs": [
-			"views", "static"
+			"conf", "views", "static"
 		],
 		"ignore_ext": [
 			".go", ".DS_Store"
