@@ -155,7 +155,7 @@ $(function(){
         
         $(window).bind('resize', function () {
             if (($("#navlist").height()+80)>$(window).height()){
-                $("#navlist").css({"overflow-y":"scroll"})
+                $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
             }else{
                 $("#navlist").css("overflow-y","")
             }
