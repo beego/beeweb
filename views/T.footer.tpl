@@ -73,7 +73,6 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/jquery.scrollTo-min.js"></script>
-<script src="/static/js/jquery-scrolltofixed-min.js"></script>
    
 {{if .IsHome}}
 <script type="text/javascript">
@@ -142,22 +141,24 @@
 
     })(jQuery);
  $(function(){
+
         if (($("#navlist").height()+80)>$(window).height()){
                 $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
             }else{
                 $("#navlist").css({"overflow-y":"","height":"auto"})
             }
 
-        $(window).resize(function () {
-            // alert($("#navlist").height()+","+$(window).height())
-            if (($("#navlist").height()+80)>$(window).height()){
-                $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
-            }else{
-                $("#navlist").css({"overflow-y":"","height":"auto"})
-            }
+        $.each(["resize"],function(i,v){
+            $(window).on(v,function () {
+                if (($("#navlist").height()+80)>$(window).height()){
+                    $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
+                }else{
+                    $("#navlist").css({"overflow-y":"","height":"auto"})
+                }
+
+            });
+
         });
-        
-        
     });
 </script>
 {{end}}

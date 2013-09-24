@@ -383,7 +383,11 @@ button:hover {
   font-size: larger;
   color: white;
 }
-
+#navlist{
+  position: fixed;
+  z-index: 999;
+  top: 80px;
+}
 
 /* ******************************
  For the scrollbar style
