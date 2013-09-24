@@ -9,3 +9,4 @@ beeweb
 /log
 bale/
 bale.go
+*.go~
