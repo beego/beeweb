@@ -150,16 +150,18 @@ $(function(){
         if (($("#navlist").height()+80)>$(window).height()){
                 $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
             }else{
-                $("#navlist").css("overflow-y","")
+                $("#navlist").css({"overflow-y":"","height":"auto"})
             }
-        
-        $(window).bind('resize', function () {
+
+        $(window).resize(function () {
             if (($("#navlist").height()+80)>$(window).height()){
                 $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
             }else{
-                $("#navlist").css("overflow-y","")
+                $("#navlist").css({"overflow-y":"","height":"auto"})
             }
         });
+        
+        
     });
 </script>
 {{end}}
