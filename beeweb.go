@@ -42,9 +42,8 @@ func initialize() {
 	routers.IsPro = beego.RunMode == "pro"
 	if routers.IsPro {
 		beego.SetLevel(beego.LevelInfo)
-		beego.Info(beego.AppName, APP_VER)
 		os.Mkdir("./log", os.ModePerm)
-		beego.BeeLogger.SetLogger("file", "log/log")
+		beego.BeeLogger.SetLogger("file", `{"filename": "log/log"}`)
 	} else {
 		// beewatch.Start(beewatch.Trace)r
 	}
