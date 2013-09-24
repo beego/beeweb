@@ -140,13 +140,7 @@
         });
 
     })(jQuery);
-$(function(){
-        $('#navlist').scrollToFixed({
-            marginTop: $('.container').outerHeight(true) + 20,
-            
-            zIndex: 999
-        });
-
+ $(function(){
         if (($("#navlist").height()+80)>$(window).height()){
                 $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
             }else{
@@ -154,6 +148,7 @@ $(function(){
             }
 
         $(window).resize(function () {
+            // alert($("#navlist").height()+","+$(window).height())
             if (($("#navlist").height()+80)>$(window).height()){
                 $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
             }else{
