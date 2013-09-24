@@ -50,6 +50,14 @@ func (this *DocsRouter) Get() {
 		return
 	}
 
+	// Set showed section.
+	i := strings.Index(sec, "_")
+	if i == -1 {
+		this.Redirect("/docs/Overview_Introduction", 302)
+		return
+	}
+	showSec := sec[:i]
+	this.Data["Is"+showSec] = true
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
