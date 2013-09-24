@@ -139,6 +139,27 @@
         });
 
     })(jQuery);
+$(function(){
+        $('#navlist').scrollToFixed({
+            marginTop: $('.container').outerHeight(true) + 20,
+            
+            zIndex: 999
+        });
+
+        if (($("#navlist").height()+80)>$(window).height()){
+                $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
+            }else{
+                $("#navlist").css("overflow-y","")
+            }
+        
+        $(window).bind('resize', function () {
+            if (($("#navlist").height()+80)>$(window).height()){
+                $("#navlist").css({"overflow-y":"scroll"})
+            }else{
+                $("#navlist").css("overflow-y","")
+            }
+        });
+    });
 </script>
 {{end}}
 
