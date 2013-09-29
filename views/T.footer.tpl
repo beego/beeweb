@@ -52,7 +52,7 @@
 						    	{{end}}
 						    </ul>
 					    </div>
-				        <a class="btn btn-success" href="/donate">捐助我们</a>
+				        <a class="btn btn-success" href="/donate">捐赠我们</a>
                     </div>
 
                     <div class="span4 tbox textright social links">
@@ -110,7 +110,9 @@
     		}
     		hljs.highlightBlock(code.get(0), hljs.tabReplace);
     	});
-
+        
+        {{if .IsDonate}}
+        {{else}}
         // Encode url.
         doc.find("a").each(function(){
             var node = $(this);
@@ -138,7 +140,7 @@
             node = node.wrap('<div id="' + val + '" class="anchor-wrap" ></div>');
             node.append('<a class="anchor" href="#' + val + '"><span class="octicon octicon-link"></span></a>')
         });
-
+         {{end}}
     })(jQuery);
  $(function(){
 

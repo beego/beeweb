@@ -14,6 +14,10 @@
 
 package routers
 
+import (
+	"github.com/beego/beeweb/models"
+)
+
 // DonateRouter serves Donate page.
 type DonateRouter struct {
 	baseRouter
@@ -24,5 +28,9 @@ func (this *DonateRouter) Get() {
 	this.Data["IsDonate"] = true
 
 	// Get language.
+	df := models.GetDoc("donate", "zh")
+	this.Data["Title"] = df.Title
+	this.Data["Data"] = string(df.Data)
+	this.Data["IsHasMarkdown"] = true
 	this.TplNames = "donate_zh.html"
 }

@@ -81,16 +81,17 @@ func InitModels() {
 	// ATTENTION: you'd better comment following code when developing.
 
 	// Start check ticker.
-	// checkTicker = time.NewTicker(5 * time.Minute)
-	// go checkTickerTimer(checkTicker.C)
+	checkTicker = time.NewTicker(5 * time.Minute)
+	go checkTickerTimer(checkTicker.C)
 
-	// checkDocUpdates()
+	checkDocUpdates()
 }
 
 func initDocMap() {
 	// Get documentation names.
 	docNames := strings.Split(Cfg.MustValue("app", "navs"), "|")
 	docNames = append(docNames, "quickstart")
+	docNames = append(docNames, "donate")
 	docNames = append(docNames,
 		strings.Split(Cfg.MustValue("app", "samples"), "|")...)
 
