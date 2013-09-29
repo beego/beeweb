@@ -426,3 +426,42 @@ button:hover {
 ::-webkit-scrollbar-corner{  
     background:transparent;  
 }  
+
+.donate-list {
+padding-left: 0;
+margin-bottom: -20px;
+}
+
+.donate-list li {
+height: 45px;
+line-height: 45px;
+border-bottom: 1px dashed #D4D4D4;
+}
+
+.donate-list li .date {
+float: right;
+}
+
+.donate-list li .money {
+display: inline-block;
+min-width: 85px;
+color: #3366CC;
+vertical-align: middle;
+}
+
+.donate-list li .user {
+display: inline-block;
+margin-right: 10px;
+min-width: 50px;
+vertical-align: middle;
+}
+
+.donate-list li .description {
+display: inline-block;
+max-width: 680px;
+color: #a1a1a1;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+vertical-align: middle;
+}
