@@ -1,5 +1,7 @@
 # Beego Web
 
+![Requirement >= Go 1.2rc1](http://b.repl.ca/v1/Requirement-%3E%3D_Go%201.2rc1-blue.png) ![Requirement >= beego 0.9.9](http://b.repl.ca/v1/Requirement-%3E%3D_beego%200.9.9-blue.png)
+
 An open source project for official documentation website of beego app framework.
 
 ## Install site locally
@@ -33,7 +35,7 @@ This project can be easily transferred as your own documentation site, there are
 	- `lang -> names`: user-friendly name of languages.
 	- `app -> navs`: sections' name of documentation list.
 	- `app -> samples`: samples' name of sample page.
-	- Use Github app keys as following format:
+	- It's **NOT** necessary but if you want to you can use GitHub app keys as following format:
 		
 			[github]
 			client_id=1862bcb2******f36c
@@ -41,11 +43,8 @@ This project can be easily transferred as your own documentation site, there are
 
 - In the file `conf/docTree.json`:
 
-	- This file saves the file tree(with file name and commit) of your project that is hosted in Github. About how to use documentation project please see [beedoc](http://github.com/beego/beedoc). Note that if you added new section to documentation list and you do not want to wait auto-refresh, simple delete this file and restart.
+	- This file saves the file tree(with file name and commit) of your project that is hosted in GitHub. About how to use documentation project please see [beedoc](http://github.com/beego/beedoc). Note that if you added new section to documentation list and you do not want to wait auto-refresh, simple delete this file and restart.
 	- To change the documentation project URL, you need to change it in function `checkDocUpdates` in file `models/models.go`.
 
-- When you added new section to documentation list in `conf/app.ini`, you also need to update list in template files(`views/docs_<lang>.html`, `<lang>` depends on the language you use).
-
-## License
-
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+- After you added new section to documentation list in `conf/app.ini`, you also need to update list in template files(`views/docs_<lang>.html`, `<lang>` depends on the language you use).
+- For debug purpose, there are 3 lines of code in `models/models.go -> InitModels()` commented in order to save API calls.
