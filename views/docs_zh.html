@@ -11,7 +11,7 @@
                         <div class="accordion" id="navlist">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
-                                <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Overview">文档概述</a>
+                                    <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Overview"><i class="fa fa-chevron-{{if .IsOverview}}down{{else}}right{{end}}"></i> 文档概述</a>
                                 </div>
                                 
                                 <div id="nav_Overview" class="accordion-body collapse {{if .IsOverview}}in{{end}}">
@@ -25,7 +25,7 @@
                             
                             <div class="accordion-group">
                                 <div class="accordion-heading">
-                                <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Controllers">控制器（Ctrlers）</a>
+                                    <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Controllers"><i class="fa fa-chevron-{{if .IsControllers}}down{{else}}right{{end}}"></i> 控制器（Ctrlers）</a>
                                 </div>
                                 
                                 <div id="nav_Controllers" class="accordion-body collapse {{if .IsControllers}}in{{end}}">
@@ -46,7 +46,7 @@
                             
                             <div class="accordion-group">
                                 <div class="accordion-heading">
-                                <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Views">视图（Views）</a>
+                                    <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Views"><i class="fa fa-chevron-{{if .IsViews}}down{{else}}right{{end}}"></i> 视图（Views）</a>
                                 </div>
                                 
                                 <div id="nav_Views" class="accordion-body collapse {{if .IsViews}}in{{end}}">
@@ -58,7 +58,7 @@
                             
                             <div class="accordion-group">
                                 <div class="accordion-heading">
-                                <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Models">模型（Models）</a>
+                                    <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Models"><i class="fa fa-chevron-{{if .IsModels}}down{{else}}right{{end}}"></i> 模型（Models）</a>
                                 </div>
                                 
                                 <div id="nav_Models" class="accordion-body collapse {{if .IsModels}}in{{end}}">
@@ -80,7 +80,7 @@
                             
                             <div class="accordion-group">
                                 <div class="accordion-heading">
-                                <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Operational">运维管理</a>
+                                    <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Operational"><i class="fa fa-chevron-{{if .IsOperational}}down{{else}}right{{end}}"></i> 运维管理</a>
                                 </div>
                                 
                                 <div id="nav_Operational" class="accordion-body collapse {{if .IsOperational}}in{{end}}">
@@ -95,7 +95,7 @@
                             
                             <div class="accordion-group">
                                 <div class="accordion-heading">
-                                <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Reference">其它说明</a>
+                                    <a class="accordion-toggle nav-header" data-toggle="collapse" data-parent="#navlist" href="#nav_Reference"><i class="fa fa-chevron-{{if .IsReference}}down{{else}}right{{end}}"></i> 其它说明</a>
                                 </div>
                                 
                                 <div id="nav_Reference" class="accordion-body collapse {{if .IsReference}}in{{end}}">
@@ -113,7 +113,10 @@
 
 			    <div class="span10">
 			        <div class="page-header">
-			        	<h1>{{.Title}}</h1>
+                        <h1>
+                            {{.Title}}
+                            <a href="https://github.com/beego/beedoc/blob/master/{{.LangVer.Lang}}/{{.Section}}.md" class="pull-right btn btn-info" target="_blank">到 GitHub 上改进本页面</a>
+                        </h1>
 			        </div>
 
 			        <div id="markdown" class="markdown span10">{{.Data | str2html}}</div>

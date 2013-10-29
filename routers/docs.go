@@ -50,6 +50,8 @@ func (this *DocsRouter) Get() {
 		return
 	}
 
+	this.Data["Section"] = sec
+
 	// Set showed section.
 	i := strings.Index(sec, "_")
 	if i == -1 {

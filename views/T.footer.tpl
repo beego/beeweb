@@ -140,11 +140,15 @@
             node = node.wrap('<div id="' + val + '" class="anchor-wrap" ></div>');
             node.append('<a class="anchor" href="#' + val + '"><span class="octicon octicon-link"></span></a>')
         });
-         {{end}}
+
+        $('.accordion').on('show hide', function (n) {
+            $(n.target).siblings('.accordion-heading').find('i').toggleClass('fa-chevron-right fa-chevron-down');
+        });
+        {{end}}
     })(jQuery);
  $(function(){
 
-        if (($("#navlist").height()+80)>$(window).height()){
+        if (($("#navlist").height()+80)>$(window).height()) {
                 $("#navlist").css({"overflow-y":"scroll","height":($(window).height()-100)})
             }else{
                 $("#navlist").css({"overflow-y":"","height":"auto"})

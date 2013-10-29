@@ -13,6 +13,7 @@
 		<link href="/static/css/main.css" rel="stylesheet" />
 		<link href="/static/css/link.css" rel="stylesheet" />
 		<link href="/static/css/github.css" rel="stylesheet" />
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
 {{end}}
 
 {{define "header_zh"}}
@@ -30,4 +31,5 @@
 		<link href="/static/css/main.css" rel="stylesheet" />
 		<link href="/static/css/link.css" rel="stylesheet" />
 		<link href="/static/css/github.css" rel="stylesheet" />
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
 {{end}}
