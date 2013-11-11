@@ -22,8 +22,5 @@ type HomeRouter struct {
 // Get implemented Get method for HomeRouter.
 func (this *HomeRouter) Get() {
 	this.Data["IsHome"] = true
-
-	// Get language.
-	curLang, _ := this.Data["LangVer"].(langType)
-	this.TplNames = "home_" + curLang.Lang + ".html"
+	this.TplNames = "home.html"
 }

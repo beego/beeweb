@@ -1,4 +1,4 @@
-{{define "footer_en"}}
+{{define "footer"}}
 <div class="footer-landscape">
     <div class="footer-landscape-image">
         <!-- footer -->
@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="span12 footer">
                     <div class="span8 tbox">
-                    	Beego App framework is an open source project, launched by <a href="https://github.com/astaxie">AstaXie</a>, and maintained by beego developer community. Under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">apache 2.0 licence</a>.
-                        <strong>Language:</strong>
+                        {{i18n .Lang "app_license" | str2html}}
+                        <strong>{{i18n .Lang "lang option"}}</strong>
 					    <div class="btn-group dropup">
 						    <button class="btn dropdown-toggle" data-toggle="dropdown">{{.CurLang}} <span class="caret"></span></button>
 						    <ul class="dropdown-menu">
@@ -22,43 +22,6 @@
                     <div class="span4 tbox textright social links">
                         <a class="twitter" href="https://twitter.com/xiemengjun">Twitter</a>
                         <a class="github" href="https://github.com/astaxie/beego">GitHub</a>
-                        <a class="googleplus" href="https://plus.google.com/111292884696033638814">Goolge+</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end of footer -->
-    </div>
-</div>
-{{template "static_file" .}}
-{{end}}
-
-{{define "footer_zh"}}
-<div class="footer-landscape">
-    <div class="footer-landscape-image">
-        <!-- footer -->
-        <div class="container">
-            <div class="row">
-                <div class="span12 footer">
-                    <div class="span8 tbox">
-                    	beego 应用框架是一个开源项目，初经 <a href="https://github.com/astaxie">Asta谢</a> 发起，现由 beego 开发者社区维护。授权许可遵循 <a href="http://www.apache.org/licenses/LICENSE-2.0.html">apache 2.0 licence</a>。
-                        <strong>语言选项：</strong>
-					    <div class="btn-group dropup">
-						    <button class="btn dropdown-toggle" data-toggle="dropdown">{{.CurLang}} <span class="caret"></span></button>
-						    <ul class="dropdown-menu">
-							{{$keyword := .Keyword}}
-						    	{{range .RestLangs}}
-						    	<li><a href="?lang={{.Lang}}&q={{$keyword}}">{{.Name}}</a></li>
-						    	{{end}}
-						    </ul>
-					    </div>
-				        <a class="btn btn-success" href="/donate">捐赠我们</a>
-                    </div>
-
-                    <div class="span4 tbox textright social links">
-                        <a class="twitter" href="https://twitter.com/xiemengjun">Twitter</a>
-                        <a class="github" href="https://github.com/astaxie/beego">GitHub</a>
-                        <a class="googleplus" href="https://plus.google.com/111292884696033638814">Goolge+</a>
                     </div>
                 </div>
             </div>

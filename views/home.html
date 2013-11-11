@@ -1,16 +1,16 @@
-{{template "header_en" .}}
-		<title>beego - Simple & powerful Go App framework</title>
+{{template "header" .}}
+		<title>{{i18n .Lang "homepage"}} - beego: {{i18n .Lang "app_intro"}}</title>
 	</head>	
 
 	<body>
-		{{template "navbar_en" .}}
+		{{template "navbar" .}}
 		<a target="_blank" href="https://github.com/astaxie/beego"><img style="position: absolute; top: 70; right: 0; border: 0; z-index: 22" src="/static/img/fork-us-on-github.png" alt="Fork us on GitHub"></a>
 
 		<div class="">
 		    <div id="top" class="main-banner">
 		        <div class="text-center ">
 		            <div class="copy-headline">
-		                <h1>An open source framework to build and develop your web applications in the Go way.</h1>
+		                <h1>{{i18n .Lang "app_shortintro"}}</h1>
 		                <img id="main-image" src="/static/img/bee.png" alt="beego Logo">
 		            </div>
 		        </div>
@@ -18,23 +18,22 @@
 		</div>
 
 		<div class="container">
-		    <div class="row ">
+		    <div class="row">
 		        <div class="span12 text-center copy-introduction">
-		            <p>
-						Beego is an open-source framework to quickly build and develop Go web applications. It was inspired by tornado and sinatra, but we give you true Go experiences when you are coding, not translating! <strong>RESTful, MVC, session, cache, intelligent routing, thread-safe map, hot upgrade</strong>, and all the things you're going to fall in love with.
-					</p>
+		            <p>{{i18n .Lang "app_fullintro" | str2html}}</p>
 		        </div>
 		    </div>
 
 		    <div class="row">
 		        <div class="span12 text-center action-button">
-		            <a href="/about" class="btn btn-large btn-primary secondary-action-button" title="About Beego">Learn more</a>
-		            <a href="/quickstart" class="btn btn-large btn-primary primary-action-button" title="Quick start">Get started!</a>
+		            <a href="/about" class="btn btn-large btn-primary secondary-action-button" title="About Beego">{{i18n .Lang "learn more"}}</a>
+		            <a href="/quickstart" class="btn btn-large btn-primary primary-action-button" title="Quick start">{{i18n .Lang "get started"}}</a>
 		        </div>
 		    </div>
 
 		    <div class="row">
-		        <h3>What people are saying about us:</h3>
+		    	<!-- <h4>{{i18n .Lang "latest news"}}</h4> -->
+		        <h3>{{i18n .Lang "tweets title"}}</h3>
 		        <div id="tweets-block" class="span12 tweets-block">
 		            <div id="" class="tweet-navigator tweet-navigator-left">
 		            	<img src="/static/img/arrow%20left.svg" class="vertical-middle">
@@ -150,11 +149,16 @@
 		    </div> -->
 
 		    <div class="row">
-		    	<p>
-		    		Website issues please submit on <a target="_blank" href="https://github.com/beego/beeweb/issues">Github</a> or contact joe2010xtmf#163.com.
-		    	</p>
+		    	<!-- <h3>Stay up to date, sign up for Docker Weekly</h3>
+		    	<p>Docker Weekly will keep you informed each week about new releases and other important updates from the Docker Community.</p>
+		    	<form name="email_subscribe" class="form-inline" action="/news_signup/" method="POST">
+	                <input name="csrfmiddlewaretoken" value="5Lom36MJtfGQT6rBgehefjg9lu2xdEFl" type="hidden">
+	                <input class="input-large" id="id_email" name="email" placeholder="email address" type="text">
+		            <input class="btn btn-default" type="submit">
+	            </form> -->
+		    	<p>{{i18n .Lang "site_issue" | str2html}}</p>
 		    </div>
 		</div>
-		{{template "footer_en" .}}
+		{{template "footer" .}}
 	</body>
 </html>

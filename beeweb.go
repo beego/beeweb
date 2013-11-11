@@ -19,12 +19,14 @@ import (
 	"os"
 
 	"github.com/astaxie/beego"
+	"github.com/beego/i18n"
+
 	"github.com/beego/beeweb/models"
 	"github.com/beego/beeweb/routers"
 )
 
 const (
-	APP_VER = "0.5.6.1029"
+	APP_VER = "0.5.6.1111"
 )
 
 // We have to call a initialize function manully
@@ -66,6 +68,7 @@ func main() {
 	beego.Router("/donate", &routers.DonateRouter{})
 
 	// Register template functions.
+	beego.AddFuncMap("i18n", i18n.Tr)
 
 	beego.Run()
 }

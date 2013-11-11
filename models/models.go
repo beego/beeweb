@@ -81,10 +81,10 @@ func InitModels() {
 	// ATTENTION: you'd better comment following code when developing.
 
 	// Start check ticker.
-	checkTicker = time.NewTicker(5 * time.Minute)
-	go checkTickerTimer(checkTicker.C)
+	// checkTicker = time.NewTicker(5 * time.Minute)
+	// go checkTickerTimer(checkTicker.C)
 
-	checkDocUpdates()
+	// checkDocUpdates()
 }
 
 func initDocMap() {

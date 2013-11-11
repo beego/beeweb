@@ -16,11 +16,12 @@
 package routers
 
 import (
-	"net/url"
+	"os"
 	"strings"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
+	"github.com/beego/i18n"
+
 	"github.com/beego/beeweb/models"
 )
 
@@ -47,11 +48,20 @@ func InitRouter() {
 			Name: names[i],
 		})
 	}
+
+	for _, lang := range langs {
+		beego.Trace("Loading language: " + lang)
+		if err := i18n.SetMessage(lang, "conf/"+"locale_"+lang+".ini"); err != nil {
+			beego.Error("Fail to set message file: " + err.Error())
+			os.Exit(2)
+		}
+	}
 }
 
 // baseRouter implemented global settings for all other routers.
 type baseRouter struct {
 	beego.Controller
+	i18n.Locale
 }
 
 // Prepare implemented Prepare method for baseRouter.
@@ -60,10 +70,8 @@ func (this *baseRouter) Prepare() {
 	this.Data["AppVer"] = AppVer
 	this.Data["IsPro"] = IsPro
 
-	var isNeedRedir bool
-	isNeedRedir, this.Data["LangVer"] = setLangVer(this.Ctx, this.Input(), this.Data)
 	// Redirect to make URL clean.
-	if isNeedRedir {
+	if this.setLangVer() {
 		i := strings.Index(this.Ctx.Request.RequestURI, "?")
 		this.Redirect(this.Ctx.Request.RequestURI[:i], 302)
 		return
@@ -71,52 +79,42 @@ func (this *baseRouter) Prepare() {
 }
 
 // setLangVer sets site language version.
-func setLangVer(ctx *context.Context, input url.Values, data map[interface{}]interface{}) (bool, langType) {
+func (this *baseRouter) setLangVer() bool {
 	isNeedRedir := false
+	hasCookie := false
 
 	// 1. Check URL arguments.
-	lang := input.Get("lang")
+	lang := this.Input().Get("lang")
 
 	// 2. Get language information from cookies.
 	if len(lang) == 0 {
-		ck, err := ctx.Request.Cookie("lang")
-		if err == nil {
-			lang = ck.Value
-		}
+		lang = this.Ctx.GetCookie("lang")
+		hasCookie = true
 	} else {
 		isNeedRedir = true
 	}
 
 	// Check again in case someone modify by purpose.
-	isValid := false
-	for _, v := range langTypes {
-		if lang == v.Lang {
-			isValid = true
-			break
-		}
-	}
-	if !isValid {
+	if !i18n.IsExist(lang) {
 		lang = ""
 		isNeedRedir = false
+		hasCookie = false
 	}
 
 	// 3. Get language information from 'Accept-Language'.
 	if len(lang) == 0 {
-		al := ctx.Request.Header.Get("Accept-Language")
-		if len(al) > 2 {
-			al = al[:2] // Only compare first two letters.
-			for _, v := range langTypes {
-				if al == v.Lang {
-					lang = al
-					break
-				}
+		al := this.Ctx.Request.Header.Get("Accept-Language")
+		if len(al) > 4 {
+			al = al[:5] // Only compare first 5 letters.
+			if i18n.IsExist(al) {
+				lang = al
 			}
 		}
 	}
 
 	// 4. DefaucurLang language is English.
 	if len(lang) == 0 {
-		lang = "en"
+		lang = "en-US"
 		isNeedRedir = false
 	}
 
@@ -125,7 +123,9 @@ func setLangVer(ctx *context.Context, input url.Values, data map[interface{}]int
 	}
 
 	// Save language information in cookies.
-	ctx.SetCookie("lang", curLang.Lang, 1<<31-1, "/")
+	if !hasCookie {
+		this.Ctx.SetCookie("lang", curLang.Lang, 1<<31-1, "/")
+	}
 
 	restLangs := make([]*langType, 0, len(langTypes)-1)
 	for _, v := range langTypes {
@@ -137,9 +137,10 @@ func setLangVer(ctx *context.Context, input url.Values, data map[interface{}]int
 	}
 
 	// Set language properties.
-	data["Lang"] = curLang.Lang
-	data["CurLang"] = curLang.Name
-	data["RestLangs"] = restLangs
+	this.Lang = lang
+	this.Data["Lang"] = curLang.Lang
+	this.Data["CurLang"] = curLang.Name
+	this.Data["RestLangs"] = restLangs
 
-	return isNeedRedir, curLang
+	return isNeedRedir
 }
