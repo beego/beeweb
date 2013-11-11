@@ -26,12 +26,11 @@ type QuickStartRouter struct {
 // Get implemented Get method for QuickStartRouter.
 func (this *QuickStartRouter) Get() {
 	this.Data["IsQuickStart"] = true
+	this.TplNames = "quickstart.html"
 
-	// Get language.
-	curLang, _ := this.Data["LangVer"].(langType)
-	df := models.GetDoc("quickstart", curLang.Lang)
+	df := models.GetDoc("quickstart", this.Lang)
+	this.Data["Section"] = "quickstart"
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
-	this.TplNames = "quickstart_" + curLang.Lang + ".html"
 }

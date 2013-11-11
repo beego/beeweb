@@ -14,6 +14,10 @@
 
 package routers
 
+import (
+	"github.com/beego/beeweb/models"
+)
+
 // CommunityRouter serves community page.
 type CommunityRouter struct {
 	baseRouter
@@ -22,8 +26,9 @@ type CommunityRouter struct {
 // Get implemented Get method for CommunityRouter.
 func (this *CommunityRouter) Get() {
 	this.Data["IsCommunity"] = true
+	this.TplNames = "community.html"
 
-	// Get language.
-	curLang, _ := this.Data["LangVer"].(langType)
-	this.TplNames = "community_" + curLang.Lang + ".html"
+	df := models.GetDoc("usecases", this.Lang)
+	this.Data["Section"] = "usecases"
+	this.Data["Data"] = string(df.Data)
 }

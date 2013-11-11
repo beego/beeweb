@@ -60,7 +60,7 @@ func setGithubCredentials(id, secret string) {
 }
 
 func InitModels() {
-	if !isExist(_CFG_PATH) {
+	if !com.IsFile(_CFG_PATH) {
 		os.Create(_CFG_PATH)
 	}
 
@@ -92,10 +92,11 @@ func initDocMap() {
 	docNames := strings.Split(Cfg.MustValue("app", "navs"), "|")
 	docNames = append(docNames, "quickstart")
 	docNames = append(docNames, "donate")
+	docNames = append(docNames, "usecases")
 	docNames = append(docNames,
 		strings.Split(Cfg.MustValue("app", "samples"), "|")...)
 
-	isConfExist := isExist("conf/docTree.json")
+	isConfExist := com.IsFile("conf/docTree.json")
 	if isConfExist {
 		f, err := os.Open("conf/docTree.json")
 		if err != nil {
@@ -121,7 +122,7 @@ func initDocMap() {
 	defer docLock.Unlock()
 
 	docMap = make(map[string]*docFile)
-	langs := []string{"zh", "en"}
+	langs := strings.Split(Cfg.MustValue("lang", "types"), "|")
 
 	os.Mkdir("docs", os.ModePerm)
 	for _, l := range langs {
@@ -192,9 +193,8 @@ func GetDoc(path, lang string) *docFile {
 
 	if beego.RunMode == "dev" {
 		return getDoc(fullName)
-	} else {
-		return docMap[fullName]
 	}
+	return docMap[fullName]
 }
 
 var checkTicker *time.Ticker
@@ -317,10 +317,4 @@ func checkSHA(name, sha string) bool {
 	}
 	// Not found.
 	return true
-}
-
-// isExist returns if a file or directory exists
-func isExist(path string) bool {
-	_, err := os.Stat(path)
-	return err == nil || os.IsExist(err)
 }
