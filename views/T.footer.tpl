@@ -17,6 +17,9 @@
 						    	{{end}}
 						    </ul>
 					    </div>
+                        {{if eq .Lang "zh-CN"}}
+                        <a class="btn btn-success" href="/donate">捐赠我们</a>
+                        {{end}}
                     </div>
 
                     <div class="span4 tbox textright social links">
