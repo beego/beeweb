@@ -46,7 +46,7 @@ body {
 }
 
 body#example {
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: Microsoft Yahei, "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   background: #FCFCFC url(../images/bg.jpg) repeat;
   margin: 0px;
   padding: 0px;
@@ -62,18 +62,8 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: Microsoft Yahei, "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
-
-/*
-p,
-ul,
-.ui.grid,
-li {
-  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  font-size-adjust: none;
-}*/
-
 
 ul.list {
   list-style-type: disc;
@@ -1439,9 +1429,6 @@ body.progress .ui.progress .bar {
   }
   #example .sticky-wrapper.stuck .peek {
     margin-left: -780px;
-  }
-  #example.left.pushed .main.menu {
-    margin-left: -132px;
   }
 }
 

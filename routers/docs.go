@@ -38,6 +38,8 @@ func (this *DocsRouter) Get() {
 
 	if sec == "docs" {
 		this.TplNames = "docs_home.html"
+		this.Data["Title"] = "Documentation"
+		return
 	}
 
 	this.Data[sec] = true
