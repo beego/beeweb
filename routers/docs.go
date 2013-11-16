@@ -28,6 +28,7 @@ type DocsRouter struct {
 // Get implemented Get method for DocsRouter.
 func (this *DocsRouter) Get() {
 	this.Data["IsDocs"] = true
+	this.TplNames = "docs.html"
 
 	reqUrl := this.Ctx.Request.URL.String()
 	sec := reqUrl[strings.LastIndex(reqUrl, "/")+1:]
@@ -35,18 +36,15 @@ func (this *DocsRouter) Get() {
 		sec = sec[:qm]
 	}
 
-	if len(sec) == 0 || sec == "docs" {
-		this.Redirect("/docs/Overview_Introduction", 302)
-		return
-	} else {
-		this.Data[sec] = true
+	if sec == "docs" {
+		this.TplNames = "docs_home.html"
 	}
 
-	// Get language.
-	curLang, _ := this.Data["LangVer"].(langType)
-	df := models.GetDoc(sec, curLang.Lang)
+	this.Data[sec] = true
+
+	df := models.GetDoc(sec, this.Lang)
 	if df == nil {
-		this.Redirect("/docs/Overview_Introduction", 302)
+		this.Redirect("/docs", 302)
 		return
 	}
 
@@ -54,14 +52,11 @@ func (this *DocsRouter) Get() {
 
 	// Set showed section.
 	i := strings.Index(sec, "_")
-	if i == -1 {
-		this.Redirect("/docs/Overview_Introduction", 302)
-		return
+	if i > -1 {
+		showSec := sec[:i]
+		this.Data["Is"+showSec] = true
 	}
-	showSec := sec[:i]
-	this.Data["Is"+showSec] = true
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
-	this.TplNames = "docs_" + curLang.Lang + ".html"
 }
