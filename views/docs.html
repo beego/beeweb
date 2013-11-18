@@ -1,0 +1,222 @@
+{{template "header_docs" .}}
+<title>{{i18n .Lang .Title}} - beego: {{i18n .Lang "app_intro"}}</title>
+</head>
+
+<body id="example" class="index left pushed">
+<div class="ui large vertical inverted labeled icon sidebar menu" id="menu"></a>
+    <a class="item" href="/">
+      <i class="inverted circular red awesome home icon"></i>
+      <b>Home</b>
+    </a>
+
+    {{template "docs_sidebar" .}}
+</div>
+
+<div class="ui fixed transparent inverted main menu">
+    <div class="container">
+        <a class="launch item"><i class="icon list layout"></i> Content</a>
+        
+        {{$node := .Node}}
+        {{with .Section}}
+        <div class="title item">
+            <b>beego:</b> {{.Name}}
+        </div>
+
+        <div class="section ui dropdown link item">
+            <span class="count">{{$node}}</span>
+
+            <div class="menu">
+                {{range .Nodes}}
+                <div class="{{if eq $node .Name}}active{{end}} item">
+                    <a href="/docs/{{.FullName}}">{{.Name}}</a>
+                </div>
+                {{end}}
+            </div>
+        </div>
+        {{end}}
+
+        <div class="right menu">
+            <div class="vertically fitted borderless item">
+                <iframe src="http://ghbtns.com/github-btn.html?user=astaxie&amp;repo=beego&amp;type=watch&amp;count=true"
+                        allowtransparency="true" frameborder="0" height="20" scrolling="0" width="95"></iframe>
+            </div>
+
+            <a class="popup icon github item" title="View project on Github" href="https://github.com/astaxie/beego">
+                <i class="icon github"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div style="width: 70px;" class="ui black huge launch right attached button">
+    <i class="icon list layout"></i>
+    <span style="display: none;" class="text">Menu</span>
+</div>
+
+<div class="masthead segment">
+    <div class="ui page grid">
+        <div class="column">
+            <div class="introduction">
+                <h1 class="ui header">
+                    Beego Framework
+                    <a class="ui black label" href="">0.9.9</a>
+                </h1>
+
+                <p>An open source framework to build and develop your applications in the Go way.</p>
+                <!-- <a class="ui black large labeled launch icon button"><i class="icon list layout"></i> View Samples</a>
+                <a class="ui red large labeled icon button" href="http://semantic-ui.com/build/semantic.zip"><i class="awesome download cloud icon"></i> Download</a> -->
+            </div>
+            <!-- <div class="inverted advertisement">
+              <div id="carbonads-container"><div class="carbonad"><div id="azcarbon"><span class="carbonad-image"><a href="http://ad.doubleclick.net/jump/N7384.734586.CARBONADS.NET1/B7706802;sz=130x100;ord=1384220545269?" target="_blank"><img class="carbonad-image carbonad-img" src="Introduction%20%7C%20Semantic%20UI_files/B7706802.gif" alt="Advertisement" border="0" height="100" width="130"></a> </span><span class="carbonad-text"><a href="http://ad.doubleclick.net/jump/N7384.734586.CARBONADS.NET1/B7706802;sz=130x100;ord=1384220545269?" target="_blank">Braintree:</a> 2.9% and 30¢ per transaction. No minimums, no monthly fees.</span><span class="carbonad-tag"> ads via <a href="http://carbonads.com/">Carbon</a></span><img src="Introduction%20%7C%20Semantic%20UI_files/i.gif" border="0" height="0px" width="0px"></div><script type="text/javascript">var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = "http://engine.carbonads.com/z/51619/azcarbon_2_1_0_VERTDARK"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script></div></div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<div class="stripe">
+    <div class="ui page grid">
+        <div class="ui column">
+<!--             <h2 class="ui header">
+                <i class="circular emphasized book icon"></i>
+
+                <div class="content">
+                    Lose the Hieroglyphics
+                    <div class="sub header">Semantic is structured around natural language conventions to make
+                        development more intuitive.
+                    </div>
+                </div>
+            </h2>
+            <div class="ui message">
+                Semantic is tag ambivalent meaning you can use <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/HTML5_element_list"
+                    target="_blank">any html tags</a> with UI elements.
+            </div> -->
+
+            <h1 class="ui header">
+                {{.Title}}
+                <a class="ui blue button" target="_blank" href="https://github.com/beego/beedoc/blob/master/{{.Lang}}/{{.FullName}}.md">Improve this page on GitHub</a>
+            </h1>
+
+            <div id="markdown" class="markdown content">{{.Data | str2html}}</div>
+            {{template "disqus"}}
+        </div>
+    </div>
+</div>
+
+<!-- <div class="final stripe">
+    <div class="ui page grid">
+        <div class="column">
+            <h2 class="ui center aligned icon header">
+                <i class="circular emphasized users icon"></i>
+
+                <div class="content">Growing Everyday
+                    <div class="sub header">New UI components are written everyday. Check back soon to see more.</div>
+                </div>
+            </h2>
+            <div class="ui horizontal divider">
+                <i class="circular heart icon"></i>
+            </div>
+
+            <div class="ui stackable grid" data-demo="true">
+                <div class="four column center aligned row">
+                    <div class="column">
+                        <div class="ui stacked segment">
+                            <div class="ui statistic">
+                                <div class="number">12</div>
+                                <div class="description">UI Elements</div>
+                            </div>
+                            <div class="ui divided selection list">
+                                <a class="item" href="http://semantic-ui.com/elements/button.html">Button</a>
+                                <a class="item" href="http://semantic-ui.com/elements/divider.html">Divider</a>
+                                <a class="item" href="http://semantic-ui.com/elements/header.html">Header</a>
+                                <a class="item" href="http://semantic-ui.com/elements/icon.html">Icon</a>
+                                <a class="item" href="http://semantic-ui.com/elements/image.html">Image</a>
+                                <a class="item" href="http://semantic-ui.com/elements/input.html">Input</a>
+                                <a class="item" href="http://semantic-ui.com/elements/label.html">Label</a>
+                                <a class="item" href="http://semantic-ui.com/elements/loader.html">Loader</a>
+                                <a class="item" href="http://semantic-ui.com/elements/progress.html">Progress</a>
+                                <a class="item" href="http://semantic-ui.com/modules/reveal.html">Reveal</a>
+                                <a class="item" href="http://semantic-ui.com/elements/segment.html">Segment</a>
+                                <a class="item" href="http://semantic-ui.com/elements/step.html">Step</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui stacked segment">
+                            <div class="ui statistic">
+                                <div class="number">6</div>
+                                <div class="description">UI Collections</div>
+                            </div>
+
+                            <div class="ui divided selection list">
+                                <a class="item" href="http://semantic-ui.com/collections/breadcrumb.html">Breadcrumb</a>
+                                <a class="item" href="http://semantic-ui.com/collections/form.html">Form</a>
+                                <a class="item" href="http://semantic-ui.com/collections/grid.html">Grid</a>
+                                <a class="item" href="http://semantic-ui.com/collections/menu.html">Menu</a>
+                                <a class="item" href="http://semantic-ui.com/collections/message.html">Message</a>
+                                <a class="item" href="http://semantic-ui.com/collections/table.html">Table</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui stacked segment">
+                            <div class="ui statistic">
+                                <div class="number">4</div>
+                                <div class="description">UI Views</div>
+                            </div>
+                            <div class="ui divided selection list">
+
+                                <a class="item" href="http://semantic-ui.com/views/comment.html">Comment</a>
+                                <a class="item" href="http://semantic-ui.com/views/feed.html">Feed</a>
+                                <a class="item" href="http://semantic-ui.com/views/item.html">Item</a>
+                                <a class="item" href="http://semantic-ui.com/views/list.html">List</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui stacked segment">
+                            <div class="ui statistic">
+                                <div class="number">11</div>
+                                <div class="description">UI Modules</div>
+                            </div>
+                            <div class="ui divided selection list">
+                                <a class="item" href="http://semantic-ui.com/modules/accordion.html">Accordion</a>
+                                <a class="item" href="http://semantic-ui.com/modules/checkbox.html">Checkbox</a>
+                                <a class="item" href="http://semantic-ui.com/modules/dimmer.html">Dimmer</a>
+                                <a class="item" href="http://semantic-ui.com/modules/dropdown.html">Dropdown</a>
+                                <a class="item" href="http://semantic-ui.com/modules/modal.html">Modal</a>
+                                <a class="item" href="http://semantic-ui.com/modules/popup.html">Popup</a>
+                                <a class="item" href="http://semantic-ui.com/modules/rating.html">Rating</a>
+                                <a class="item" href="http://semantic-ui.com/modules/shape.html">Shape</a>
+                                <a class="item" href="http://semantic-ui.com/modules/sidebar.html">Sidebar</a>
+                                <a class="item" href="http://semantic-ui.com/modules/transition.html">Transition</a>
+                                <a class="item" href="http://semantic-ui.com/modules/form.html">Validate Form</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+{{template "footer_docs" .}}
+</body>
+
+{{define "docs_sidebar"}}
+{{range .Sections}}
+<div class="item">
+    <a>
+        <b>{{.Name}}</b>
+    </a>
+
+    <div class="menu">
+        {{range .Nodes}}
+        <a class="item" href="/docs/{{.FullName}}">{{.Name}}</a>
+        {{end}}
+    </div>
+</div>
+{{end}}
+{{end}}

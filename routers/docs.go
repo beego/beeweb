@@ -31,34 +31,45 @@ func (this *DocsRouter) Get() {
 	this.TplNames = "docs.html"
 
 	reqUrl := this.Ctx.Request.URL.String()
-	sec := reqUrl[strings.LastIndex(reqUrl, "/")+1:]
-	if qm := strings.Index(sec, "?"); qm > -1 {
-		sec = sec[:qm]
+	fullName := reqUrl[strings.LastIndex(reqUrl, "/")+1:]
+	if qm := strings.Index(fullName, "?"); qm > -1 {
+		fullName = fullName[:qm]
 	}
 
-	if sec == "docs" {
-		this.TplNames = "docs_home.html"
-		this.Data["Title"] = "Documentation"
+	this.Data["Sections"] = models.TplTree.Sections
+
+	if fullName == "docs" {
+		this.Redirect("/docs/Overview_Introduction", 302)
 		return
 	}
 
-	this.Data[sec] = true
-
-	df := models.GetDoc(sec, this.Lang)
+	df := models.GetDoc(fullName, this.Lang)
 	if df == nil {
-		this.Redirect("/docs", 302)
+		this.Redirect("/docs/Overview_Introduction", 302)
 		return
 	}
 
-	this.Data["Section"] = sec
+	this.Data[fullName] = true
 
 	// Set showed section.
-	i := strings.Index(sec, "_")
+	i := strings.Index(fullName, "_")
 	if i > -1 {
-		showSec := sec[:i]
-		this.Data["Is"+showSec] = true
+		sec := fullName[:i]
+		node := fullName[i+1:]
+		this.Data["Section"] = getSection(sec)
+		this.Data["Node"] = node
+		this.Data["FullName"] = fullName
 	}
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
+}
+
+func getSection(name string) *models.Section {
+	for _, sec := range models.TplTree.Sections {
+		if sec.Name == name {
+			return &sec
+		}
+	}
+	return nil
 }

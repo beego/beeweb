@@ -34,14 +34,49 @@
         <!-- end of footer -->
     </div>
 </div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.scrollTo-min.js"></script>
+{{template "static_file" .}}
+{{end}}
+
+{{define "footer_docs"}}
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+<script src="/static/js/tablesort.js"></script>
+<script src="/static/js/waypoints.js"></script>
+<script src="/static/js/semantic.min.js"></script>
+<script src="/static/js/semantic.js"></script>
+<script src="/static/js/home.js"></script>
+
+<div class="ui divider"></div>
+
+<div class="ui divided horizontal footer link list">
+    <div class="item">Copyright © beego 2012-2013</div>
+    <a href="https://github.com/astaxie/beego" class="item">Github</a>
+
+    <div class="item">
+        UI based on <a href="http://semantic-ui.com/" target="_blank">Semantic UI</a>
+    </div>
+
+    <div class="item">
+        <strong>{{i18n .Lang "lang option"}}</strong>
+        {{$keyword := .Keyword}}
+        {{range .RestLangs}}
+        <a href="?lang={{.Lang}}&q={{$keyword}}">{{.Name}}</a>
+        {{end}}
+    </div>
+
+    {{if eq .Lang "zh-CN"}}
+    <div class="item">
+        <a href="/donate">捐赠我们</a>
+    </div>
+    {{end}}
+</div>
 {{template "static_file" .}}
 {{end}}
 
 {{define "static_file"}}
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/jquery.scrollTo-min.js"></script>
-
 {{if .IsHome}}
 <script type="text/javascript">
     function moveRight() {
@@ -79,16 +114,8 @@
             hljs.highlightBlock(code.get(0), hljs.tabReplace);
         });
 
-        {
-            {
-                if .
-                IsDonate
-            }
-        }
-        {
-            {else
-            }
-        }
+        {{if .IsDonate}}
+        {{else}}
         // Encode url.
         doc.find("a").each(function () {
             var node = $(this);
@@ -121,11 +148,7 @@
         $('.accordion').on('show hide', function (n) {
             $(n.target).siblings('.accordion-heading').find('i').toggleClass('fa-chevron-right fa-chevron-down');
         });
-        {
-            {
-                end
-            }
-        }
+        {{end}}
     })(jQuery);
     $(function () {
 
@@ -168,38 +191,4 @@
     ga('send', 'pageview');
 </script>
 {{end}}
-{{end}}
-
-{{define "footer_docs"}}
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
-<script src="/static/js/tablesort.js"></script>
-<script src="/static/js/waypoints.js"></script>
-<script src="/static/js/semantic.min.js"></script>
-<script src="/static/js/semantic.js"></script>
-<script src="/static/js/home.js"></script>
-
-<div class="ui divider"></div>
-
-<div class="ui divided horizontal footer link list">
-    <div class="item">Copyright © beego 2012-2013</div>
-    <a href="https://github.com/astaxie/beego" class="item">Github</a>
-
-    <div class="item">
-        UI based on <a href="http://semantic-ui.com/" target="_blank">Semantic UI</a>
-    </div>
-
-    <div class="item">
-        <strong>{{i18n .Lang "lang option"}}</strong>
-        {{$keyword := .Keyword}}
-        {{range .RestLangs}}
-        <a href="?lang={{.Lang}}&q={{$keyword}}">{{.Name}}</a>
-        {{end}}
-    </div>
-
-    {{if eq .Lang "zh-CN"}}
-    <div class="item">
-        <a href="/donate">捐赠我们</a>
-    </div>
-    {{end}}
-</div>
 {{end}}

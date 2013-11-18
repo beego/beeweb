@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	APP_VER = "0.5.6.1111"
+	APP_VER = "0.5.6.1117"
 )
 
 // We have to call a initialize function manully
@@ -46,8 +46,6 @@ func initialize() {
 		beego.SetLevel(beego.LevelInfo)
 		os.Mkdir("./log", os.ModePerm)
 		beego.BeeLogger.SetLogger("file", `{"filename": "log/log"}`)
-	} else {
-		// beewatch.Start(beewatch.Trace)r
 	}
 }
 
