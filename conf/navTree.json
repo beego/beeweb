@@ -15,7 +15,25 @@
 		{
 			"name": "Views",
 			"nodes": [
-				"Introduction", "Concepts", "Organization"
+				"Templates"
+			]
+		},
+		{
+			"name": "Models",
+			"nodes": [
+				"Overview", "ORM", "Object", "Query", "RawSQL", "Transaction", "Models", "Cmd", "Test", "CustomFields", "FAQ"
+			]
+		},
+		{
+			"name": "Operational",
+			"nodes": [
+				"Logging", "Deployment", "Supervisord"
+			]
+		},
+		{
+			"name": "Reference",
+			"nodes": [
+				"AppConf", "BeeTool", "BeeWatch", "FAQ"
 			]
 		}
 	]

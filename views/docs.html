@@ -6,7 +6,7 @@
 <div class="ui large vertical inverted labeled icon sidebar menu" id="menu"></a>
     <a class="item" href="/">
       <i class="inverted circular red awesome home icon"></i>
-      <b>Home</b>
+      <b>{{i18n .Lang "home"}}</b>
     </a>
 
     {{template "docs_sidebar" .}}
@@ -14,21 +14,23 @@
 
 <div class="ui fixed transparent inverted main menu">
     <div class="container">
-        <a class="launch item"><i class="icon list layout"></i> Content</a>
+        <a class="launch item"><i class="icon list layout"></i> 文档大纲</a>
         
+        {{$lang := .Lang}}
         {{$node := .Node}}
+        {{$fullName := .FullName}}
         {{with .Section}}
         <div class="title item">
-            <b>beego:</b> {{.Name}}
+            <b>beego:</b> {{i18n $lang .Name}}
         </div>
 
         <div class="section ui dropdown link item">
-            <span class="count">{{$node}}</span>
+            <span class="count">{{i18n $lang $fullName}}</span>
 
             <div class="menu">
                 {{range .Nodes}}
                 <div class="{{if eq $node .Name}}active{{end}} item">
-                    <a href="/docs/{{.FullName}}">{{.Name}}</a>
+                    <a href="/docs/{{.FullName}}">{{i18n $lang .FullName}}</a>
                 </div>
                 {{end}}
             </div>
@@ -50,7 +52,7 @@
 
 <div style="width: 70px;" class="ui black huge launch right attached button">
     <i class="icon list layout"></i>
-    <span style="display: none;" class="text">Menu</span>
+    <span style="display: none;" class="text">{{i18n .Lang "Menu"}}</span>
 </div>
 
 <div class="masthead segment">
@@ -58,11 +60,11 @@
         <div class="column">
             <div class="introduction">
                 <h1 class="ui header">
-                    Beego Framework
+                    Beego {{i18n .Lang "Framework"}}
                     <a class="ui black label" href="">0.9.9</a>
                 </h1>
 
-                <p>An open source framework to build and develop your applications in the Go way.</p>
+                <p>{{i18n .Lang "app_shortintro"}}.</p>
                 <!-- <a class="ui black large labeled launch icon button"><i class="icon list layout"></i> View Samples</a>
                 <a class="ui red large labeled icon button" href="http://semantic-ui.com/build/semantic.zip"><i class="awesome download cloud icon"></i> Download</a> -->
             </div>
@@ -94,7 +96,7 @@
 
             <h1 class="ui header">
                 {{.Title}}
-                <a class="ui blue button" target="_blank" href="https://github.com/beego/beedoc/blob/master/{{.Lang}}/{{.FullName}}.md">Improve this page on GitHub</a>
+                <a class="ui blue button" target="_blank" href="https://github.com/beego/beedoc/blob/master/{{.Lang}}/{{.FullName}}.md">{{i18n .Lang "improve doc on github"}}</a>
             </h1>
 
             <div id="markdown" class="markdown content">{{.Data | str2html}}</div>
@@ -206,15 +208,16 @@
 </body>
 
 {{define "docs_sidebar"}}
+{{$lang := .Lang}}
 {{range .Sections}}
 <div class="item">
     <a>
-        <b>{{.Name}}</b>
+        <b>{{i18n $lang .Name}}</b>
     </a>
 
     <div class="menu">
         {{range .Nodes}}
-        <a class="item" href="/docs/{{.FullName}}">{{.Name}}</a>
+        <a class="item" href="/docs/{{.FullName}}">{{i18n $lang .FullName}}</a>
         {{end}}
     </div>
 </div>

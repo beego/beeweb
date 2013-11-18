@@ -16,7 +16,6 @@
 package routers
 
 import (
-	"os"
 	"strings"
 
 	"github.com/astaxie/beego"
@@ -53,7 +52,7 @@ func InitRouter() {
 		beego.Trace("Loading language: " + lang)
 		if err := i18n.SetMessage(lang, "conf/"+"locale_"+lang+".ini"); err != nil {
 			beego.Error("Fail to set message file: " + err.Error())
-			os.Exit(2)
+			return
 		}
 	}
 }

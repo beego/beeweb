@@ -154,9 +154,8 @@ func initDocMap() {
 		}
 	}
 
-	docNames = append(docNames, "quickstart")
-	docNames = append(docNames, "donate")
-	docNames = append(docNames, "usecases")
+	docNames = append(docNames, strings.Split(
+		Cfg.MustValue("app", "doc_names"), "|")...)
 
 	isConfExist := com.IsFile("conf/docTree.json")
 	if isConfExist {
