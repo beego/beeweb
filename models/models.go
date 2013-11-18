@@ -105,6 +105,7 @@ func InitModels() {
 	// Load documentation.
 	initDocMap()
 
+	beego.RunMode = Cfg.MustValue("beego", "run_mode")
 	// ATTENTION: you'd better comment following code when developing.
 	if beego.RunMode == "pro" {
 		// Start check ticker.

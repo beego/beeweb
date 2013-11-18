@@ -38,7 +38,6 @@ func initialize() {
 
 	// Set App version and log level.
 	beego.AppName = models.Cfg.MustValue("beego", "app_name")
-	beego.RunMode = models.Cfg.MustValue("beego", "run_mode")
 	beego.HttpPort = models.Cfg.MustInt("beego", "http_port_"+beego.RunMode)
 
 	routers.IsPro = beego.RunMode == "pro"
