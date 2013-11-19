@@ -40,7 +40,7 @@ This project can be easily transferred as your own documentation site, there are
 			client_id=1862bcb2******f36c
 			client_secret=308d71ab53ccd858416cfceaed52******53c5f
 
-- In the file `conf/`navTree.json`:
+- In the file `conf/navTree.json`:
 
 	- This file is for design navigate bar and relation between sections and nodes.
 	- After you modified this file, you need to change i18n setting in `conf/locale_<lang>.ini` files in order to show name correctly.
