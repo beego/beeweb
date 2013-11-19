@@ -33,18 +33,19 @@ This project can be easily transferred as your own documentation site, there are
 	
 	- `lang -> types`: languages that you want to support
 	- `lang -> names`: user-friendly name of languages.
-	- `app -> navs`: sections' name of documentation list.
-	- `app -> samples`: samples' name of sample page.
+	- `app -> doc_names`: sections' name of additional documentation list.
 	- It's **NOT** necessary but if you want to you can use GitHub app keys as following format:
 		
 			[github]
 			client_id=1862bcb2******f36c
 			client_secret=308d71ab53ccd858416cfceaed52******53c5f
 
+- In the file `conf/`navTree.json`:
+
+	- This file is for design navigate bar and relation between sections and nodes.
+	- After you modified this file, you need to change i18n setting in `conf/locale_<lang>.ini` files in order to show name correctly.
 - In the file `conf/docTree.json`:
 
 	- This file saves the file tree(with file name and commit) of your project that is hosted in GitHub. About how to use documentation project please see [beedoc](http://github.com/beego/beedoc). Note that if you added new section to documentation list and you do not want to wait auto-refresh, simple delete this file and restart.
 	- To change the documentation project URL, you need to change it in function `checkDocUpdates` in file `models/models.go`.
-
-- After you added new section to documentation list in `conf/app.ini`, you also need to update list in template files(`views/docs_<lang>.html`, `<lang>` depends on the language you use).
 - For debug purpose, there are 3 lines of code in `models/models.go -> InitModels()` commented in order to save API calls.
