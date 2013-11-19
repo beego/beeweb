@@ -14,7 +14,7 @@
 
 <div class="ui fixed transparent inverted main menu">
     <div class="container">
-        <a class="launch item"><i class="icon list layout"></i> 文档大纲</a>
+        <a class="launch item"><i class="icon list layout"></i> {{i18n .Lang "Content"}}</a>
         
         {{$lang := .Lang}}
         {{$node := .Node}}
@@ -208,6 +208,7 @@
 </body>
 
 {{define "docs_sidebar"}}
+{{$fullName := .FullName}}
 {{$lang := .Lang}}
 {{range .Sections}}
 <div class="item">
@@ -217,7 +218,7 @@
 
     <div class="menu">
         {{range .Nodes}}
-        <a class="item" href="/docs/{{.FullName}}">{{i18n $lang .FullName}}</a>
+        <a class="{{if eq $fullName .FullName}}active{{end}} item" href="/docs/{{.FullName}}">{{i18n $lang .FullName}}</a>
         {{end}}
     </div>
 </div>

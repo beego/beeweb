@@ -140,6 +140,9 @@
         // Set anchor.
         doc.find("h1, h2, h3, h4, h5, h6").each(function () {
             var node = $(this);
+            if (node.hasClass("ui")) {
+                return;
+            }
             var val = encodeURIComponent(node.text().toLowerCase().replace(/\s+/g, "-"));
             node = node.wrap('<div id="' + val + '" class="anchor-wrap" ></div>');
             node.append('<a class="anchor" href="#' + val + '"><span class="octicon octicon-link"></span></a>')

@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	APP_VER = "0.5.6.1117"
+	APP_VER = "0.5.7.1118"
 )
 
 // We have to call a initialize function manully
@@ -55,7 +55,6 @@ func main() {
 
 	// Register routers.
 	beego.Router("/", &routers.HomeRouter{})
-	beego.Router("/about", &routers.AboutRouter{})
 	beego.Router("/community", &routers.CommunityRouter{})
 	beego.Router("/quickstart", &routers.QuickStartRouter{})
 	beego.Router("/docs", &routers.DocsRouter{})

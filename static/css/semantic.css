@@ -47,14 +47,14 @@ body {
 
 body#example {
   font-family: Microsoft Yahei, "Source Sans Pro", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  background: #FCFCFC url(../images/bg.jpg) repeat;
+  background: #FCFCFC url(../img/bg.jpg) repeat;
   margin: 0px;
   padding: 0px;
   color: #555555;
   min-width: 320px;
 }
 body > .content  {
-  background: #FCFCFC url(../images/bg.jpg) repeat;
+  background: #FCFCFC url(../img/bg.jpg) repeat;
 }
 
 h1,
