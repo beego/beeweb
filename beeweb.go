@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	APP_VER = "0.5.7.1118"
+	APP_VER = "0.5.7.1122"
 )
 
 // We have to call a initialize function manully
