@@ -4,6 +4,7 @@ website
 .DS_Store
 bee
 /docs
+/blog
 docTree.json
 blogTree.json
 beeweb

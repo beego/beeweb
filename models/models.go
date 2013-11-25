@@ -132,6 +132,10 @@ func needCheckUpdate() bool {
 		return true
 	}
 
+	if !com.IsFile("conf/docTree.json") || !com.IsFile("conf/blogTree.json") {
+		return true
+	}
+
 	return time.Unix(stamp, 0).Add(5 * time.Minute).Before(time.Now())
 }
 
@@ -316,7 +320,7 @@ func GetDoc(fullName, lang string) *docFile {
 
 	docLock.RLock()
 	defer docLock.RUnlock()
-	return docMap[filePath]
+	return docMap[lang+"/"+fullName]
 }
 
 // GetBlog returns 'docFile' by given name and language version.
@@ -329,7 +333,7 @@ func GetBlog(fullName, lang string) *docFile {
 
 	blogLock.RLock()
 	defer blogLock.RUnlock()
-	return blogMap[filePath]
+	return blogMap[lang+"/"+fullName]
 }
 
 var checkTicker *time.Ticker
