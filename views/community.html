@@ -1,147 +1,144 @@
-{{template "header" .}}
-		<title>{{i18n .Lang "community"}} - beego: {{i18n .Lang "app_intro"}}</title>
-	</head>	
+{{template "base/base.html" .}}
+{{define "head"}}
+<title>{{i18n .Lang "community"}} - beego: {{i18n .Lang "app_intro"}}</title>
+{{end}}
+{{define "body"}}
+<div class="container">
+	{{if eq .Lang "en-US"}}
+	<div class="page-header">
+	    <h1>About the community</h1>
+	    <p>
+	    	Join the developers who are helping to lead the beego revolution! Joining our community is a great way to interact with other talented developers and devops professionals, increase awareness of the work that you are doing, improve your skills, or give back.
+	    </p>
+	</div>
 
-	<body>
-		{{template "navbar" .}}
-		<div class="container">
-			{{if eq .Lang "en-US"}}
-			<div class="page-header">
-			    <h1>About the community</h1>
-			    <p>
-			    	Join the developers who are helping to lead the beego revolution! Joining our community is a great way to interact with other talented developers and devops professionals, increase awareness of the work that you are doing, improve your skills, or give back.
-			    </p>
-			</div>
+	<div class="span12">
+	    <h2>Get in touch</h2>
+	    <p>
+	    	There are several ways to get in touch:
+	    </p>
+	    <ul id="chooser-blocks" class="option-chooser-blocks">
+	        <a target="_blank" href="https://groups.google.com/forum/#!forum/beego-framework"><li>Google groups<img src="/static/img/community/google-groups.png"> </li></a>
 
-			<div class="span12">
-			    <h2>Get in touch</h2>
-			    <p>
-			    	There are several ways to get in touch:
-			    </p>
-			    <ul id="chooser-blocks" class="option-chooser-blocks">
-			        <a target="_blank" href="https://groups.google.com/forum/#!forum/beego-framework"><li>Google groups<img src="/static/img/community/google-groups.png"> </li></a>
+	        <a target="_blank" href="http://github.com/astaxie/beego"><li>Github<img src="/static/img/community/github.png"> </li></a>
 
-			        <a target="_blank" href="http://github.com/astaxie/beego"><li>Github<img src="/static/img/community/github.png"> </li></a>
+	        <a target="_blank" href="http://stackoverflow.com/search?q=beego"><li>Stackoverflow<img src="/static/img/community/stackoverflow.png"> </li></a>
 
-			        <a target="_blank" href="http://stackoverflow.com/search?q=beego"><li>Stackoverflow<img src="/static/img/community/stackoverflow.png"> </li></a>
+	        <a target="_blank" href="http://twitter.com/xiemengjun/"><li>Twitter<img src="/static/img/community/twitter.png"> </li></a>
+	    </ul>
+	</div>
+	
+	<div class="span12">
+	    <h3>More options:</h3>
+	    <ul>
+	    	<li>Sina Weibo: <a target="_blank" href="http://weibo.com/beegoframe">@beego框架</a></li>
+	    	<li>Beego developer QQ Group: 139027535(Be sure that you contributed before you ask to join)</li>
+	    </ul>
+	</div>
 
-			        <a target="_blank" href="http://twitter.com/xiemengjun/"><li>Twitter<img src="/static/img/community/twitter.png"> </li></a>
-			    </ul>
-			</div>
-			
-			<div class="span12">
-			    <h3>More options:</h3>
-			    <ul>
-			    	<li>Sina Weibo: <a target="_blank" href="http://weibo.com/beegoframe">@beego框架</a></li>
-			    	<li>Beego developer QQ Group: 139027535(Be sure that you contributed before you ask to join)</li>
-			    </ul>
-			</div>
+	<div class="span12">
+	    <h2>Share</h2>
+	    <p>
+	    	Sharing what you have built with beego is a great way to help people understand the value of beego. If you have a great story to tell we'll be happy to help you spread the word.
+	    </p>
+	    <ul>
+		    <li>Tell your story at a company tech talk, tweet (#beego, @beego)  present at your local user group, or&nbsp;submit a
+		    talk proposal&nbsp;to a conference or event about how you are using beego.</li>
+		    <li>If you are using beego, in production, become a public reference.</li>
+		    <li>Write a tutorial.</li>
+	    </ul>
+	</div>
 
-			<div class="span12">
-			    <h2>Share</h2>
-			    <p>
-			    	Sharing what you have built with beego is a great way to help people understand the value of beego. If you have a great story to tell we'll be happy to help you spread the word.
-			    </p>
-			    <ul>
-				    <li>Tell your story at a company tech talk, tweet (#beego, @beego)  present at your local user group, or&nbsp;submit a
-				    talk proposal&nbsp;to a conference or event about how you are using beego.</li>
-				    <li>If you are using beego, in production, become a public reference.</li>
-				    <li>Write a tutorial.</li>
-			    </ul>
-			</div>
+	<div class="span12">
+	    <h2>Contribute</h2>
+	    <p>
+	    	An Open Source project like beego couldn’t exist without contributions from the developer community. As of Dec 11, 2013, there are over 25 contributors and nearly 360 forks on the project.
+	    </p>
+	    <ul>
+		    <li>Take a look at our <a target="_blank" href="https://github.com/astaxie/beego/issues?state=open">issues list</a> and consider submitting a patch</li>
+		    <li>Review our roadmap on <a target="_blank" href="https://github.com/astaxie/beego">GitHub</a> and provide feedback</li>
+		    <li>Consider contributing.</li>
+	    </ul>
+	    <p>
+	    	We run the <a href="/docs"><strong>documentation</strong></a> as an open source project. The sources are available from the main <a target="_blank" href="https://github.com/beego/beedoc">beedoc repository</a> on Github, and we encourage you to make improvements, whether big or small, make a pull request.
+	    </p>
+	</div>
 
-			<div class="span12">
-			    <h2>Contribute</h2>
-			    <p>
-			    	An Open Source project like beego couldn’t exist without contributions from the developer community. As of Dec 11, 2013, there are over 25 contributors and nearly 360 forks on the project.
-			    </p>
-			    <ul>
-				    <li>Take a look at our <a target="_blank" href="https://github.com/astaxie/beego/issues?state=open">issues list</a> and consider submitting a patch</li>
-				    <li>Review our roadmap on <a target="_blank" href="https://github.com/astaxie/beego">GitHub</a> and provide feedback</li>
-				    <li>Consider contributing.</li>
-			    </ul>
-			    <p>
-			    	We run the <a href="/docs"><strong>documentation</strong></a> as an open source project. The sources are available from the main <a target="_blank" href="https://github.com/beego/beedoc">beedoc repository</a> on Github, and we encourage you to make improvements, whether big or small, make a pull request.
-			    </p>
-			</div>
+	<div class="span12">
+	    <h2>What people have already built using beego</h2>
+	    <p>
+	    	Beego is a powerful framework for many different use cases. Here are some great early use cases for beego, as described by members of our community.
+	    </p>
+	    {{.Data | str2html}}
+	    <a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{.Section}}.md" class="pull-right btn btn-success" target="_blank">{{i18n .Lang "add use case"}}</a>
+	</div>
+	{{else if eq .Lang "zh-CN"}}
+	<div class="page-header">
+	    <h1>关于开发者社区</h1>
+	    <p>
+	    	与众多开发者们一起帮助和领导 beego 的革命吧！参与社区开发是与技术牛人交流与学习的最佳方式，不仅可以贡献和展示您的代码，还能增强您的合作意识，提升技术水平。
+	    </p>
+	</div>
 
-			<div class="span12">
-			    <h2>What people have already built using beego</h2>
-			    <p>
-			    	Beego is a powerful framework for many different use cases. Here are some great early use cases for beego, as described by members of our community.
-			    </p>
-			    {{.Data | str2html}}
-			    <a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{.Section}}.md" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "add use case"}}</a>
-			</div>
-			{{else if eq .Lang "zh-CN"}}
-			<div class="page-header">
-			    <h1>关于开发者社区</h1>
-			    <p>
-			    	与众多开发者们一起帮助和领导 beego 的革命吧！参与社区开发是与技术牛人交流与学习的最佳方式，不仅可以贡献和展示您的代码，还能增强您的合作意识，提升技术水平。
-			    </p>
-			</div>
+	<div class="span12">
+	    <h2>参与社区讨论</h2>
+	    <p>
+	    	您可以通过以下方式参与社区讨论：
+	    </p>
+	    <ul id="chooser-blocks" class="option-chooser-blocks">
+	        <a target="_blank" href="https://groups.google.com/forum/#!forum/beego-framework"><li>Google groups<img src="/static/img/community/google-groups.png"> </li></a>
 
-			<div class="span12">
-			    <h2>参与社区讨论</h2>
-			    <p>
-			    	您可以通过以下方式参与社区讨论：
-			    </p>
-			    <ul id="chooser-blocks" class="option-chooser-blocks">
-			        <a target="_blank" href="https://groups.google.com/forum/#!forum/beego-framework"><li>Google groups<img src="/static/img/community/google-groups.png"> </li></a>
+	        <a target="_blank" href="http://github.com/astaxie/beego"><li>Github<img src="/static/img/community/github.png"> </li></a>
 
-			        <a target="_blank" href="http://github.com/astaxie/beego"><li>Github<img src="/static/img/community/github.png"> </li></a>
+	        <a target="_blank" href="http://stackoverflow.com/search?q=beego"><li>Stackoverflow<img src="/static/img/community/stackoverflow.png"> </li></a>
 
-			        <a target="_blank" href="http://stackoverflow.com/search?q=beego"><li>Stackoverflow<img src="/static/img/community/stackoverflow.png"> </li></a>
+	        <a target="_blank" href="http://twitter.com/xiemengjun/"><li>Twitter<img src="/static/img/community/twitter.png"> </li></a>
+	    </ul>
+	</div>
+	
+	<div class="span12">
+	    <h3>更多选择：</h3>
+	    <ul>
+	    	<li>新浪微博：<a target="_blank" href="http://weibo.com/beegoframe">@beego框架</a></li>
+	    	<li>beego 开发者 QQ 群：139027535（验证需填入您的 Github 地址以确保您为 beego 贡献过代码）</li>
+	    </ul>
+	</div>
 
-			        <a target="_blank" href="http://twitter.com/xiemengjun/"><li>Twitter<img src="/static/img/community/twitter.png"> </li></a>
-			    </ul>
-			</div>
-			
-			<div class="span12">
-			    <h3>更多选择：</h3>
-			    <ul>
-			    	<li>新浪微博：<a target="_blank" href="http://weibo.com/beegoframe">@beego框架</a></li>
-			    	<li>beego 开发者 QQ 群：139027535（验证需填入您的 Github 地址以确保您为 beego 贡献过代码）</li>
-			    </ul>
-			</div>
+	<div class="span12">
+	    <h2>分享开发经验</h2>
+	    <p>
+	    	分享您已经使用基于 beego 完成的惊人作品能够很好的帮助他人理解 beego 的价值。如果您有意愿分享 beego 的开发故事，我们将乐意为您广而告之。
+	    </p>
+	    <ul>
+		    <li>公司内的技术分享，可以通过微博(#beego, @beego)来通知我们，或者也可以将您的建议或相关会议告知我们，让我们知道您是如何使用 beego 的。</li>
+		    <li>如果您正在构建基于 beego 的实际应用，我们将非常乐意地为您传播。</li>
+		    <li>您也可以写一个有关 beego 的开发教程。</li>
+	    </ul>
+	</div>
 
-			<div class="span12">
-			    <h2>分享开发经验</h2>
-			    <p>
-			    	分享您已经使用基于 beego 完成的惊人作品能够很好的帮助他人理解 beego 的价值。如果您有意愿分享 beego 的开发故事，我们将乐意为您广而告之。
-			    </p>
-			    <ul>
-				    <li>公司内的技术分享，可以通过微博(#beego, @beego)来通知我们，或者也可以将您的建议或相关会议告知我们，让我们知道您是如何使用 beego 的。</li>
-				    <li>如果您正在构建基于 beego 的实际应用，我们将非常乐意地为您传播。</li>
-				    <li>您也可以写一个有关 beego 的开发教程。</li>
-			    </ul>
-			</div>
+	<div class="span12">
+	    <h2>贡献社区代码</h2>
+	    <p>
+	    	一个开源的项目是无法离开开发者社区成员的积极贡献的，到目前为止，已经有超过 25 位贡献者以及 350 多的项目派生。
+	    </p>
+	    <ul>
+		    <li>如果您需要提交问题请通过 <a target="_blank" href="https://github.com/astaxie/beego/issues?state=open">问题列表</a> 来完成。</li>
+		    <li>您可在 <a target="_blank" href="https://github.com/astaxie/beego">GitHub</a> 上查看我们的发展路线，并给予反馈。</li>
+		    <li>贡献代码，您值得考虑。</li>
+	    </ul>
+	    <p>
+	    	我们将 <a href="/docs">API 文档</a> 也作为一个开源项目来处理，您可以在 Github 的 <a target="_blank" href="https://github.com/beego/beedoc">项目仓库</a> 中找到相关源码。我们鼓励您参与完善 Beego 的文档，不论改动大小，都欢迎您的补充与提交！
+	    </p>
+	</div>
 
-			<div class="span12">
-			    <h2>贡献社区代码</h2>
-			    <p>
-			    	一个开源的项目是无法离开开发者社区成员的积极贡献的，到目前为止，已经有超过 25 位贡献者以及 350 多的项目派生。
-			    </p>
-			    <ul>
-				    <li>如果您需要提交问题请通过 <a target="_blank" href="https://github.com/astaxie/beego/issues?state=open">问题列表</a> 来完成。</li>
-				    <li>您可在 <a target="_blank" href="https://github.com/astaxie/beego">GitHub</a> 上查看我们的发展路线，并给予反馈。</li>
-				    <li>贡献代码，您值得考虑。</li>
-			    </ul>
-			    <p>
-			    	我们将 <a href="/docs">API 文档</a> 也作为一个开源项目来处理，您可以在 Github 的 <a target="_blank" href="https://github.com/beego/beedoc">项目仓库</a> 中找到相关源码。我们鼓励您参与完善 Beego 的文档，不论改动大小，都欢迎您的补充与提交！
-			    </p>
-			</div>
-
-			<div class="span12">
-			    <h2>beego 开发实例展示</h2>
-			    <p>
-			    	Beego 是一个适于多种开发目标的强大的应用框架，这里有一份公开项目的清单，用于展示这些应用程序将 beego 用作何种开发。
-			    </p>
-			    {{.Data | str2html}}
-			    <a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{.Section}}.md" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "add use case"}}</a>
-			</div>
-			{{end}}
-		</div>
-		{{template "footer" .}}
-	</body>
-</html>
+	<div class="span12">
+	    <h2>beego 开发实例展示</h2>
+	    <p>
+	    	Beego 是一个适于多种开发目标的强大的应用框架，这里有一份公开项目的清单，用于展示这些应用程序将 beego 用作何种开发。
+	    </p>
+	    {{.Data | str2html}}
+	    <a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{.Section}}.md" class="pull-right btn btn-success" target="_blank">{{i18n .Lang "add use case"}}</a>
+	</div>
+	{{end}}
+</div>
+{{end}}

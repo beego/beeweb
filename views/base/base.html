@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{template "base/head.html" .}}
+		{{template "head" .}}
+	</head>
+	<body {{if .IsDocs}}id="example" class="index left pushed"{{end}}>
+		<noscript>{{i18n .Lang "enable_js_prompt"}}</noscript>
+		{{template "base/navbar.html" .}}
+		{{template "body" .}}
+		{{template "base/footer.html" .}}
+	</body>
+</html>

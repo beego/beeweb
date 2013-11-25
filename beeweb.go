@@ -12,7 +12,7 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-// An open source project for official documentation website of beego app framework.
+// An open source project for official documentation and blog website of beego app framework.
 package main
 
 import (
@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	APP_VER = "0.5.7.1122"
+	APP_VER = "0.5.7.1124"
 )
 
 // We have to call a initialize function manully

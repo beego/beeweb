@@ -1,4 +1,36 @@
-{{define "footer"}}
+{{if .IsDocs}}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="/static/js/tablesort.js"></script>
+<script src="/static/js/waypoints.js"></script>
+<script src="/static/js/semantic.min.js"></script>
+<script src="/static/js/semantic.js"></script>
+<script src="/static/js/home.js"></script>
+
+<div class="ui divider"></div>
+
+<div class="ui divided horizontal footer link list">
+    <div class="item">Copyright © beego 2012-2013</div>
+    <a href="https://github.com/astaxie/beego" class="item">Github</a>
+
+    <div class="item">
+        UI based on <a href="http://semantic-ui.com/" target="_blank">Semantic UI</a>
+    </div>
+
+    <div class="item">
+        <strong>{{i18n .Lang "lang option"}}</strong>
+        {{$keyword := .Keyword}}
+        {{range .RestLangs}}
+        <a href="?lang={{.Lang}}&q={{$keyword}}">{{.Name}}</a>
+        {{end}}
+    </div>
+
+    {{if eq .Lang "zh-CN"}}
+    <div class="item">
+        <a href="/donate">捐赠我们</a>
+    </div>
+    {{end}}
+</div>
+{{else}}
 <div class="footer-landscape">
     <div class="footer-landscape-image">
         <!-- footer -->
@@ -37,44 +69,8 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/jquery.scrollTo-min.js"></script>
-{{template "static_file" .}}
 {{end}}
-
-{{define "footer_docs"}}
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="/static/js/tablesort.js"></script>
-<script src="/static/js/waypoints.js"></script>
-<script src="/static/js/semantic.min.js"></script>
-<script src="/static/js/semantic.js"></script>
-<script src="/static/js/home.js"></script>
-
-<div class="ui divider"></div>
-
-<div class="ui divided horizontal footer link list">
-    <div class="item">Copyright © beego 2012-2013</div>
-    <a href="https://github.com/astaxie/beego" class="item">Github</a>
-
-    <div class="item">
-        UI based on <a href="http://semantic-ui.com/" target="_blank">Semantic UI</a>
-    </div>
-
-    <div class="item">
-        <strong>{{i18n .Lang "lang option"}}</strong>
-        {{$keyword := .Keyword}}
-        {{range .RestLangs}}
-        <a href="?lang={{.Lang}}&q={{$keyword}}">{{.Name}}</a>
-        {{end}}
-    </div>
-
-    {{if eq .Lang "zh-CN"}}
-    <div class="item">
-        <a href="/donate">捐赠我们</a>
-    </div>
-    {{end}}
-</div>
 {{template "static_file" .}}
-{{end}}
 
 {{define "static_file"}}
 {{if .IsHome}}

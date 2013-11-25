@@ -281,21 +281,6 @@ footer .ligaturesymbols a,
   width: 950px;
   height: 200px;
 }
-.primary-action-button,
-.secondary-action-button {
-  border-radius: 0px;
-  padding: 17px 30px 17px 30px ;
-  background: #394d54;
-}
-.primary-action-button:hover {
-  background: #333333 !important;
-}
-.secondary-action-button {
-  background: #628591;
-}
-.secondary-action-button:hover {
-  background: #7e9da8;
-}
 button:hover {
   background-color: white;
 }

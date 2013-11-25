@@ -1,19 +1,16 @@
-{{template "header" .}}
-		<title>{{.Title}} - beego: {{i18n .Lang "app_intro"}}</title>
-	</head>	
+{{template "base/base.html" .}}
+{{define "head"}}
+<title>{{.Title}} - beego: {{i18n .Lang "app_intro"}}</title>
+{{end}}
+{{define "body"}}
+<div class="container">
+	<div class="page-header">
+	    <h1>
+	    	{{.Title}}
+	    	<a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{.Section}}.md" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "improve doc on github"}}</a>
+	    </h1>
+	</div>
 
-	<body>
-		{{template "navbar" .}}
-		<div class="container">
-			<div class="page-header">
-			    <h1>
-			    	{{.Title}}
-			    	<a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{.Section}}.md" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "improve doc on github"}}</a>
-			    </h1>
-			</div>
-
-			<div id="markdown" class="markdown span12">{{.Data | str2html}}</div>
-		</div>
-		{{template "footer" .}}
-	</body>
-</html>
+	<div id="markdown" class="markdown span12">{{.Data | str2html}}</div>
+</div>
+{{end}}
