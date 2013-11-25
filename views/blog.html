@@ -1,0 +1,15 @@
+{{template "base/base.html" .}}
+{{define "head"}}
+<title>{{.Title}} - beego: {{i18n .Lang "app_intro"}}</title>
+{{end}}
+{{define "body"}}
+<div class="container">
+	<div class="page-header">
+	    <h1>
+	    	{{.Title}}
+	    </h1>
+	</div>
+
+	<div id="markdown" class="markdown span12">{{.Data | str2html}}</div>
+</div>
+{{end}}

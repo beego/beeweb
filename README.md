@@ -48,4 +48,3 @@ This project can be easily transferred as your own documentation site, there are
 
 	- This file saves the file tree(with file name and commit) of your project that is hosted in GitHub. About how to use documentation project please see [beedoc](http://github.com/beego/beedoc). Note that if you added new section to documentation list and you do not want to wait auto-refresh, simple delete this file and restart.
 	- To change the documentation project URL, you need to change it in function `checkDocUpdates` in file `models/models.go`.
-- For debug purpose, there are 3 lines of code in `models/models.go -> InitModels()` commented in order to save API calls.

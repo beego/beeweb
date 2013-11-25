@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	APP_VER = "0.5.7.1124"
+	APP_VER = "0.6.0.1125"
 )
 
 // We have to call a initialize function manully
@@ -38,6 +38,7 @@ func initialize() {
 
 	// Set App version and log level.
 	beego.AppName = models.Cfg.MustValue("beego", "app_name")
+	beego.RunMode = models.Cfg.MustValue("beego", "run_mode")
 	beego.HttpPort = models.Cfg.MustInt("beego", "http_port_"+beego.RunMode)
 
 	routers.IsPro = beego.RunMode == "pro"
@@ -59,6 +60,8 @@ func main() {
 	beego.Router("/quickstart", &routers.QuickStartRouter{})
 	beego.Router("/docs", &routers.DocsRouter{})
 	beego.Router("/docs/:all", &routers.DocsRouter{})
+	beego.Router("/blog", &routers.BlogRouter{})
+	beego.Router("/blog/:all", &routers.BlogRouter{})
 	beego.Router("/samples", &routers.SamplesRouter{})
 	beego.Router("/samples/:all", &routers.SamplesRouter{})
 	beego.Router("/donate", &routers.DonateRouter{})

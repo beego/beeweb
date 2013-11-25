@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -70,14 +71,20 @@ var docTree struct {
 	Tree []docNode
 }
 
+var blogTree struct {
+	Tree []docNode
+}
+
 type docFile struct {
 	Title string
 	Data  []byte
 }
 
 var (
-	docLock *sync.RWMutex
-	docMap  map[string]*docFile
+	docLock  *sync.RWMutex
+	blogLock *sync.RWMutex
+	docMap   map[string]*docFile
+	blogMap  map[string]*docFile
 )
 
 var githubCred string
@@ -101,31 +108,38 @@ func InitModels() {
 		Cfg.MustValue("github", "client_secret"))
 
 	docLock = new(sync.RWMutex)
+	blogLock = new(sync.RWMutex)
 
-	// Load documentation.
-	initDocMap()
+	initMaps()
 
-	beego.RunMode = Cfg.MustValue("beego", "run_mode")
 	// ATTENTION: you'd better comment following code when developing.
-	if beego.RunMode == "pro" {
+	if needCheckUpdate() {
 		// Start check ticker.
 		checkTicker = time.NewTicker(5 * time.Minute)
 		go checkTickerTimer(checkTicker.C)
 
-		checkDocUpdates()
+		checkFileUpdates()
+
+		Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
+		goconfig.SaveConfigFile(Cfg, _CFG_PATH)
 	}
 }
 
-func initDocMap() {
-	if !com.IsFile(_NAV_TREE_PATH) {
-		beego.Critical(_NAV_TREE_PATH, "does not exist")
-		return
+func needCheckUpdate() bool {
+	// Does not have record for check update.
+	stamp, err := Cfg.Int64("app", "update_check_time")
+	if err != nil {
+		return true
 	}
 
+	return time.Unix(stamp, 0).Add(5 * time.Minute).Before(time.Now())
+}
+
+func initDocMap() {
 	// Load navTree.json
 	fn, err := os.Open(_NAV_TREE_PATH)
 	if err != nil {
-		beego.Error("models.init -> load navTree.json:", err.Error())
+		beego.Error("models.initDocMap -> load navTree.json:", err.Error())
 		return
 	}
 	defer fn.Close()
@@ -133,7 +147,7 @@ func initDocMap() {
 	d := json.NewDecoder(fn)
 	err = d.Decode(&navTree)
 	if err != nil {
-		beego.Error("models.init -> decode navTree.json:", err.Error())
+		beego.Error("models.initDocMap -> decode navTree.json:", err.Error())
 		return
 	}
 
@@ -162,7 +176,7 @@ func initDocMap() {
 	if isConfExist {
 		f, err := os.Open("conf/docTree.json")
 		if err != nil {
-			beego.Error("models.init -> load data:", err.Error())
+			beego.Error("models.initDocMap -> load data:", err.Error())
 			return
 		}
 		defer f.Close()
@@ -170,7 +184,7 @@ func initDocMap() {
 		d := json.NewDecoder(f)
 		err = d.Decode(&docTree)
 		if err != nil {
-			beego.Error("models.init -> decode data:", err.Error())
+			beego.Error("models.initDocMap -> decode data:", err.Error())
 			return
 		}
 	} else {
@@ -197,16 +211,61 @@ func initDocMap() {
 				fullName = l + "/" + v.Path
 			}
 
-			docMap[fullName] = getDoc(fullName)
+			docMap[fullName] = getFile("docs/" + fullName)
 		}
 	}
 }
 
-// loadDoc returns []byte of file data by given path.
-func loadDoc(path string) ([]byte, error) {
-	f, err := os.Open("docs/" + path)
+func initBlogMap() {
+	os.Mkdir("blog", os.ModePerm)
+	langs := strings.Split(Cfg.MustValue("lang", "types"), "|")
+	for _, l := range langs {
+		os.Mkdir("blog/"+l, os.ModePerm)
+	}
+
+	if !com.IsFile("conf/blogTree.json") {
+		beego.Error("models.initBlogMap -> conf/blogTree.json does not exist")
+		return
+	}
+
+	f, err := os.Open("conf/blogTree.json")
 	if err != nil {
-		return []byte(""), errors.New("Fail to open documentation file: " + err.Error())
+		beego.Error("models.initBlogMap -> load data:", err.Error())
+		return
+	}
+	defer f.Close()
+
+	d := json.NewDecoder(f)
+	err = d.Decode(&blogTree)
+	if err != nil {
+		beego.Error("models.initBlogMap -> decode data:", err.Error())
+		return
+	}
+
+	blogLock.Lock()
+	defer blogLock.Unlock()
+
+	blogMap = make(map[string]*docFile)
+	for _, v := range blogTree.Tree {
+		blogMap[v.Path] = getFile("blog/" + v.Path)
+	}
+}
+
+func initMaps() {
+	if !com.IsFile(_NAV_TREE_PATH) {
+		beego.Critical(_NAV_TREE_PATH, "does not exist")
+		return
+	}
+
+	initDocMap()
+	initBlogMap()
+}
+
+// loadFile returns []byte of file data by given path.
+func loadFile(filePath string) ([]byte, error) {
+	f, err := os.Open(filePath)
+	if err != nil {
+		return []byte(""), errors.New("Fail to open file: " + err.Error())
 	}
 
 	fi, err := f.Stat()
@@ -223,40 +282,54 @@ func markdown(raw []byte) (out []byte) {
 	return blackfriday.MarkdownCommon(raw)
 }
 
-func getDoc(fullName string) *docFile {
+func getFile(filePath string) *docFile {
 	df := &docFile{}
-	d, err := loadDoc(fullName + ".md")
+	p, err := loadFile(filePath + ".md")
 	if err != nil {
-		df.Data = []byte(err.Error())
-	} else {
-		s := string(d)
-		i := strings.Index(s, "\n")
-		if i > -1 {
-			// Has title.
-			df.Title = strings.TrimSpace(
-				strings.Replace(s[:i+1], "#", "", -1))
-			df.Data = []byte(strings.TrimSpace(s[i+2:]))
-		} else {
-			df.Data = d
-		}
-
-		df.Data = markdown(df.Data)
+		beego.Error("models.getFile -> ", err)
+		return nil
 	}
 
+	// Parse and render.
+	s := string(p)
+	i := strings.Index(s, "\n")
+	if i > -1 {
+		// Has title.
+		df.Title = strings.TrimSpace(
+			strings.Replace(s[:i+1], "#", "", -1))
+		df.Data = []byte(strings.TrimSpace(s[i+2:]))
+	} else {
+		df.Data = p
+	}
+
+	df.Data = markdown(df.Data)
 	return df
 }
 
 // GetDoc returns 'docFile' by given name and language version.
-func GetDoc(path, lang string) *docFile {
-	docLock.RLock()
-	defer docLock.RUnlock()
-
-	fullName := lang + "/" + path
+func GetDoc(fullName, lang string) *docFile {
+	filePath := "docs/" + lang + "/" + fullName
 
 	if beego.RunMode == "dev" {
-		return getDoc(fullName)
+		return getFile(filePath)
 	}
-	return docMap[fullName]
+
+	docLock.RLock()
+	defer docLock.RUnlock()
+	return docMap[filePath]
+}
+
+// GetBlog returns 'docFile' by given name and language version.
+func GetBlog(fullName, lang string) *docFile {
+	filePath := "blog/" + lang + "/" + fullName
+
+	if beego.RunMode == "dev" {
+		return getFile(filePath)
+	}
+
+	blogLock.RLock()
+	defer blogLock.RUnlock()
+	return blogMap[filePath]
 }
 
 var checkTicker *time.Ticker
@@ -264,7 +337,7 @@ var checkTicker *time.Ticker
 func checkTickerTimer(checkChan <-chan time.Time) {
 	for {
 		<-checkChan
-		checkDocUpdates()
+		checkFileUpdates()
 	}
 }
 
@@ -290,79 +363,110 @@ func (rf *rawFile) SetData(p []byte) {
 	rf.data = p
 }
 
-func checkDocUpdates() {
-	beego.Trace("Checking documentation updates")
+func checkFileUpdates() {
+	beego.Trace("Checking file updates")
 
-	var tmpTree struct {
-		Tree []*docNode
-	}
-	err := com.HttpGetJSON(httpClient, "https://api.github.com/repos/beego/beedoc/git/trees/master?recursive=1&"+githubCred, &tmpTree)
-	if err != nil {
-		beego.Error("models.checkDocUpdates -> get trees:", err.Error())
-		return
+	type tree struct {
+		ApiUrl, RawUrl, TreeName, Prefix string
 	}
 
-	// Compare SHA.
-	files := make([]com.RawFile, 0, len(tmpTree.Tree))
-	for _, node := range tmpTree.Tree {
-		// Skip non-md files and "README.MD".
-		if !strings.HasSuffix(node.Path, ".md") || node.Path == "README.md" {
-			continue
+	var trees = []*tree{
+		{
+			ApiUrl:   "https://api.github.com/repos/beego/beedoc/git/trees/master?recursive=1&" + githubCred,
+			RawUrl:   "https://raw.github.com/beego/beedoc/master/",
+			TreeName: "conf/docTree.json",
+			Prefix:   "docs/",
+		},
+		{
+			ApiUrl:   "https://api.github.com/repos/beego/beeblog/git/trees/master?recursive=1&" + githubCred,
+			RawUrl:   "https://raw.github.com/beego/beeblog/master/",
+			TreeName: "conf/blogTree.json",
+			Prefix:   "blog/",
+		},
+	}
+
+	for _, tree := range trees {
+		var tmpTree struct {
+			Tree []*docNode
 		}
 
-		// Trim ".md".
-		name := node.Path[:len(node.Path)-3]
-		if checkSHA(name, node.Sha) {
-			beego.Info("Need to update:", name)
-			files = append(files, &rawFile{
-				name:   name,
-				rawURL: "https://raw.github.com/beego/beedoc/master/" + node.Path,
+		err := com.HttpGetJSON(httpClient, tree.ApiUrl, &tmpTree)
+		if err != nil {
+			beego.Error("models.checkFileUpdates -> get trees:", err.Error())
+			return
+		}
+
+		var saveTree struct {
+			Tree []*docNode
+		}
+		saveTree.Tree = make([]*docNode, 0, len(tmpTree.Tree))
+
+		// Compare SHA.
+		files := make([]com.RawFile, 0, len(tmpTree.Tree))
+		for _, node := range tmpTree.Tree {
+			// Skip non-md files and "README.md".
+			if !strings.HasSuffix(node.Path, ".md") || node.Path == "README.md" {
+				continue
+			}
+
+			// Trim ".md".
+			name := node.Path[:len(node.Path)-3]
+			if checkSHA(name, node.Sha) {
+				beego.Info("Need to update:", name)
+				files = append(files, &rawFile{
+					name:   name,
+					rawURL: tree.RawUrl + node.Path,
+				})
+			}
+
+			saveTree.Tree = append(saveTree.Tree, &docNode{
+				Path: name,
+				Sha:  node.Sha,
 			})
+			// For save purpose, reset name.
+			node.Path = name
 		}
 
-		// For save purpose, reset name.
-		node.Path = name
-	}
-
-	// Fetch files.
-	if err := com.FetchFiles(httpClient, files, nil); err != nil {
-		beego.Error("models.checkDocUpdates -> fetch files:", err.Error())
-		return
-	}
-
-	// Update data.
-	for _, f := range files {
-		fw, err := os.Create("docs/" + f.Name() + ".md")
-		if err != nil {
-			beego.Error("models.checkDocUpdates -> open file:", err.Error())
+		// Fetch files.
+		if err := com.FetchFiles(httpClient, files, nil); err != nil {
+			beego.Error("models.checkFileUpdates -> fetch files:", err.Error())
 			return
 		}
 
-		_, err = fw.Write(f.Data())
-		fw.Close()
+		// Update data.
+		for _, f := range files {
+			fw, err := os.Create(tree.Prefix + f.Name() + ".md")
+			if err != nil {
+				beego.Error("models.checkFileUpdates -> open file:", err.Error())
+				continue
+			}
+
+			_, err = fw.Write(f.Data())
+			fw.Close()
+			if err != nil {
+				beego.Error("models.checkFileUpdates -> write data:", err.Error())
+				continue
+			}
+		}
+
+		// Save documentation information.
+		f, err := os.Create(tree.TreeName)
 		if err != nil {
-			beego.Error("models.checkDocUpdates -> write data:", err.Error())
+			beego.Error("models.checkFileUpdates -> save data:", err.Error())
 			return
 		}
+
+		e := json.NewEncoder(f)
+		err = e.Encode(&saveTree)
+		if err != nil {
+			beego.Error("models.checkFileUpdates -> encode data:", err.Error())
+			return
+		}
+		f.Close()
 	}
 
-	beego.Trace("Finish check documentation updates")
-	initDocMap()
-
-	// Save documentation information.
-	f, err := os.Create("conf/docTree.json")
-	if err != nil {
-		beego.Error("models.checkDocUpdates -> save data:", err.Error())
-		return
-	}
-	defer f.Close()
-
-	e := json.NewEncoder(f)
-	err = e.Encode(&tmpTree)
-	if err != nil {
-		beego.Error("models.checkDocUpdates -> encode data:", err.Error())
-		return
-	}
+	beego.Trace("Finish check file updates")
+	initMaps()
 }
 
 // checkSHA returns true if the documentation file need to update.
