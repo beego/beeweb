@@ -415,7 +415,7 @@ func checkFileUpdates() {
 
 			// Trim ".md".
 			name := node.Path[:len(node.Path)-3]
-			if checkSHA(name, node.Sha) {
+			if checkSHA(name, node.Sha, tree.Prefix) {
 				beego.Info("Need to update:", name)
 				files = append(files, &rawFile{
 					name:   name,
@@ -474,8 +474,18 @@ func checkFileUpdates() {
 }
 
 // checkSHA returns true if the documentation file need to update.
-func checkSHA(name, sha string) bool {
-	for _, v := range docTree.Tree {
+func checkSHA(name, sha, prefix string) bool {
+	var tree struct {
+		Tree []docNode
+	}
+
+	if prefix == "docs/" {
+		tree = docTree
+	} else {
+		tree = blogTree
+	}
+
+	for _, v := range tree.Tree {
 		if v.Path == name {
 			// Found.
 			if v.Sha != sha {
