@@ -7,6 +7,12 @@
 			]
 		},
 		{
+			"name": "Samples",
+			"nodes": [
+				"WebIM"
+			]
+		},
+		{
 			"name": "Controllers",
 			"nodes": [
 				"Overview", "Routing", "Parameters", "Filters", "Validation", "Session", "Cache", "XSRF", "SafeMap"
