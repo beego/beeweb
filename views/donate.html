@@ -8,6 +8,7 @@
 	    <h1>{{.Title}}</h1>
 	</div>
 
-	<div id="markdown" class="markdown span12" style="max-height: 1100px; overflow: hidden; overflow-y: auto;">{{.Data | str2html}}</div>
+	 <!-- style="max-height: 1100px; overflow: hidden; overflow-y: auto;" -->
+	<div id="markdown" class="markdown span12">{{.Data | str2html}}</div>
 </div>
 {{end}}
