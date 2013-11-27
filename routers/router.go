@@ -111,7 +111,7 @@ func (this *baseRouter) setLangVer() bool {
 		}
 	}
 
-	// 4. DefaucurLang language is English.
+	// 4. Default language is English.
 	if len(lang) == 0 {
 		lang = "en-US"
 		isNeedRedir = false

@@ -112,12 +112,12 @@ func InitModels() {
 
 	initMaps()
 
+	// Start check ticker.
+	checkTicker = time.NewTicker(5 * time.Minute)
+	go checkTickerTimer(checkTicker.C)
+
 	// ATTENTION: you'd better comment following code when developing.
 	if needCheckUpdate() {
-		// Start check ticker.
-		checkTicker = time.NewTicker(5 * time.Minute)
-		go checkTickerTimer(checkTicker.C)
-
 		checkFileUpdates()
 
 		Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
