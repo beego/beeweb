@@ -23,6 +23,10 @@ p a {
 .brand.logo a {
   color: white;
 }
+.brand .logo img {
+  height: 69px;
+  margin-top: -5px;
+}
 .navbar .nav li a {
   padding: 25px 20px 25px;
 }
@@ -192,6 +196,7 @@ footer .ligaturesymbols a,
  For the homepage
 ****************************** */
 .shortintro {
+  padding-left: 10px;
   font-size: 16px;
   color: rgb(204, 104, 204);
 }
