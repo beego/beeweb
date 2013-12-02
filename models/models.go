@@ -18,6 +18,7 @@ package models
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -102,6 +103,9 @@ func InitModels() {
 	Cfg, err = goconfig.LoadConfigFile(_CFG_PATH)
 	if err == nil {
 		beego.Info("Initialize app.ini")
+	} else {
+		fmt.Println(err)
+		os.Exit(2)
 	}
 
 	setGithubCredentials(Cfg.MustValue("github", "client_id"),
