@@ -58,7 +58,7 @@ func main() {
 
 	beego.Info(beego.AppName, APP_VER)
 
-	beego.SetStaticPath("/docs/images/", "docs/images/")
+	beego.AddFilter("/docs/images/:all", "BeforeRouter", routers.DocsStatic)
 
 	// Register routers.
 	beego.Router("/", &routers.HomeRouter{})

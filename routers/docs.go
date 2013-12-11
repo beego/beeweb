@@ -15,6 +15,11 @@
 package routers
 
 import (
+	"net/http"
+
+	"github.com/astaxie/beego/context"
+	"github.com/beego/i18n"
+
 	"github.com/beego/beeweb/models"
 )
 
@@ -66,11 +71,13 @@ func (this *DocsRouter) Get() {
 	this.Data["Data"] = doc.GetContent()
 }
 
-func getSection(name string) *models.Section {
-	for _, sec := range models.TplTree.Sections {
-		if sec.Name == name {
-			return &sec
+func DocsStatic(ctx *context.Context) {
+	uri := ctx.Input.Params[":all"]
+	if len(uri) > 0 {
+		lang := ctx.GetCookie("lang")
+		if !i18n.IsExist(lang) {
+			lang = "en-US"
 		}
+		http.ServeFile(ctx.ResponseWriter, ctx.Request, "docs/"+lang+"/"+"images/"+uri)
 	}
-	return nil
 }
