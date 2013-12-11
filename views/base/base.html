@@ -4,10 +4,15 @@
 		{{template "base/head.html" .}}
 		{{template "head" .}}
 	</head>
-	<body {{if .IsDocs}}id="example" class="index left pushed"{{end}}>
+	<body id="front">
 		<noscript>{{i18n .Lang "enable_js_prompt"}}</noscript>
-		{{template "base/navbar.html" .}}
-		{{template "body" .}}
+		<div id="wrapper">
+			{{template "base/navbar.html" .}}
+			<div id="main">
+				{{template "body" .}}
+		    </div>
+		    <div class="wrapper-push"></div>
+		</div>
 		{{template "base/footer.html" .}}
 	</body>
 </html>

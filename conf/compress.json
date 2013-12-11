@@ -1,0 +1,86 @@
+{
+    "Js": {
+        "SrcPath": "static_source/js",
+        "DistPath": "static/js",
+        "SrcURL": "static_source/js",
+        "DistURL": "static/js",
+        "Groups": {
+            "lib": {
+                "DistFile": "lib.min.js",
+                "SourceFiles": [
+                    "jquery.min.js",
+                    "jquery.extend.js",
+                    "bootstrap.js",
+                    "lib.min.js",
+                    "prettify.js",
+                    "jStorage.js",
+                    "jquery.jpanelmenu.min.js",
+                    "jRespond.min.js",
+                    "jquery.clingify.min.js"
+                ],
+                "SkipFiles": [
+                    "jquery.min.js",
+                    "lib.min.js",
+                    "prettify.js",
+                    "jquery.jpanelmenu.min.js",
+                    "jRespond.min.js",
+                    "jquery.clingify.min.js"
+                ]
+            },
+            "app": {
+                "DistFile": "app.min.js",
+                "SourceFiles": [
+                    "main.js"
+                ]
+            },
+            "ie9": {
+                "DistFile": "ie9.min.js",
+                "SourceFiles": [
+                    "html5shiv.js",
+                    "respond.min.js"
+                ]
+            }
+        }
+    },
+    "Css": {
+        "SrcPath": "static_source/css",
+        "DistPath": "static/css",
+        "SrcURL": "static_source/css",
+        "DistURL": "static/css",
+        "Groups": {
+            "lib": {
+                "DistFile": "lib.min.css",
+                "SourceFiles": [
+                    "bootstrap.css",
+                    "bootstrap-theme.css",
+                    "font-awesome.min.css",
+                    "prettify.css",
+                    "select2.css"
+                ],
+                "SkipFiles": [
+                    "font-awesome.min.css",
+                    "select2.css"
+                ]
+            },
+            "ie7": {
+                "Name": "ie7",
+                "DistFile": "ie7.min.css",
+                "SourceFiles": [
+                    "font-awesome-ie7.min.css"
+                ],
+                "SkipFiles": [
+                    "font-awesome-ie7.min.css"
+                ]
+            },
+            "app": {
+                "Name": "app",
+                "DistFile": "app.min.css",
+                "SourceFiles": [
+                    "base.css",
+                    "markdown.css",
+                    "main.css"
+                ]
+            }
+        }
+    }
+}

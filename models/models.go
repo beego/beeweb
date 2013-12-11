@@ -20,7 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"strconv"
+	// "strconv"
 	"strings"
 	"sync"
 	"time"
@@ -37,6 +37,8 @@ const (
 )
 
 var Cfg *goconfig.ConfigFile
+
+var docs = make(map[string]*DocRoot)
 
 type navNode struct {
 	Name  string
@@ -62,18 +64,18 @@ var TplTree struct {
 	Sections []Section
 }
 
-type docNode struct {
+type oldDocNode struct {
 	Sha  string
 	Path string
 }
 
 // docTree descriables a documentation file structure tree.
 var docTree struct {
-	Tree []docNode
+	Tree []oldDocNode
 }
 
 var blogTree struct {
-	Tree []docNode
+	Tree []oldDocNode
 }
 
 type docFile struct {
@@ -92,6 +94,10 @@ var githubCred string
 
 func setGithubCredentials(id, secret string) {
 	githubCred = "client_id=" + id + "&client_secret=" + secret
+}
+
+func GetDocByLocale(lang string) *DocRoot {
+	return docs[lang]
 }
 
 func InitModels() {
@@ -114,19 +120,33 @@ func InitModels() {
 	docLock = new(sync.RWMutex)
 	blogLock = new(sync.RWMutex)
 
-	initMaps()
+	root, err := ParseDocs("docs/zh-CN")
+	if err != nil {
+		beego.Error(err)
+	}
+
+	docs["zh-CN"] = root
+
+	root, err = ParseDocs("docs/en-US")
+	if err != nil {
+		beego.Error(err)
+	}
+
+	docs["en-US"] = root
+
+	// initMaps()
 
 	// Start check ticker.
-	checkTicker = time.NewTicker(5 * time.Minute)
-	go checkTickerTimer(checkTicker.C)
+	// checkTicker = time.NewTicker(5 * time.Minute)
+	// go checkTickerTimer(checkTicker.C)
 
 	// ATTENTION: you'd better comment following code when developing.
-	if needCheckUpdate() {
-		checkFileUpdates()
+	// if needCheckUpdate() {
+	// checkFileUpdates()
 
-		Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
-		goconfig.SaveConfigFile(Cfg, _CFG_PATH)
-	}
+	// Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
+	// goconfig.SaveConfigFile(Cfg, _CFG_PATH)
+	// }
 }
 
 func needCheckUpdate() bool {
@@ -198,7 +218,7 @@ func initDocMap() {
 	} else {
 		// Generate 'docTree'.
 		for _, v := range docNames {
-			docTree.Tree = append(docTree.Tree, docNode{Path: v})
+			docTree.Tree = append(docTree.Tree, oldDocNode{Path: v})
 		}
 	}
 
@@ -286,8 +306,30 @@ func loadFile(filePath string) ([]byte, error) {
 	return d, nil
 }
 
-func markdown(raw []byte) (out []byte) {
-	return blackfriday.MarkdownCommon(raw)
+func markdown(raw []byte) []byte {
+	htmlFlags := 0
+	htmlFlags |= blackfriday.HTML_USE_XHTML
+	htmlFlags |= blackfriday.HTML_USE_SMARTYPANTS
+	htmlFlags |= blackfriday.HTML_SMARTYPANTS_FRACTIONS
+	htmlFlags |= blackfriday.HTML_SMARTYPANTS_LATEX_DASHES
+	htmlFlags |= blackfriday.HTML_GITHUB_BLOCKCODE
+	htmlFlags |= blackfriday.HTML_OMIT_CONTENTS
+	htmlFlags |= blackfriday.HTML_COMPLETE_PAGE
+	renderer := blackfriday.HtmlRenderer(htmlFlags, "", "")
+
+	// set up the parser
+	extensions := 0
+	extensions |= blackfriday.EXTENSION_NO_INTRA_EMPHASIS
+	extensions |= blackfriday.EXTENSION_TABLES
+	extensions |= blackfriday.EXTENSION_FENCED_CODE
+	extensions |= blackfriday.EXTENSION_AUTOLINK
+	extensions |= blackfriday.EXTENSION_STRIKETHROUGH
+	extensions |= blackfriday.EXTENSION_HARD_LINE_BREAK
+	extensions |= blackfriday.EXTENSION_SPACE_HEADERS
+	extensions |= blackfriday.EXTENSION_NO_EMPTY_LINE_BEFORE_BLOCK
+
+	body := blackfriday.Markdown(raw, renderer, extensions)
+	return body
 }
 
 func getFile(filePath string) *docFile {
@@ -395,7 +437,7 @@ func checkFileUpdates() {
 
 	for _, tree := range trees {
 		var tmpTree struct {
-			Tree []*docNode
+			Tree []*oldDocNode
 		}
 
 		err := com.HttpGetJSON(httpClient, tree.ApiUrl, &tmpTree)
@@ -405,9 +447,9 @@ func checkFileUpdates() {
 		}
 
 		var saveTree struct {
-			Tree []*docNode
+			Tree []*oldDocNode
 		}
-		saveTree.Tree = make([]*docNode, 0, len(tmpTree.Tree))
+		saveTree.Tree = make([]*oldDocNode, 0, len(tmpTree.Tree))
 
 		// Compare SHA.
 		files := make([]com.RawFile, 0, len(tmpTree.Tree))
@@ -427,7 +469,7 @@ func checkFileUpdates() {
 				})
 			}
 
-			saveTree.Tree = append(saveTree.Tree, &docNode{
+			saveTree.Tree = append(saveTree.Tree, &oldDocNode{
 				Path: name,
 				Sha:  node.Sha,
 			})
@@ -480,7 +522,7 @@ func checkFileUpdates() {
 // checkSHA returns true if the documentation file need to update.
 func checkSHA(name, sha, prefix string) bool {
 	var tree struct {
-		Tree []docNode
+		Tree []oldDocNode
 	}
 
 	if prefix == "docs/" {

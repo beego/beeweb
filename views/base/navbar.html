@@ -1,22 +1,58 @@
-{{if not .IsDocs}}
-<div class="navbar navbar-static-top">
-    <div class="navbar-inner navbar-fixed-top ">
-        <div class="container">
-        	<div class="brand">
-	            <a class="logo" href="/">
-	            	<img src="/static/img/beego_logo2.png">
-	            </a>
-				<sub class="shortintro">{{i18n .Lang "app_intro"}}</sub>
-        	</div>
-
-            <ul class="nav pull-right">
-                <li {{if .IsHome}}class="active"{{end}}><a href="/">{{i18n .Lang "home"}}</a></li>
-                <li {{if .IsQuickStart}}class="active"{{end}}><a href="/quickstart">{{i18n .Lang "getting started"}}</a></li>
-                <li {{if .IsCommunity}}class="active"{{end}}><a href="/community">{{i18n .Lang "community"}}</a></li>
-                <li {{if .IsDocs}}class="active"{{end}}><a href="/docs">{{i18n .Lang "docs"}}</a></li>
-                <li {{if .IsBlog}}class="active"{{end}}><a href="/blog">{{i18n .Lang "blog"}}</a></li>
-            </ul>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container" data-toggle="clingify">
+        <div class="row">
+            <div class="navbar-header">
+                {{if .IsDocs}}
+                <span class="visible-xs">
+                    <a id="docs-collapse-btn" class="navbar-btn" data-toggle="jpanel-menu" data-target="#docs-collapse">
+                        <span class="sr-only">Toggle docs menu</span>
+                        <i class="icon icon-angle-right"></i>
+                    </a>
+                </span>
+                {{end}}
+                <a type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="hidden-xs logo" href="/">
+                    <img src="/static/img/bee.gif">
+                </a>
+                <div class="visible-xs text-center">
+                    <a class="navbar-brand" href="/">
+                        Beego
+                    </a>
+                    {{if not .IsHome}}
+                    <span class="nav-github">
+                        <span rel="show-github" data-user="astaxie" data-repo="beego"></span>
+                    </span>
+                    {{end}}
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" role="navigation" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li {{if .IsHome}}class="active"{{end}}><a href="/">{{i18n .Lang "home"}}</a></li>
+                    <li {{if .IsQuickStart}}class="active"{{end}}><a href="/quickstart">{{i18n .Lang "getting started"}}</a></li>
+                    <li {{if .IsCommunity}}class="active"{{end}}><a href="/community">{{i18n .Lang "community"}}</a></li>
+                    <li {{if .IsDocs}}class="active"{{end}}><a href="/docs/intro/">{{i18n .Lang "docs"}}</a></li>
+                    <li {{if .IsBlog}}class="active"{{end}}><a href="/blog">{{i18n .Lang "blog"}}</a></li>
+                </ul>
+                <div class="nav-lang pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-xs btn-default btn-md dropdown-toggle" data-toggle="dropdown">{{i18n .Lang "current_lang"}}{{i18n .Lang .Lang}} <i class="caret"></i></button>
+                        <ul class="dropdown-menu">
+                            {{range .RestLangs}}
+                                <li><a href="javascript::" data-lang="{{.Lang}}" class="lang-changed">{{i18n $.Lang .Name}}</a></li>
+                            {{end}}
+                        </ul>
+                    </div>
+                </div>
+                <div class="hidden-xs nav-github pull-right">
+                    <span rel="show-github" data-user="astaxie" data-repo="beego"></span>
+                    <span rel="show-github" data-user="astaxie" data-repo="beego" data-type="fork"></span>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-{{end}}
+</nav>

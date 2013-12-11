@@ -1,106 +1,58 @@
 {{template "base/base.html" .}}
-{{define "head"}}
+{{define "head"}}{{end}}
+{{define "meta"}}
 <title>{{i18n .Lang .Title}} - beego: {{i18n .Lang "app_intro"}}</title>
 {{end}}
+{{define "docs"}}
+    {{with .Doc}}
+        {{range .Docs}}
+            <ul class="list-unstyled">
+                {{if .Name}}
+                    {{ if .IsDir}}
+                        <li class="group">
+                            <div class="section">
+                            {{if .HasContent}}
+                                <a class="{{if eq $.root.Doc.Link .Link}}active{{end}} item" href="/docs/{{.Link}}">{{.Name}}</a>
+                            {{else}}
+                                {{.Name}}
+                            {{end}}
+                            </div>
+                            {{template "docs" dict "root" $.root "Doc" .}}
+                        </li>
+                    {{else}}
+                        <li><a class="{{if eq $.root.Doc.Link .Link}}active{{end}} item" href="/docs/{{.Link}}">{{.Name}}</a></li>
+                    {{end}}
+                {{end}}
+            </ul>
+        {{end}}
+    {{end}}
+{{end}}
 {{define "body"}}
-<div class="ui large vertical inverted labeled icon sidebar menu" id="menu"></a>
-    <a class="item" href="/">
-      <i class="inverted circular red awesome home icon"></i>
-      <b>{{i18n .Lang "home"}}</b>
-    </a>
-
-    {{template "docs_sidebar" .}}
-</div>
-
-<div class="ui fixed transparent inverted main menu">
-    <div class="container">
-        <a class="launch item"><i class="icon list layout"></i> {{i18n .Lang "Content"}}</a>
-        
-        {{$lang := .Lang}}
-        {{$node := .Node}}
-        {{$fullName := .FullName}}
-        {{with .Section}}
-        <div class="title item">
-            <b>beego:</b> {{i18n $lang .Name}}
-        </div>
-
-        <div class="section ui dropdown link item">
-            <span class="count">{{i18n $lang $fullName}}</span>
-
-            <div class="menu">
-                {{range .Nodes}}
-                <div class="{{if eq $node .Name}}active{{end}} item">
-                    <a href="/docs/{{.FullName}}">{{i18n $lang .FullName}}</a>
-                </div>
+<div class="container main-container">
+    <div class="row">
+        <div class="col-md-2 col-sm-3">
+            <div id="docs-collapse" class="collapse navbar-collapse docs-sidenav">
+                {{with .DocRoot.Doc}}
+                    {{if .HasContent}}
+                        <div class="section"><a class="{{if eq $.Doc.Link .Link}}active{{end}} item" href="/docs">{{.Name}}</a></div>
+                    {{end}}
+                    {{template "docs" dict "root" $ "Doc" .}}
                 {{end}}
             </div>
         </div>
-        {{end}}
-
-        <div class="right menu">
-            <div class="vertically fitted borderless item">
-                <iframe src="http://ghbtns.com/github-btn.html?user=astaxie&amp;repo=beego&amp;type=watch&amp;count=true"
-                        allowtransparency="true" frameborder="0" height="20" scrolling="0" width="95"></iframe>
-            </div>
-
-            <a class="popup icon github item" title="View project on Github" href="https://github.com/astaxie/beego">
-                <i class="icon github"></i>
-            </a>
-        </div>
-    </div>
-</div>
-
-<div style="width: 70px;" class="ui black huge launch right attached button">
-    <i class="icon list layout"></i>
-    <span style="display: none;" class="text">{{i18n .Lang "Menu"}}</span>
-</div>
-
-<div class="masthead segment">
-    <div class="ui page grid">
-        <div class="column">
-            <div class="introduction">
-                <h1 class="ui header">
-                    Beego {{i18n .Lang "Framework"}}
-                    <a class="ui black label" href="">0.9.9</a>
-                </h1>
-
-                <p>{{i18n .Lang "app_shortintro"}}.</p>
-                <!-- <a class="ui black large labeled launch icon button"><i class="icon list layout"></i> View Samples</a>
-                <a class="ui red large labeled icon button" href="http://semantic-ui.com/build/semantic.zip"><i class="awesome download cloud icon"></i> Download</a> -->
+        <div class="col-md-10 col-sm-9">
+            <div class="box">
+                <div class="cell slim page-box">
+                    <p>
+                        <a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{if .Doc.IsDir}}{{.Doc.FileRelPath}}{{else}}{{.Doc.RelPath}}{{end}}" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "improve doc on github"}}</a>
+                        <span class="clearfix"></span>
+                    </p>
+                    <div class="markdown docs-markdown">
+                        {{.Data|str2html}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="stripe">
-    <div class="ui page grid">
-        <div class="ui column">
-            <h1 class="ui header">
-                {{.Title}}
-                <a class="ui blue button" target="_blank" href="https://github.com/beego/beedoc/blob/master/{{.Lang}}/{{.FullName}}.md">{{i18n .Lang "improve doc on github"}}</a>
-            </h1>
-
-            <div id="markdown" class="markdown content">{{.Data | str2html}}</div>
-            {{template "disqus"}}
-        </div>
-    </div>
-</div>
-{{end}}
-
-{{define "docs_sidebar"}}
-{{$fullName := .FullName}}
-{{$lang := .Lang}}
-{{range .Sections}}
-<div class="item">
-    <a>
-        <b>{{i18n $lang .Name}}</b>
-    </a>
-
-    <div class="menu">
-        {{range .Nodes}}
-        <a class="{{if eq $fullName .FullName}}active{{end}} item" href="/docs/{{.FullName}}">{{i18n $lang .FullName}}</a>
-        {{end}}
-    </div>
-</div>
-{{end}}
 {{end}}

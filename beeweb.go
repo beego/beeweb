@@ -26,15 +26,16 @@ import (
 )
 
 const (
-	APP_VER = "0.6.0.1126"
+	APP_VER = "0.9.0.1211"
 )
 
 // We have to call a initialize function manully
 // because we use `bee bale` to pack static resources
 // and we cannot make sure that which init() execute first.
 func initialize() {
+	os.Setenv("TZ", "Asia/Shanghai")
+
 	models.InitModels()
-	routers.InitRouter()
 
 	// Set App version and log level.
 	beego.AppName = models.Cfg.MustValue("beego", "app_name")
@@ -47,24 +48,31 @@ func initialize() {
 		os.Mkdir("./log", os.ModePerm)
 		beego.BeeLogger.SetLogger("file", `{"filename": "log/log"}`)
 	}
+
+	routers.InitApp()
 }
 
 func main() {
+
 	initialize()
 
 	beego.Info(beego.AppName, APP_VER)
+
+	beego.SetStaticPath("/docs/images/", "docs/images/")
 
 	// Register routers.
 	beego.Router("/", &routers.HomeRouter{})
 	beego.Router("/community", &routers.CommunityRouter{})
 	beego.Router("/quickstart", &routers.QuickStartRouter{})
-	beego.Router("/docs", &routers.DocsRouter{})
+	beego.Router("/team", &routers.PageRouter{})
+	beego.Router("/about", &routers.AboutRouter{})
+	beego.Router("/donate", &routers.DonateRouter{})
+	beego.Router("/docs/", &routers.DocsRouter{})
 	beego.Router("/docs/:all", &routers.DocsRouter{})
 	beego.Router("/blog", &routers.BlogRouter{})
 	beego.Router("/blog/:all", &routers.BlogRouter{})
-	beego.Router("/samples", &routers.SamplesRouter{})
-	beego.Router("/samples/:all", &routers.SamplesRouter{})
-	beego.Router("/donate", &routers.DonateRouter{})
+	// beego.Router("/samples", &routers.SamplesRouter{})
+	// beego.Router("/samples/:all", &routers.SamplesRouter{})
 
 	// Register template functions.
 	beego.AddFuncMap("i18n", i18n.Tr)

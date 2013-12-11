@@ -17,11 +17,10 @@ package routers
 
 import (
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego"
 	"github.com/beego/i18n"
-
-	"github.com/beego/beeweb/models"
 )
 
 var (
@@ -36,27 +35,6 @@ type langType struct {
 	Lang, Name string
 }
 
-func InitRouter() {
-	// Initialized language type list.
-	langs := strings.Split(models.Cfg.MustValue("lang", "types"), "|")
-	names := strings.Split(models.Cfg.MustValue("lang", "names"), "|")
-	langTypes = make([]*langType, 0, len(langs))
-	for i, v := range langs {
-		langTypes = append(langTypes, &langType{
-			Lang: v,
-			Name: names[i],
-		})
-	}
-
-	for _, lang := range langs {
-		beego.Trace("Loading language: " + lang)
-		if err := i18n.SetMessage(lang, "conf/"+"locale_"+lang+".ini"); err != nil {
-			beego.Error("Fail to set message file: " + err.Error())
-			return
-		}
-	}
-}
-
 // baseRouter implemented global settings for all other routers.
 type baseRouter struct {
 	beego.Controller
@@ -68,6 +46,8 @@ func (this *baseRouter) Prepare() {
 	// Setting properties.
 	this.Data["AppVer"] = AppVer
 	this.Data["IsPro"] = IsPro
+
+	this.Data["PageStartTime"] = time.Now()
 
 	// Redirect to make URL clean.
 	if this.setLangVer() {

@@ -1,176 +1,38 @@
-{{if .IsDocs}}
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="/static/js/tablesort.js"></script>
-<script src="/static/js/waypoints.js"></script>
-<script src="/static/js/semantic.min.js"></script>
-<script src="/static/js/semantic.js"></script>
-<script src="/static/js/home.js"></script>
-
-<div class="ui divider"></div>
-
-<div class="ui divided horizontal footer link list">
-    <div class="item">Copyright © beego 2012-2013</div>
-    <a href="https://github.com/astaxie/beego" class="item">Github</a>
-
-    <div class="item">
-        UI based on <a href="http://semantic-ui.com/" target="_blank">Semantic UI</a>
-    </div>
-
-    <div class="item">
-        <strong>{{i18n .Lang "lang option"}}</strong>
-        {{$keyword := .Keyword}}
-        {{range .RestLangs}}
-        <a href="?lang={{.Lang}}&q={{$keyword}}">{{.Name}}</a>
-        {{end}}
-    </div>
-
-    {{if eq .Lang "zh-CN"}}
-    <div class="item">
-        <a href="/donate">捐赠我们</a>
-    </div>
-    {{end}}
-</div>
-{{else}}
-<div class="footer-landscape">
-    <div class="footer-landscape-image">
-        <!-- footer -->
-        <div class="container">
-            <div class="row">
-                <div class="span12 footer">
-                    <div class="span9 tbox">
-                        {{i18n .Lang "app_license" | str2html}}
-                        <strong>{{i18n .Lang "lang option"}}</strong>
-
-                        <div class="btn-group dropup">
-                            <button class="btn dropdown-toggle" data-toggle="dropdown">{{.CurLang}} <span
-                                    class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                {{$keyword := .Keyword}}
-                                {{range .RestLangs}}
-                                <li><a href="?lang={{.Lang}}&q={{$keyword}}">{{.Name}}</a></li>
-                                {{end}}
-                            </ul>
-                        </div>
-                        {{if eq .Lang "zh-CN"}}
+<footer id="footer">
+    <div class="container">
+        <div class="row footer-wrap">
+            <div class="col-md-12 desc">
+                <div class="pull-right">
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-default btn-md dropdown-toggle" data-toggle="dropdown">{{i18n .Lang "current_lang"}}{{i18n .Lang .Lang}} <i class="caret"></i></button>
+                        <ul class="dropdown-menu">
+                            {{range .RestLangs}}
+                                <li><a href="javascript::" data-lang="{{.Lang}}" class="lang-changed">{{i18n $.Lang .Name}}</a></li>
+                            {{end}}
+                        </ul>
+                    </div>
+                    {{if eq .Lang "zh-CN"}}
                         <a class="btn btn-success" href="/donate">捐赠我们</a>
-                        {{end}}
-                    </div>
-
-                    <div class="span3 tbox textright social links">
-                        <a class="twitter" href="https://twitter.com/xiemengjun">Twitter</a>
-                        <a class="github" href="https://github.com/astaxie/beego">GitHub</a>
-                    </div>
+                    {{end}}
                 </div>
+                
+                <p>
+                    <a href="/about"><strong>{{i18n .Lang "about"}}</strong></a>
+                    |
+                    <a href="/team"><strong>{{i18n .Lang "team"}}</strong></a>
+                    |
+                    <a target="_blank" href="https://github.com/astaxie/beego" target="_blank"><strong><i class="icon-github-sign"></i> Github</strong></a>
+                    - {{.PageStartTime|loadtimes}}ms.
+                </p>
+
+                <p>
+                    {{i18n .Lang "copyright"}} © 2012-2014 Beego {{i18n .Lang "app_license" | str2html}}
+                </p>
+
             </div>
         </div>
-        <!-- end of footer -->
     </div>
-</div>
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-{{end}}
-{{template "static_file" .}}
-
-{{define "static_file"}}
-{{if .IsHome}}
-<script type="text/javascript">
-    function moveRight() {
-        $('#tweets-container').scrollTo('+=620px', 300);
-    }
-    function moveLeft() {
-        $('#tweets-container').scrollTo('-=620px', 300);
-    }
-    function showLeftShadow() {
-        $('.tweet-navigator-left').addClass('shadow').show();
-    }
-
-    $('document').ready(function () {
-        $('.tweet-navigator-right').click(moveRight);
-        $('.tweet-navigator-left').click(moveLeft);
-
-        $('#tweets-container').scroll(showLeftShadow);
-    })
-</script>
-{{end}}
-
-{{if .IsHasMarkdown}}
-<script type="text/javascript" src="/static/js/highlight.pack.js"></script>
-<script type="text/javascript">
-    (function ($) {
-
-        var doc = $("#markdown");
-
-        // highlight
-        doc.find("code").each(function (k, e) {
-            var code = $(e);
-            if (code.attr("class") == undefined) {
-                code.attr("class", "no-highlight");
-            }
-            hljs.highlightBlock(code.get(0), hljs.tabReplace);
-        });
-
-        {{if .IsDonate}}
-        {{else}}
-        // Encode url.
-        doc.find("a").each(function () {
-            var node = $(this);
-            var link = node.attr("href");
-            var index = link.indexOf("#");
-            if (link.indexOf("http") == 0 && link.indexOf(window.location.hostname) == -1) {
-                return
-            }
-            if (index < 0 || index + 1 > link.length) {
-                return;
-            }
-            var val = link.substring(index + 1, link.length);
-            val = encodeURIComponent(decodeURIComponent(val).toLowerCase().replace(/\s+/g, "-"));
-            var end = index;
-            if (index - 3 > 0 && link.substring(index - 3, index) == ".md") {
-                end = index - 3;
-            }
-            ;
-            node.attr("href", link.substring(0, end) + "#" + val);
-        });
-
-        // Set anchor.
-        doc.find("h1, h2, h3, h4, h5, h6").each(function () {
-            var node = $(this);
-            if (node.hasClass("ui")) {
-                return;
-            }
-            var val = encodeURIComponent(node.text().toLowerCase().replace(/\s+/g, "-"));
-            node = node.wrap('<div id="' + val + '" class="anchor-wrap" ></div>');
-            node.append('<a class="anchor" href="#' + val + '"><span class="octicon octicon-link"></span></a>')
-        });
-
-        $('.accordion').on('show hide', function (n) {
-            $(n.target).siblings('.accordion-heading').find('i').toggleClass('fa-chevron-right fa-chevron-down');
-        });
-        {{end}}
-    })(jQuery);
-    $(function () {
-
-        if (($("#navlist").height() + 80) > $(window).height()) {
-            $("#navlist").css({"overflow-y": "scroll", "height": ($(window).height() - 100)})
-        } else {
-            $("#navlist").css({"overflow-y": "", "height": "auto"})
-        }
-
-        $.each(["resize"], function (i, v) {
-            $(window).on(v, function () {
-                if (($("#navlist").height() + 80) > $(window).height()) {
-                    $("#navlist").css({"overflow-y": "scroll", "height": ($(window).height() - 100)})
-                } else {
-                    $("#navlist").css({"overflow-y": "", "height": "auto"})
-                }
-
-            });
-
-        });
-    });
-</script>
-{{end}}
+</footer>
 
 {{if .IsPro}}
 <script>
@@ -190,4 +52,6 @@
     ga('send', 'pageview');
 </script>
 {{end}}
-{{end}}
+
+{{compress_js "lib"}}
+{{compress_js "app"}}

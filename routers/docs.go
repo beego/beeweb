@@ -15,8 +15,6 @@
 package routers
 
 import (
-	"strings"
-
 	"github.com/beego/beeweb/models"
 )
 
@@ -30,39 +28,42 @@ func (this *DocsRouter) Get() {
 	this.Data["IsDocs"] = true
 	this.TplNames = "docs.html"
 
-	reqUrl := this.Ctx.Request.URL.String()
-	fullName := reqUrl[strings.LastIndex(reqUrl, "/")+1:]
-	if qm := strings.Index(fullName, "?"); qm > -1 {
-		fullName = fullName[:qm]
-	}
+	dRoot := models.GetDocByLocale(this.Lang)
 
-	this.Data["Sections"] = models.TplTree.Sections
-
-	if fullName == "docs" {
-		this.Redirect("/docs/Overview_Introduction", 302)
+	if dRoot == nil {
+		this.Abort("404")
 		return
 	}
 
-	df := models.GetDoc(fullName, this.Lang)
-	if df == nil {
-		this.Redirect("/docs/Overview_Introduction", 302)
+	link := this.GetString(":all")
+	var doc *models.DocNode
+	if len(link) == 0 {
+		if dRoot.Doc.HasContent() {
+			doc = dRoot.Doc
+		} else {
+			this.Redirect("/docs/intro/", 302)
+			return
+		}
+	} else {
+		doc, _ = dRoot.GetNodeByLink(link)
+		if doc == nil {
+			doc, _ = dRoot.GetNodeByLink(link + "/")
+			if doc != nil {
+				this.Redirect("/docs/"+link+"/", 301)
+				return
+			}
+		}
+	}
+
+	if doc == nil {
+		this.Abort("404")
 		return
 	}
 
-	this.Data[fullName] = true
-
-	// Set showed section.
-	i := strings.Index(fullName, "_")
-	if i > -1 {
-		sec := fullName[:i]
-		node := fullName[i+1:]
-		this.Data["Section"] = getSection(sec)
-		this.Data["Node"] = node
-		this.Data["FullName"] = fullName
-	}
-	this.Data["Title"] = df.Title
-	this.Data["Data"] = string(df.Data)
-	this.Data["IsHasMarkdown"] = true
+	this.Data["DocRoot"] = dRoot
+	this.Data["Doc"] = doc
+	this.Data["Title"] = doc.Name
+	this.Data["Data"] = doc.GetContent()
 }
 
 func getSection(name string) *models.Section {

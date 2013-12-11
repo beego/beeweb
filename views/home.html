@@ -1,37 +1,157 @@
 {{template "base/base.html" .}}
-{{define "head"}}
-<title>{{i18n .Lang "homepage"}} - beego: {{i18n .Lang "app_intro"}}</title>
+{{define "meta"}}
+    <meta name="description" content="Beego Web is official blog and documentation website for beego app web framework" />
+    <meta name="keywords" content="Go, golang, beego, API documentation, blog, app web framework">
+    <title>{{i18n .Lang "homepage"}} - beego: {{i18n .Lang "app_intro"}}</title>
 {{end}}
+{{define "head"}}{{end}}
 {{define "body"}}
-<a target="_blank" href="https://github.com/astaxie/beego"><img style="position: absolute; top: 70; right: 0; border: 0; z-index: 22" src="/static/img/fork-us-on-github.png" alt="Fork us on GitHub"></a>
-
-<div>
-    <div id="top" class="main-banner">
-        <div class="text-center ">
-            <div class="copy-headline">
-                <h1>{{i18n .Lang "app_shortintro"}}</h1>
-                <img id="main-image" src="/static/img/bee.png" alt="beego Logo">
+<div class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title">
+                    Beego Framework
+                </div>
+                <div class="desc">
+                    {{i18n .Lang "home.beego_desc"}}
+                </div>
+                <div class="actions">
+                    <a href="/docs/intro/" class="btn btn-lg btn-info">{{i18n .Lang "learn more"}}</a>
+                    <a href="/quickstart" class="btn btn-lg btn-success">{{i18n .Lang "get started"}}</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="container">
-    <div class="row">
-        <div class="span12 text-center copy-introduction">
-            <p>{{i18n .Lang "app_fullintro" | str2html}}</p>
+    <div class="row home-box">
+        <div class="col-md-8">
+            <h2>{{i18n .Lang "home.quick_start"}}</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="markdown">
+                        {{if eq .Lang "zh-CN"}}
+                            <p>获取 Beego</p><pre lang="bash"><code>go get github.com/astaxie/beego</code></pre><p>创建文件 <code>hello.go</code></p><pre lang="go"><code>package main<br><br>import "github.com/astaxie/beego"<br><br>func main() {<br>    beego.Run()<br>}</code></pre>
+                        {{else}}
+                            <p>Get Beego</p><pre lang="bash"><code>go get github.com/astaxie/beego</code></pre><p>create file <code>hello.go</code></p><pre lang="go"><code>package main<br><br>import "github.com/astaxie/beego"<br><br>func main() {<br>    beego.Run()<br>}</code></pre>
+                        {{end}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="markdown">
+                        {{if eq .Lang "zh-CN"}}
+                            <p>编译运行</p><pre lang="bash"><code>go build hello.go<br>./hello</code></pre><p>打开浏览器</p><p>访问 <code>http://localhost:8080</code></p><p>Beego 已经正常运行.</p><p>你可以进一步的学习了.</p>
+                        {{else}}
+                            <p>Build and run</p><pre lang="bash"><code>go build hello.go<br>./hello</code></pre><p>Open your browser</p><p>Access <code>http://localhost:8080</code></p><p>Now, beego server run as you wish.</p><p>You can go further.</p>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="home-box">
+                <h2>{{i18n .Lang "home.further_reading"}}</h2>
+                <div class="well markdown">
+                    <ul class="list-unstyled">
+                        {{if eq .Lang "zh-CN"}}
+                            <li><i class="icon-angle-right"></i> <a href="/docs/Controllers_Overview">Router and Controller</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/Models_Overview">Orm Usage</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/Views_Templates">Template Usage</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/Samples_WebIM">Beego Samples</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="#">Optional Advanced Modules</a></li>
+                        {{else}}
+                            <li><i class="icon-angle-right"></i> <a href="/docs/Controllers_Overview">Router and Controller</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/Models_Overview">Orm Usage</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/Views_Templates">Template Usage</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/Samples_WebIM">Beego Samples</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="#">Optional Advanced Modules</a></li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="span12 text-center action-button">
-            <a href="/docs" class="btn btn-large btn-primary">{{i18n .Lang "learn more"}}</a>
-            <a href="/quickstart" class="btn btn-large btn-success">{{i18n .Lang "get started"}}</a>
+</div>
+<div class="container">
+    <div class="row home-box">
+        <div class="col-md-12">
+            <h2>{{i18n .Lang "home.features"}}</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature">
+                        <h3 class="title">
+                            {{if eq .Lang "zh-CN"}}
+                                No Hidden Cost
+                            {{else}}
+                                No Hidden Cost
+                            {{end}}
+                        </h3>
+                        <p class="content">
+                            {{if eq .Lang "zh-CN"}}
+                                No starting costs, no monthly fees, no kidding. Our cut is a low fixed percentage of incoming revenues.
+                            {{else}}
+                                No starting costs, no monthly fees, no kidding. Our cut is a low fixed percentage of incoming revenues.
+                            {{end}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature">
+                        <h3 class="title">
+                            {{if eq .Lang "zh-CN"}}
+                                Multiple Devices
+                            {{else}}
+                                Multiple Devices
+                            {{end}}
+                        </h3>
+                        <p class="content">
+                            {{if eq .Lang "zh-CN"}}
+                                With Pivotshare, your video streams instantaneously to the desktop, iOS, and Android using bleeding-edge tech to reduce buffering and maximize speed.
+                            {{else}}
+                                With Pivotshare, your video streams instantaneously to the desktop, iOS, and Android using bleeding-edge tech to reduce buffering and maximize speed.
+                            {{end}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature">
+                        <h3 class="title">
+                            {{if eq .Lang "zh-CN"}}
+                                We Handle Everything
+                            {{else}}
+                                We Handle Everything
+                            {{end}}
+                        </h3>
+                        <p class="content">
+                            {{if eq .Lang "zh-CN"}}
+                                Infrastructure, support, and payments are our job. All you need to do is add your content, choose your prices, and spread the word.
+                            {{else}}
+                                Infrastructure, support, and payments are our job. All you need to do is add your content, choose your prices, and spread the word.
+                            {{end}}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    {{template "tweets.html" .}}
-
-    <p>{{i18n .Lang "site_issue" | str2html}}</p>
+</div>
+<div class="container">
+    <div class="row home-box">
+        <div class="col-md-12">
+            <h2>{{i18n .Lang "home.who_are_use"}}</h2>
+            <div class="whouse">
+                <img class="img-thumbnail" src="/static/img/brands/360.png">
+                <img class="img-thumbnail" src="/static/img/brands/youdao.png">
+                <img class="img-thumbnail" src="/static/img/brands/weico.png">
+                <img class="img-thumbnail" src="/static/img/brands/weibo.png">
+                <img class="img-thumbnail" src="/static/img/brands/jd.png">
+                <img class="img-thumbnail" src="/static/img/brands/bmob.png">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+<!-- {{template "tweets.html" .}} -->
 </div>
 {{end}}
