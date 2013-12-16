@@ -32,18 +32,34 @@
                 <div class="col-md-6">
                     <div class="markdown">
                         {{if eq .Lang "zh-CN"}}
-                            <p>获取 Beego</p><pre lang="bash"><code>go get github.com/astaxie/beego</code></pre><p>创建文件 <code>hello.go</code></p><pre lang="go"><code>package main<br><br>import "github.com/astaxie/beego"<br><br>func main() {<br>    beego.Run()<br>}</code></pre>
+                            <p>下载安装</p>
+                            <pre lang="bash"><code>go get github.com/astaxie/beego</code></pre>
+                            <p>创建文件 <code>hello.go</code></p>
+                            <pre lang="go"><code>package main<br><br>import "github.com/astaxie/beego"<br><br>func main() {<br>    beego.Run()<br>}</code></pre>
                         {{else}}
-                            <p>Get Beego</p><pre lang="bash"><code>go get github.com/astaxie/beego</code></pre><p>create file <code>hello.go</code></p><pre lang="go"><code>package main<br><br>import "github.com/astaxie/beego"<br><br>func main() {<br>    beego.Run()<br>}</code></pre>
+                            <p>Download and install</p>
+                            <pre lang="bash"><code>go get github.com/astaxie/beego</code></pre>
+                            <p>Create file <code>hello.go</code></p>
+                            <pre lang="go"><code>package main<br><br>import "github.com/astaxie/beego"<br><br>func main() {<br>    beego.Run()<br>}</code></pre>
                         {{end}}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="markdown">
                         {{if eq .Lang "zh-CN"}}
-                            <p>编译运行</p><pre lang="bash"><code>go build hello.go<br>./hello</code></pre><p>打开浏览器</p><p>访问 <code>http://localhost:8080</code></p><p>Beego 已经正常运行.</p><p>你可以进一步的学习了.</p>
+                            <p>编译运行</p>
+                            <pre lang="bash"><code>go build -o hello hello.go<br>./hello</code></pre>
+                            <p>浏览效果</p>
+                            <p>打开浏览器并访问 <code>http://localhost:8080</code></p>
+                            <p>恭喜！您已经成功构建了第一个 beego 项目。</p>
+                            <p>请查阅 <a href="/docs">开发文档</a> 以进行深入学习。</p>
                         {{else}}
-                            <p>Build and run</p><pre lang="bash"><code>go build hello.go<br>./hello</code></pre><p>Open your browser</p><p>Access <code>http://localhost:8080</code></p><p>Now, beego server run as you wish.</p><p>You can go further.</p>
+                            <p>Build and run</p>
+                            <pre lang="bash"><code>go build hello.go<br>./hello</code></pre>
+                            <p>View effects</p>
+                            <p>Open your browser and visit <code>http://localhost:8080</code></p>
+                            <p>Congratulations! You just built your first beego app.</p>
+                            <p>Please see <a href="/docs">Documentation</a> for going further.</p>
                         {{end}}
                     </div>
                 </div>
@@ -55,17 +71,17 @@
                 <div class="well markdown">
                     <ul class="list-unstyled">
                         {{if eq .Lang "zh-CN"}}
-                            <li><i class="icon-angle-right"></i> <a href="/docs/Controllers_Overview">Router and Controller</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="/docs/Models_Overview">Orm Usage</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="/docs/Views_Templates">Template Usage</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="/docs/Samples_WebIM">Beego Samples</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="#">Optional Advanced Modules</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/mvc/controller/router.md">控制器路由设置</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/mvc/model/overview.md">ORM 入门</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/mvc/view/view.md">模板处理</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/examples/">官方开发示例</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/module/">可选高级模块</a></li>
                         {{else}}
-                            <li><i class="icon-angle-right"></i> <a href="/docs/Controllers_Overview">Router and Controller</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="/docs/Models_Overview">Orm Usage</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="/docs/Views_Templates">Template Usage</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="/docs/Samples_WebIM">Beego Samples</a></li>
-                            <li><i class="icon-angle-right"></i> <a href="#">Optional Advanced Modules</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/mvc/controller/router.md">Router and Controller</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/mvc/model/overview.md">ORM Usage</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/mvc/view/view.md">Template Usage</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/examples/">Beego Samples</a></li>
+                            <li><i class="icon-angle-right"></i> <a href="/docs/module/">Optional Advanced Modules</a></li>
                         {{end}}
                     </ul>
                 </div>
@@ -84,14 +100,14 @@
                             {{if eq .Lang "zh-CN"}}
                                 简单化
                             {{else}}
-                                EASY
+                                EASY TO USE
                             {{end}}
                         </h3>
                         <p class="content">
                             {{if eq .Lang "zh-CN"}}
-                                RESTFul支持，MVC架构，可以使用bee快速的开发应用，监控代码修改自动热编译，自动化测试代码，自动化打包部署
+                                RESTful 支持、MVC 模型，可以使用 bee 工具快速地开发应用，包括监控代码修改进行热编译、自动化测试代码以及自动化打包部署。
                             {{else}}
-                                With RESTFul support, MVC structure, code changes auto complile and reload, auto testing, and auto packing and deploy, you can develop web application very quickly.
+                                With RESTful support, MVC model, and use bee tool to build your apps quickly with features including code hot compile, automated testing, and automated packing and deploying.
                             {{end}}
                         </p>
                     </div>
@@ -102,14 +118,14 @@
                             {{if eq .Lang "zh-CN"}}
                                 智能化
                             {{else}}
-                                SMART
+                                INTELLIGENT
                             {{end}}
                         </h3>
                         <p class="content">
                             {{if eq .Lang "zh-CN"}}
-                                支持智能路由，智能监控，可以监控QPS、内存消耗、CPU使用，goroutine运行状况，让线上的应用都在你的掌握中
+                                支持智能路由、智能监控，可以监控 QPS、内存消耗、CPU 使用，以及 goroutine 的运行状况，让您的线上应用尽在掌握。
                             {{else}}
-                                With smart router support and monitoring you QPS, memory usage, CPU usage, goroutine status by supervisor, you have fully control of your live applicatin.
+                                With intelligent routing and monitoring, it's able to monitor your QPS, memory and CPU usages, and goroutine status. It provides you the fully control of your online apps.
                             {{end}}
                         </p>
                     </div>
@@ -125,9 +141,9 @@
                         </h3>
                         <p class="content">
                             {{if eq .Lang "zh-CN"}}
-                                beego内置了强大的模块，支持Session、缓存操作、日志记录、配置解析、性能监控、上下文操作、ORM模块、请求模拟等强大的模块，足以支撑你任何的应用
+                                beego 内置了强大的模块，包括 Session、缓存操作、日志记录、配置解析、性能监控、上下文操作、ORM 模块、请求模拟等强大的模块，足以支撑你任何的应用。
                             {{else}}
-                                With powerful buildin modules such as session control, caching, logging, configuration parsing, performance supervising, context handling, ORM supporting, and requests simulating, you get the powerful foundation for any type of application.
+                                With powerful built-in modules including session control, caching, logging, configuration parsing, performance supervising, context handling, ORM supporting, and requests simulating. You get the powerful foundation for any type of applications.
                             {{end}}
                         </p>
                     </div>
@@ -143,9 +159,9 @@
                         </h3>
                         <p class="content">
                             {{if eq .Lang "zh-CN"}}
-                                beego采用了Go原生的http包来处理请求，goroutine的并发效率足以应付大流量的Web应用和API应用，目前已经应用于大量高并发的产品中
+                                beego 采用了 Go 原生的 http 包来处理请求，goroutine 的并发效率足以应付大流量的 Web 应用和 API 应用，目前已经应用于大量高并发的产品中。
                             {{else}}
-                                With native http package to handle the requests and the efficient concurrence of go routine, your Beego application can hanle massive trafic as Beego are doing in many productions.
+                                With native Go http package to handle the requests and the efficient concurrence of goroutine. Your beego applications can handle massive trafic as beego are doing in many productions.
                             {{end}}
                         </p>
                     </div>
