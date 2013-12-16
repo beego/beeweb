@@ -106,10 +106,13 @@ func (d *DocRoot) walkParse() error {
 	}
 
 	defer func() {
-		d.sortAll(d.Doc)
+		if err == nil {
+			d.sortAll(d.Doc)
+		}
 	}()
 
-	return filepath.Walk(d.Path, d.walk)
+	err = filepath.Walk(d.Path, d.walk)
+	return err
 }
 
 func (d *DocRoot) sortAll(node *DocNode) {

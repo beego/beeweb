@@ -33,8 +33,6 @@ const (
 // because we use `bee bale` to pack static resources
 // and we cannot make sure that which init() execute first.
 func initialize() {
-	os.Setenv("TZ", "Asia/Shanghai")
-
 	models.InitModels()
 
 	// Set App version and log level.
