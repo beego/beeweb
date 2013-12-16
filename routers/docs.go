@@ -41,6 +41,7 @@ func (this *DocsRouter) Get() {
 	}
 
 	link := this.GetString(":all")
+
 	var doc *models.DocNode
 	if len(link) == 0 {
 		if dRoot.Doc.HasContent() {

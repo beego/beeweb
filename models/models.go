@@ -20,7 +20,8 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	// "strconv"
+	"path"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -32,37 +33,12 @@ import (
 )
 
 const (
-	_CFG_PATH      = "conf/app.ini"
-	_NAV_TREE_PATH = "conf/navTree.json"
+	_CFG_PATH = "conf/app.ini"
 )
 
 var Cfg *goconfig.ConfigFile
 
 var docs = make(map[string]*DocRoot)
-
-type navNode struct {
-	Name  string
-	Nodes []string
-}
-
-// navTree descriables the navigation structure tree.
-var navTree struct {
-	Tree []navNode
-}
-
-type node struct {
-	Index          int
-	Name, FullName string
-}
-
-type Section struct {
-	Name  string
-	Nodes []node
-}
-
-var TplTree struct {
-	Sections []Section
-}
 
 type oldDocNode struct {
 	Sha  string
@@ -134,19 +110,19 @@ func InitModels() {
 
 	docs["en-US"] = root
 
-	// initMaps()
+	initMaps()
 
 	// Start check ticker.
-	// checkTicker = time.NewTicker(5 * time.Minute)
-	// go checkTickerTimer(checkTicker.C)
+	checkTicker = time.NewTicker(5 * time.Minute)
+	go checkTickerTimer(checkTicker.C)
 
 	// ATTENTION: you'd better comment following code when developing.
-	// if needCheckUpdate() {
-	// checkFileUpdates()
+	if needCheckUpdate() {
+		checkFileUpdates()
 
-	// Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
-	// goconfig.SaveConfigFile(Cfg, _CFG_PATH)
-	// }
+		Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
+		goconfig.SaveConfigFile(Cfg, _CFG_PATH)
+	}
 }
 
 func needCheckUpdate() bool {
@@ -164,39 +140,8 @@ func needCheckUpdate() bool {
 }
 
 func initDocMap() {
-	// Load navTree.json
-	fn, err := os.Open(_NAV_TREE_PATH)
-	if err != nil {
-		beego.Error("models.initDocMap -> load navTree.json:", err.Error())
-		return
-	}
-	defer fn.Close()
-
-	d := json.NewDecoder(fn)
-	err = d.Decode(&navTree)
-	if err != nil {
-		beego.Error("models.initDocMap -> decode navTree.json:", err.Error())
-		return
-	}
-
 	// Documentation names.
 	docNames := make([]string, 0, 20)
-
-	// Generate usable TplTree for template.
-	TplTree.Sections = make([]Section, len(navTree.Tree))
-	for i, sec := range navTree.Tree {
-		TplTree.Sections[i].Name = sec.Name
-		TplTree.Sections[i].Nodes = make([]node, len(sec.Nodes))
-		for j, nod := range sec.Nodes {
-			TplTree.Sections[i].Nodes[j].Index = j + 1
-			TplTree.Sections[i].Nodes[j].Name = nod
-
-			docName := sec.Name + "_" + nod
-			TplTree.Sections[i].Nodes[j].FullName = docName
-			docNames = append(docNames, docName)
-		}
-	}
-
 	docNames = append(docNames, strings.Split(
 		Cfg.MustValue("app", "doc_names"), "|")...)
 
@@ -210,8 +155,7 @@ func initDocMap() {
 		defer f.Close()
 
 		d := json.NewDecoder(f)
-		err = d.Decode(&docTree)
-		if err != nil {
+		if err = d.Decode(&docTree); err != nil {
 			beego.Error("models.initDocMap -> decode data:", err.Error())
 			return
 		}
@@ -280,11 +224,6 @@ func initBlogMap() {
 }
 
 func initMaps() {
-	if !com.IsFile(_NAV_TREE_PATH) {
-		beego.Critical(_NAV_TREE_PATH, "does not exist")
-		return
-	}
-
 	initDocMap()
 	initBlogMap()
 }
@@ -422,8 +361,8 @@ func checkFileUpdates() {
 
 	var trees = []*tree{
 		{
-			ApiUrl:   "https://api.github.com/repos/beego/beedoc/git/trees/master?recursive=1&" + githubCred,
-			RawUrl:   "https://raw.github.com/beego/beedoc/master/",
+			ApiUrl:   "https://api.github.com/repos/astaxie/docs/git/trees/master?recursive=1&" + githubCred,
+			RawUrl:   "https://raw.github.com/astaxie/docs/master/",
 			TreeName: "conf/docTree.json",
 			Prefix:   "docs/",
 		},
@@ -461,6 +400,7 @@ func checkFileUpdates() {
 
 			// Trim ".md".
 			name := node.Path[:len(node.Path)-3]
+
 			if checkSHA(name, node.Sha, tree.Prefix) {
 				beego.Info("Need to update:", name)
 				files = append(files, &rawFile{
@@ -485,6 +425,7 @@ func checkFileUpdates() {
 
 		// Update data.
 		for _, f := range files {
+			os.MkdirAll(path.Join(tree.Prefix, path.Dir(f.Name())), os.ModePerm)
 			fw, err := os.Create(tree.Prefix + f.Name() + ".md")
 			if err != nil {
 				beego.Error("models.checkFileUpdates -> open file:", err.Error())
