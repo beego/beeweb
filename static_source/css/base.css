@@ -20,7 +20,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Helvetica Neue",Helvetica,"Lucida Grande",Arial,"Hiragino Sans GB","Microsoft YaHei",\5fae\8f6f\96c5\9ed1,"WenQuanYi Micro Hei",sans-serif;
+  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Helvetica Neue",Helvetica,"Lucida Grande","Hiragino Sans GB","Microsoft YaHei", \5fae\8f6f\96c5\9ed1,"WenQuanYi Micro Hei",sans-serif;
 }
 
 label {
@@ -37,8 +37,8 @@ textarea.form-control {
 }
 
 .navbar .logo img {
-  height: 36px;
-  margin: 5px 5px 0 10px;
+  height: 32px;
+  margin: 8px 15px 0 10px;
 }
 
 .navbar .navbar-menu li.has-icon > a {

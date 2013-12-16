@@ -17,7 +17,7 @@
                     <span class="icon-bar"></span>
                 </a>
                 <a class="hidden-xs logo" href="/">
-                    <img src="/static/img/bee.gif">
+                    <img style="height:32px;width:102px;" src="/static/img/beego_purple.png">
                 </a>
                 <div class="visible-xs text-center">
                     <a class="navbar-brand" href="/">
@@ -38,7 +38,7 @@
                     <li {{if .IsDocs}}class="active"{{end}}><a href="/docs/intro/">{{i18n .Lang "docs"}}</a></li>
                     <li {{if .IsBlog}}class="active"{{end}}><a href="/blog">{{i18n .Lang "blog"}}</a></li>
                 </ul>
-                <div class="nav-lang pull-right">
+                <div class="hidden-sm hidden-xs nav-lang pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-xs btn-default btn-md dropdown-toggle" data-toggle="dropdown">{{i18n .Lang "current_lang"}}{{i18n .Lang .Lang}} <i class="caret"></i></button>
                         <ul class="dropdown-menu">

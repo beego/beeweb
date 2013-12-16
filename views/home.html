@@ -78,56 +78,74 @@
         <div class="col-md-12">
             <h2>{{i18n .Lang "home.features"}}</h2>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="feature">
                         <h3 class="title">
                             {{if eq .Lang "zh-CN"}}
-                                No Hidden Cost
+                                简单化
                             {{else}}
-                                No Hidden Cost
+                                EASY
                             {{end}}
                         </h3>
                         <p class="content">
                             {{if eq .Lang "zh-CN"}}
-                                No starting costs, no monthly fees, no kidding. Our cut is a low fixed percentage of incoming revenues.
+                                RESTFul支持，MVC架构，可以使用bee快速的开发应用，监控代码修改自动热编译，自动化测试代码，自动化打包部署
                             {{else}}
-                                No starting costs, no monthly fees, no kidding. Our cut is a low fixed percentage of incoming revenues.
+                                With RESTFul support, MVC structure, code changes auto complile and reload, auto testing, and auto packing and deploy, you can develop web application very quickly.
                             {{end}}
                         </p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="feature">
                         <h3 class="title">
                             {{if eq .Lang "zh-CN"}}
-                                Multiple Devices
+                                智能化
                             {{else}}
-                                Multiple Devices
+                                SMART
                             {{end}}
                         </h3>
                         <p class="content">
                             {{if eq .Lang "zh-CN"}}
-                                With Pivotshare, your video streams instantaneously to the desktop, iOS, and Android using bleeding-edge tech to reduce buffering and maximize speed.
+                                支持智能路由，智能监控，可以监控QPS、内存消耗、CPU使用，goroutine运行状况，让线上的应用都在你的掌握中
                             {{else}}
-                                With Pivotshare, your video streams instantaneously to the desktop, iOS, and Android using bleeding-edge tech to reduce buffering and maximize speed.
+                                With smart router support and monitoring you QPS, memory usage, CPU usage, goroutine status by supervisor, you have fully control of your live applicatin.
                             {{end}}
                         </p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="feature">
                         <h3 class="title">
                             {{if eq .Lang "zh-CN"}}
-                                We Handle Everything
+                                模块化
                             {{else}}
-                                We Handle Everything
+                                MODULAR
                             {{end}}
                         </h3>
                         <p class="content">
                             {{if eq .Lang "zh-CN"}}
-                                Infrastructure, support, and payments are our job. All you need to do is add your content, choose your prices, and spread the word.
+                                beego内置了强大的模块，支持Session、缓存操作、日志记录、配置解析、性能监控、上下文操作、ORM模块、请求模拟等强大的模块，足以支撑你任何的应用
                             {{else}}
-                                Infrastructure, support, and payments are our job. All you need to do is add your content, choose your prices, and spread the word.
+                                With powerful buildin modules such as session control, caching, logging, configuration parsing, performance supervising, context handling, ORM supporting, and requests simulating, you get the powerful foundation for any type of application.
+                            {{end}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature">
+                        <h3 class="title">
+                            {{if eq .Lang "zh-CN"}}
+                                高性能
+                            {{else}}
+                                HIGH PERFORMANCE
+                            {{end}}
+                        </h3>
+                        <p class="content">
+                            {{if eq .Lang "zh-CN"}}
+                                beego采用了Go原生的http包来处理请求，goroutine的并发效率足以应付大流量的Web应用和API应用，目前已经应用于大量高并发的产品中
+                            {{else}}
+                                With native http package to handle the requests and the efficient concurrence of go routine, your Beego application can hanle massive trafic as Beego are doing in many productions.
                             {{end}}
                         </p>
                     </div>
