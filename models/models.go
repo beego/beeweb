@@ -43,6 +43,7 @@ var docs = make(map[string]*DocRoot)
 type oldDocNode struct {
 	Sha  string
 	Path string
+	Type string
 }
 
 // docTree descriables a documentation file structure tree.
@@ -272,6 +273,10 @@ func markdown(raw []byte) []byte {
 }
 
 func getFile(filePath string) *docFile {
+	if strings.Contains(filePath, "images") {
+		return nil
+	}
+
 	df := &docFile{}
 	p, err := loadFile(filePath + ".md")
 	if err != nil {
@@ -394,12 +399,13 @@ func checkFileUpdates() {
 		files := make([]com.RawFile, 0, len(tmpTree.Tree))
 		for _, node := range tmpTree.Tree {
 			// Skip non-md files and "README.md".
-			if !strings.HasSuffix(node.Path, ".md") || node.Path == "README.md" {
+			if node.Type != "blob" || (!strings.HasSuffix(node.Path, ".md") &&
+				!strings.Contains(node.Path, "images")) ||
+				node.Path == "README.md" {
 				continue
 			}
 
-			// Trim ".md".
-			name := node.Path[:len(node.Path)-3]
+			name := strings.TrimSuffix(node.Path, ".md")
 
 			if checkSHA(name, node.Sha, tree.Prefix) {
 				beego.Info("Need to update:", name)
@@ -426,7 +432,11 @@ func checkFileUpdates() {
 		// Update data.
 		for _, f := range files {
 			os.MkdirAll(path.Join(tree.Prefix, path.Dir(f.Name())), os.ModePerm)
-			fw, err := os.Create(tree.Prefix + f.Name() + ".md")
+			suf := ".md"
+			if strings.Contains(f.Name(), "images") {
+				suf = ""
+			}
+			fw, err := os.Create(tree.Prefix + f.Name() + suf)
 			if err != nil {
 				beego.Error("models.checkFileUpdates -> open file:", err.Error())
 				continue

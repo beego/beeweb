@@ -69,8 +69,6 @@ func main() {
 	beego.Router("/docs/:all", &routers.DocsRouter{})
 	beego.Router("/blog", &routers.BlogRouter{})
 	beego.Router("/blog/:all", &routers.BlogRouter{})
-	// beego.Router("/samples", &routers.SamplesRouter{})
-	// beego.Router("/samples/:all", &routers.SamplesRouter{})
 
 	// Register template functions.
 	beego.AddFuncMap("i18n", i18n.Tr)
