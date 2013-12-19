@@ -97,20 +97,7 @@ func InitModels() {
 	docLock = new(sync.RWMutex)
 	blogLock = new(sync.RWMutex)
 
-	root, err := ParseDocs("docs/zh-CN")
-	if err != nil {
-		beego.Error(err)
-	}
-
-	docs["zh-CN"] = root
-
-	root, err = ParseDocs("docs/en-US")
-	if err != nil {
-		beego.Error(err)
-	}
-
-	docs["en-US"] = root
-
+	parseDocs()
 	initMaps()
 
 	// Start check ticker.
@@ -123,6 +110,26 @@ func InitModels() {
 
 		Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
 		goconfig.SaveConfigFile(Cfg, _CFG_PATH)
+	}
+}
+
+func parseDocs() {
+	root, err := ParseDocs("docs/zh-CN")
+	if err != nil {
+		beego.Error(err)
+	}
+
+	if root != nil {
+		docs["zh-CN"] = root
+	}
+
+	root, err = ParseDocs("docs/en-US")
+	if err != nil {
+		beego.Error(err)
+	}
+
+	if root != nil {
+		docs["en-US"] = root
 	}
 }
 
@@ -467,6 +474,7 @@ func checkFileUpdates() {
 	}
 
 	beego.Trace("Finish check file updates")
+	parseDocs()
 	initMaps()
 }
 
