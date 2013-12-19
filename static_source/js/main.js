@@ -149,6 +149,20 @@
 	$(function(){
         // Encode url.
         var $doc = $('.docs-markdown');
+        $doc.find('a').each(function () {
+            var node = $(this);
+            var link = node.attr('href');
+            var index = link.indexOf('#');
+            if (link.indexOf('http') === 0 && link.indexOf(window.location.hostname) == -1) {
+                return;
+            }
+            if (index < 0 || index + 1 > link.length) {
+                return;
+            }
+            var val = link.substring(index + 1, link.length);
+            val = encodeURIComponent(decodeURIComponent(val).toLowerCase().replace(/\s+/g, '-'));
+            node.attr('href', link.substring(0, index) + '#' + val);
+        });
 
         // Set anchor.
         $doc.find('h1, h2, h3, h4, h5, h6').each(function () {
