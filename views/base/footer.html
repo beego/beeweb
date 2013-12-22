@@ -12,7 +12,10 @@
                         </ul>
                     </div>
                     {{if eq .Lang "zh-CN"}}
-                        <a class="btn btn-success" href="/donate">捐赠我们</a>
+                        <a class="btn btn-success" href="/donate"><i class="icon-dollar"></i> 捐赠我们</a>
+                    {{end}}
+                    {{if eq .Lang "en-US"}}
+                        <a class="btn btn-success" href="/donate"><i class="icon-dollar"></i> Donate Us</a>
                     {{end}}
                 </div>
                 

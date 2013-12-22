@@ -29,7 +29,7 @@ func (this *DonateRouter) Get() {
 	this.TplNames = "donate.html"
 
 	// Get language.
-	df := models.GetDoc("donate", "zh-CN")
+	df := models.GetDoc("donate", this.Lang)
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
