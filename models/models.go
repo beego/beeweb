@@ -298,7 +298,9 @@ func getFile(filePath string) *docFile {
 		// Has title.
 		df.Title = strings.TrimSpace(
 			strings.Replace(s[:i+1], "#", "", -1))
-		df.Data = []byte(strings.TrimSpace(s[i+2:]))
+		if len(s) >= i+2 {
+			df.Data = []byte(strings.TrimSpace(s[i+2:]))
+		}
 	} else {
 		df.Data = p
 	}

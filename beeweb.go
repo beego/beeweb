@@ -40,7 +40,7 @@ func initialize() {
 	beego.RunMode = models.Cfg.MustValue("beego", "run_mode")
 	beego.HttpPort = models.Cfg.MustInt("beego", "http_port_"+beego.RunMode)
 
-	routers.IsPro = beego.RunMode == "pro"
+	routers.IsPro = beego.RunMode == "prod"
 	if routers.IsPro {
 		beego.SetLevel(beego.LevelInfo)
 		os.Mkdir("./log", os.ModePerm)
