@@ -99,6 +99,7 @@ func InitModels() {
 
 	parseDocs()
 	initMaps()
+	initProuctCase()
 
 	// Start check ticker.
 	checkTicker = time.NewTicker(5 * time.Minute)
@@ -478,6 +479,7 @@ func checkFileUpdates() {
 	beego.Trace("Finish check file updates")
 	parseDocs()
 	initMaps()
+	initProuctCase()
 }
 
 // checkSHA returns true if the documentation file need to update.

@@ -1,0 +1,46 @@
+{{template "base/base.html" .}}
+{{define "head"}}{{end}}
+{{define "meta"}}
+<title>{{i18n .Lang "products_use_beego"}} - beego: {{i18n .Lang "app_intro"}}</title>
+{{end}}
+{{define "body"}}
+<div id="products" class="container main-container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="product-head">
+				<span class="pull-right">
+					<a target="_blank" class="btn btn-info" href="https://github.com/beego/products">{{i18n .Lang "submit_your_product"}}</a>
+				</span>
+				<h2>{{i18n .Lang "products_use_beego"}}</h2>
+				<p></p>
+			</div>
+		</div>
+	</div>
+	<div id="products-showcase" class="row">
+		{{range .Products.Projects}}
+			<div class="col-md-4 col-xs-6 product">
+				<div class="box">
+					<h3><a target="_blank" href="{{.Url}}">{{.Name}}</a></h3>
+					{{if .Desc}}
+						<div class="desc">
+							{{.Desc}}
+						</div>
+					{{end}}
+					{{if .Thumb}}
+						<div class="img">
+							<a target="_blank" href="/products/images/{{.Thumb}}">
+								<img class="img-responsive" src="/products/images/{{.Thumb}}">
+							</a>
+						</div>
+					{{end}}
+					<div class="meta">
+						<span class="pull-right">{{if .Src}}<a target="_blank" href="{{.Src}}">Open Source</a> - {{end}}<a target="_blank" href="{{.Url}}">Web</a> - {{.Date}}</span>
+						<span>{{.Submitter}}</span>
+					</div>
+					<span class="clearfix"></span>
+				</div>
+			</div>
+		{{end}}
+	</div>
+</div>
+{{end}}

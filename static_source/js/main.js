@@ -229,6 +229,14 @@
 				}
 			});
 		}
+
+		var $container = $('#products-showcase');
+		$container.imagesLoaded(function(){
+			$container.masonry({
+				itemSelector : '.product'
+			});
+		});
+
 	});
 
 })(jQuery);

@@ -327,3 +327,35 @@
   margin: 20px 0 0 0;
   padding: 0 9px;
 }
+
+#products .product-head {
+  margin: 0 0 20px;
+}
+
+#products .product .box {
+  margin: 15px 0 0 0;
+  padding: 10px;
+}
+
+#products .product h3 {
+  margin: 0 0 15px;
+  font-size: 18px;
+}
+
+#products .product img {
+  border-radius: 4px;
+}
+
+#products .product .desc {
+  margin: 0 0 15px;
+  font-size: 14px;
+}
+
+#products .product .meta {
+  margin: 15px 0 0;
+  color: #999;
+}
+
+#products .product .meta a {
+  color: #3483A5;
+}

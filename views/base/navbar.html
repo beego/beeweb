@@ -36,6 +36,7 @@
                     <li {{if .IsQuickStart}}class="active"{{end}}><a href="/quickstart">{{i18n .Lang "getting started"}}</a></li>
                     <li {{if .IsCommunity}}class="active"{{end}}><a href="/community">{{i18n .Lang "community"}}</a></li>
                     <li {{if .IsDocs}}class="active"{{end}}><a href="/docs/intro/">{{i18n .Lang "docs"}}</a></li>
+                    <li {{if .IsProducts}}class="active"{{end}}><a href="/products">{{i18n .Lang "products"}}</a></li>
                     <li {{if .IsBlog}}class="active"{{end}}><a href="/blog">{{i18n .Lang "blog"}}</a></li>
                 </ul>
                 <div class="hidden-sm hidden-xs nav-lang pull-right">
@@ -48,7 +49,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="hidden-xs nav-github pull-right">
+                <div class="hidden-sm hidden-xs nav-github pull-right">
                     <span rel="show-github" data-user="astaxie" data-repo="beego"></span>
                     <span rel="show-github" data-user="astaxie" data-repo="beego" data-type="fork"></span>
                 </div>

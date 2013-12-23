@@ -16,7 +16,9 @@
                     "jStorage.js",
                     "jquery.jpanelmenu.min.js",
                     "jRespond.min.js",
-                    "jquery.clingify.min.js"
+                    "jquery.clingify.min.js",
+                    "imagesloaded.pkgd.min.js",
+                    "masonry.pkgd.min.js"
                 ],
                 "SkipFiles": [
                     "jquery.min.js",
@@ -24,7 +26,9 @@
                     "prettify.js",
                     "jquery.jpanelmenu.min.js",
                     "jRespond.min.js",
-                    "jquery.clingify.min.js"
+                    "jquery.clingify.min.js",
+                    "imagesloaded.pkgd.min.js",
+                    "masonry.pkgd.min.js"
                 ]
             },
             "app": {

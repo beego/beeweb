@@ -58,6 +58,8 @@ func main() {
 
 	beego.AddFilter("/docs/images/:all", "BeforeRouter", routers.DocsStatic)
 
+	beego.SetStaticPath("/products/images/", "products/images/")
+
 	// Register routers.
 	beego.Router("/", &routers.HomeRouter{})
 	beego.Router("/community", &routers.CommunityRouter{})
@@ -69,6 +71,7 @@ func main() {
 	beego.Router("/docs/:all", &routers.DocsRouter{})
 	beego.Router("/blog", &routers.BlogRouter{})
 	beego.Router("/blog/:all", &routers.BlogRouter{})
+	beego.Router("/products", &routers.ProductsRouter{})
 
 	// Register template functions.
 	beego.AddFuncMap("i18n", i18n.Tr)
