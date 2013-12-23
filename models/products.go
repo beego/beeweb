@@ -42,5 +42,9 @@ func initProuctCase() {
 		return
 	}
 
+	for i, j := 0, len(aProducts.Projects)-1; i < j; i, j = i+1, j-1 {
+		aProducts.Projects[i], aProducts.Projects[j] = aProducts.Projects[j], aProducts.Projects[i]
+	}
+
 	*Products = aProducts
 }

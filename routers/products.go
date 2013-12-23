@@ -10,5 +10,6 @@ type ProductsRouter struct {
 
 func (this *ProductsRouter) Get() {
 	this.TplNames = "products.html"
-	this.Data["Products"] = &models.Products
+	this.Data["IsProducts"] = true
+	this.Data["Products"] = models.Products
 }

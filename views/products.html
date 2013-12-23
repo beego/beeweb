@@ -8,11 +8,15 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="product-head">
-				<span class="pull-right">
-					<a target="_blank" class="btn btn-info" href="https://github.com/beego/products">{{i18n .Lang "submit_your_product"}}</a>
-				</span>
 				<h2>{{i18n .Lang "products_use_beego"}}</h2>
-				<p></p>
+				<div>
+					<a target="_blank" href="https://github.com/beego/products">{{i18n .Lang "submit_your_product"}}</a>
+					{{if eq .Lang "zh-CN"}}
+						，如果使用GitHub有任何问题，你可以直接发送产品信息到邮箱 <a href="mailto:xiemengjun@gmail.com">xiemengjun@gmail.com</a>
+					{{else}}
+						. If you have any problem when use GitHub. You can direct send product info to mailbox: <a href="mailto:xiemengjun@gmail.com">xiemengjun@gmail.com</a>
+					{{end}}
+				</div>
 			</div>
 		</div>
 	</div>

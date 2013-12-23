@@ -332,6 +332,10 @@
   margin: 0 0 20px;
 }
 
+#products .product-head h2 {
+  margin: 0 0 20px;
+}
+
 #products .product .box {
   margin: 15px 0 0 0;
   padding: 10px;
@@ -356,6 +360,7 @@
   color: #999;
 }
 
+#products .product-head a,
 #products .product .meta a {
   color: #3483A5;
 }
