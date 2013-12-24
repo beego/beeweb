@@ -145,7 +145,8 @@ func needCheckUpdate() bool {
 		return true
 	}
 
-	if !com.IsFile("conf/docTree.json") || !com.IsFile("conf/blogTree.json") {
+	if !com.IsFile("conf/docTree.json") || !com.IsFile("conf/blogTree.json") ||
+		!com.IsFile("conf/productTree.json") {
 		return true
 	}
 
@@ -381,8 +382,8 @@ func checkFileUpdates() {
 
 	var trees = []*tree{
 		{
-			ApiUrl:   "https://api.github.com/repos/astaxie/docs/git/trees/master?recursive=1&" + githubCred,
-			RawUrl:   "https://raw.github.com/astaxie/docs/master/",
+			ApiUrl:   "https://api.github.com/repos/beego/beedoc/git/trees/master?recursive=1&" + githubCred,
+			RawUrl:   "https://raw.github.com/beego/beedoc/master/",
 			TreeName: "conf/docTree.json",
 			Prefix:   "docs/",
 		},
