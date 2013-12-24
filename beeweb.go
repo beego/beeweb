@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	APP_VER = "0.9.1.1216"
+	APP_VER = "0.9.3.1223"
 )
 
 // We have to call a initialize function manully
@@ -64,6 +64,7 @@ func main() {
 	beego.Router("/", &routers.HomeRouter{})
 	beego.Router("/community", &routers.CommunityRouter{})
 	beego.Router("/quickstart", &routers.QuickStartRouter{})
+	beego.Router("/products", &routers.ProductsRouter{})
 	beego.Router("/team", &routers.PageRouter{})
 	beego.Router("/about", &routers.AboutRouter{})
 	beego.Router("/donate", &routers.DonateRouter{})
@@ -71,7 +72,6 @@ func main() {
 	beego.Router("/docs/:all", &routers.DocsRouter{})
 	beego.Router("/blog", &routers.BlogRouter{})
 	beego.Router("/blog/:all", &routers.BlogRouter{})
-	beego.Router("/products", &routers.ProductsRouter{})
 
 	// Register template functions.
 	beego.AddFuncMap("i18n", i18n.Tr)

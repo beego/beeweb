@@ -5,8 +5,10 @@ website
 bee
 /docs
 /blog
+/products
 docTree.json
 blogTree.json
+productTree.json
 beeweb
 /log
 bale/

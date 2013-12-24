@@ -55,6 +55,10 @@ var blogTree struct {
 	Tree []oldDocNode
 }
 
+var productTree struct {
+	Tree []oldDocNode
+}
+
 type docFile struct {
 	Title string
 	Data  []byte
@@ -235,6 +239,7 @@ func initBlogMap() {
 func initMaps() {
 	initDocMap()
 	initBlogMap()
+	initProuctCase()
 }
 
 // loadFile returns []byte of file data by given path.
@@ -387,6 +392,12 @@ func checkFileUpdates() {
 			TreeName: "conf/blogTree.json",
 			Prefix:   "blog/",
 		},
+		{
+			ApiUrl:   "https://api.github.com/repos/beego/products/git/trees/master?recursive=1&" + githubCred,
+			RawUrl:   "https://raw.github.com/beego/products/master/",
+			TreeName: "conf/productTree.json",
+			Prefix:   "products/",
+		},
 	}
 
 	for _, tree := range trees {
@@ -410,8 +421,9 @@ func checkFileUpdates() {
 		for _, node := range tmpTree.Tree {
 			// Skip non-md files and "README.md".
 			if node.Type != "blob" || (!strings.HasSuffix(node.Path, ".md") &&
-				!strings.Contains(node.Path, "images")) ||
-				node.Path == "README.md" {
+				!strings.Contains(node.Path, "images") &&
+				!strings.HasSuffix(node.Path, ".json")) ||
+				strings.HasPrefix(strings.ToLower(node.Path), "readme") {
 				continue
 			}
 
@@ -443,7 +455,8 @@ func checkFileUpdates() {
 		for _, f := range files {
 			os.MkdirAll(path.Join(tree.Prefix, path.Dir(f.Name())), os.ModePerm)
 			suf := ".md"
-			if strings.Contains(f.Name(), "images") {
+			if strings.Contains(f.Name(), "images") ||
+				strings.HasSuffix(f.Name(), ".json") {
 				suf = ""
 			}
 			fw, err := os.Create(tree.Prefix + f.Name() + suf)
@@ -479,7 +492,6 @@ func checkFileUpdates() {
 	beego.Trace("Finish check file updates")
 	parseDocs()
 	initMaps()
-	initProuctCase()
 }
 
 // checkSHA returns true if the documentation file need to update.
@@ -488,10 +500,13 @@ func checkSHA(name, sha, prefix string) bool {
 		Tree []oldDocNode
 	}
 
-	if prefix == "docs/" {
+	switch prefix {
+	case "docs/":
 		tree = docTree
-	} else {
+	case "blog/":
 		tree = blogTree
+	default:
+		tree = productTree
 	}
 
 	for _, v := range tree.Tree {

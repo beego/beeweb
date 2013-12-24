@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
+	"github.com/Unknwon/com"
 	"github.com/astaxie/beego"
 )
 
@@ -24,19 +25,37 @@ type Project struct {
 var Products = new(products)
 
 func initProuctCase() {
+	if !com.IsFile("conf/productTree.json") {
+		beego.Error("models.initBlogMap -> conf/productTree.json does not exist")
+		return
+	}
+
+	f, err := os.Open("conf/productTree.json")
+	if err != nil {
+		beego.Error("models.initBlogMap -> load data:", err.Error())
+		return
+	}
+	defer f.Close()
+
+	d := json.NewDecoder(f)
+	err = d.Decode(&productTree)
+	if err != nil {
+		beego.Error("models.initBlogMap -> decode data:", err.Error())
+		return
+	}
+
 	fileName := "products/projects.json"
 
 	aProducts := *Products
 
 	var file *os.File
-	var err error
 
 	if file, err = os.Open(fileName); err != nil {
 		beego.Error("open %s, %s", fileName, err.Error())
 		return
 	}
 
-	d := json.NewDecoder(file)
+	d = json.NewDecoder(file)
 	if err = d.Decode(&aProducts); err != nil {
 		beego.Error("open %s, %s", fileName, err.Error())
 		return
