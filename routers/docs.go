@@ -15,7 +15,8 @@
 package routers
 
 import (
-	"net/http"
+	"io"
+	"os"
 
 	"github.com/astaxie/beego/context"
 	"github.com/beego/i18n"
@@ -73,12 +74,23 @@ func (this *DocsRouter) Get() {
 }
 
 func DocsStatic(ctx *context.Context) {
-	uri := ctx.Input.Params[":all"]
-	if len(uri) > 0 {
+	if uri := ctx.Input.Params[":all"]; len(uri) > 0 {
 		lang := ctx.GetCookie("lang")
 		if !i18n.IsExist(lang) {
 			lang = "en-US"
 		}
-		http.ServeFile(ctx.ResponseWriter, ctx.Request, "docs/"+lang+"/"+"images/"+uri)
+
+		f, err := os.Open("docs/" + lang + "/" + "images/" + uri)
+		if err != nil {
+			ctx.WriteString(err.Error())
+			return
+		}
+		defer f.Close()
+
+		_, err = io.Copy(ctx.ResponseWriter, f)
+		if err != nil {
+			ctx.WriteString(err.Error())
+			return
+		}
 	}
 }
