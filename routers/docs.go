@@ -15,7 +15,9 @@
 package routers
 
 import (
-	"github.com/Unknwon/com"
+	"io"
+	"os"
+
 	"github.com/astaxie/beego/context"
 	"github.com/beego/i18n"
 
@@ -71,8 +73,6 @@ func (this *DocsRouter) Get() {
 	this.Data["Data"] = doc.GetContent()
 }
 
-var imgMap map[string][]byte = make(map[string][]byte)
-
 func DocsStatic(ctx *context.Context) {
 	if uri := ctx.Input.Params[":all"]; len(uri) > 0 {
 		lang := ctx.GetCookie("lang")
@@ -80,20 +80,17 @@ func DocsStatic(ctx *context.Context) {
 			lang = "en-US"
 		}
 
-		// NOTE: Images will be cached once in application start.
-		imgPath := "docs/" + lang + "/" + "images/" + uri
-		p, ok := imgMap[imgPath]
-		if !ok {
-			var err error
-			if p, err = com.ReadFile(imgPath); err != nil {
-				ctx.WriteString(err.Error())
-				return
-			}
-			imgMap[imgPath] = p
-		}
-
-		if _, err := ctx.ResponseWriter.Write(p); err != nil {
+		f, err := os.Open("docs/" + lang + "/" + "images/" + uri)
+		if err != nil {
 			ctx.WriteString(err.Error())
+			return
+		}
+		defer f.Close()
+
+		_, err = io.Copy(ctx.ResponseWriter, f)
+		if err != nil {
+			ctx.WriteString(err.Error())
+			return
 		}
 	}
 }
