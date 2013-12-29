@@ -29,6 +29,7 @@ import (
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/goconfig"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/toolbox"
 	"github.com/slene/blackfriday"
 )
 
@@ -105,17 +106,20 @@ func InitModels() {
 	initMaps()
 	initProuctCase()
 
-	// Start check ticker.
-	checkTicker = time.NewTicker(5 * time.Minute)
-	go checkTickerTimer(checkTicker.C)
+	updateTask := toolbox.NewTask("check file update", "0 */5 * * * *", checkFileUpdates)
 
-	// ATTENTION: you'd better comment following code when developing.
 	if needCheckUpdate() {
-		checkFileUpdates()
+		if err := updateTask.Run(); err != nil {
+			beego.Error(err)
+		}
 
 		Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
 		goconfig.SaveConfigFile(Cfg, _CFG_PATH)
 	}
+
+	// ATTENTION: you'd better comment following code when developing.
+	toolbox.AddTask("check file update", updateTask)
+	toolbox.StartTask()
 }
 
 func parseDocs() {
@@ -373,7 +377,7 @@ func (rf *rawFile) SetData(p []byte) {
 	rf.data = p
 }
 
-func checkFileUpdates() {
+func checkFileUpdates() error {
 	beego.Trace("Checking file updates")
 
 	type tree struct {
@@ -408,8 +412,7 @@ func checkFileUpdates() {
 
 		err := com.HttpGetJSON(httpClient, tree.ApiUrl, &tmpTree)
 		if err != nil {
-			beego.Error("models.checkFileUpdates -> get trees:", err.Error())
-			return
+			return errors.New("models.checkFileUpdates -> get trees: " + err.Error())
 		}
 
 		var saveTree struct {
@@ -448,8 +451,7 @@ func checkFileUpdates() {
 
 		// Fetch files.
 		if err := com.FetchFiles(httpClient, files, nil); err != nil {
-			beego.Error("models.checkFileUpdates -> fetch files:", err.Error())
-			return
+			return errors.New("models.checkFileUpdates -> fetch files: " + err.Error())
 		}
 
 		// Update data.
@@ -477,15 +479,13 @@ func checkFileUpdates() {
 		// Save documentation information.
 		f, err := os.Create(tree.TreeName)
 		if err != nil {
-			beego.Error("models.checkFileUpdates -> save data:", err.Error())
-			return
+			return errors.New("models.checkFileUpdates -> save data: " + err.Error())
 		}
 
 		e := json.NewEncoder(f)
 		err = e.Encode(&saveTree)
 		if err != nil {
-			beego.Error("models.checkFileUpdates -> encode data:", err.Error())
-			return
+			return errors.New("models.checkFileUpdates -> encode data: " + err.Error())
 		}
 		f.Close()
 	}
@@ -493,6 +493,7 @@ func checkFileUpdates() {
 	beego.Trace("Finish check file updates")
 	parseDocs()
 	initMaps()
+	return nil
 }
 
 // checkSHA returns true if the documentation file need to update.
