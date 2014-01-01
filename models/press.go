@@ -91,6 +91,8 @@ func (d *DocNode) GetContent() string {
 						break mFor
 					}
 					body = body[1:]
+				} else {
+					break mFor
 				}
 			}
 
