@@ -58,6 +58,11 @@ func main() {
 
 	beego.AddFilter("/docs/images/:all", "BeforeRouter", routers.DocsStatic)
 
+	if !routers.IsPro {
+		beego.SetStaticPath("/static_source", "static_source")
+		beego.DirectoryIndex = true
+	}
+
 	beego.SetStaticPath("/products/images/", "products/images/")
 
 	// Register routers.
