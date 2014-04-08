@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	APP_VER = "0.9.4.1229"
+	APP_VER = "0.9.4.0406"
 )
 
 // We have to call a initialize function manully
@@ -63,7 +63,7 @@ func main() {
 		beego.DirectoryIndex = true
 	}
 
-	beego.SetStaticPath("/products/images/", "products/images/")
+	beego.SetStaticPath("/products/images", "products/images/")
 
 	// Register routers.
 	beego.Router("/", &routers.HomeRouter{})
