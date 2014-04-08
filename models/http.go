@@ -16,7 +16,10 @@
 package models
 
 import (
+	"encoding/json"
+	"errors"
 	"flag"
+	"io/ioutil"
 	"net"
 	"net/http"
 	"time"
@@ -53,3 +56,59 @@ var (
 	httpTransport = &transport{t: http.Transport{Dial: timeoutDial, ResponseHeaderTimeout: *requestTimeout / 2}}
 	httpClient    = &http.Client{Transport: httpTransport}
 )
+
+func getHttpJson(url string, v interface{}) error {
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return err
+	}
+	req.Header.Set("User-Agent", userAgent)
+
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode == 200 {
+		err = json.NewDecoder(resp.Body).Decode(v)
+		if _, ok := err.(*json.SyntaxError); ok {
+			return errors.New("JSON syntax error at " + url)
+		}
+	}
+	return errors.New("can't get infomation")
+}
+
+func getFiles(files []*rawFile) error {
+	ch := make(chan error, len(files))
+	for i := range files {
+		go func(i int) {
+			req, err := http.NewRequest("GET", files[i].rawURL, nil)
+			if err != nil {
+				ch <- err
+				return
+			}
+			req.Header.Set("User-Agent", userAgent)
+			resp, err := httpClient.Do(req)
+			if err != nil {
+				ch <- err
+				return
+			}
+			defer resp.Body.Close()
+			if resp.StatusCode == 200 {
+				p, err := ioutil.ReadAll(resp.Body)
+				if err != nil {
+					ch <- err
+					return
+				}
+				files[i].data = p
+			}
+			ch <- nil
+		}(i)
+	}
+	for _ = range files {
+		if err := <-ch; err != nil {
+			return err
+		}
+	}
+	return nil
+}

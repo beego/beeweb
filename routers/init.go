@@ -11,8 +11,6 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/beego/compress"
 	"github.com/beego/i18n"
-
-	"github.com/beego/beeweb/models"
 )
 
 var (
@@ -21,8 +19,8 @@ var (
 
 func initLocales() {
 	// Initialized language type list.
-	langs := strings.Split(models.Cfg.MustValue("lang", "types"), "|")
-	names := strings.Split(models.Cfg.MustValue("lang", "names"), "|")
+	langs := strings.Split(beego.AppConfig.String("lang::types"), "|")
+	names := strings.Split(beego.AppConfig.String("lang::names"), "|")
 	langTypes = make([]*langType, 0, len(langs))
 	for i, v := range langs {
 		langTypes = append(langTypes, &langType{

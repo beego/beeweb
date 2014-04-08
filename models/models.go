@@ -18,7 +18,6 @@ package models
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"os"
 	"path"
 	"strconv"
@@ -26,18 +25,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Unknwon/com"
-	"github.com/Unknwon/goconfig"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/toolbox"
+	"github.com/astaxie/beego/utils"
 	"github.com/slene/blackfriday"
 )
-
-const (
-	_CFG_PATH = "conf/app.ini"
-)
-
-var Cfg *goconfig.ConfigFile
 
 var docs = make(map[string]*DocRoot)
 
@@ -83,21 +75,9 @@ func GetDocByLocale(lang string) *DocRoot {
 }
 
 func InitModels() {
-	if !com.IsFile(_CFG_PATH) {
-		os.Create(_CFG_PATH)
-	}
 
-	var err error
-	Cfg, err = goconfig.LoadConfigFile(_CFG_PATH)
-	if err == nil {
-		beego.Info("Initialize app.ini")
-	} else {
-		fmt.Println(err)
-		os.Exit(2)
-	}
-
-	setGithubCredentials(Cfg.MustValue("github", "client_id"),
-		Cfg.MustValue("github", "client_secret"))
+	setGithubCredentials(beego.AppConfig.String("github::client_id"),
+		beego.AppConfig.String("github::client_secret"))
 
 	docLock = new(sync.RWMutex)
 	blogLock = new(sync.RWMutex)
@@ -113,8 +93,7 @@ func InitModels() {
 			beego.Error(err)
 		}
 
-		Cfg.SetValue("app", "update_check_time", strconv.Itoa(int(time.Now().Unix())))
-		goconfig.SaveConfigFile(Cfg, _CFG_PATH)
+		beego.AppConfig.Set("app::update_check_time", strconv.Itoa(int(time.Now().Unix())))
 	}
 
 	// ATTENTION: you'd better comment following code when developing.
@@ -144,13 +123,13 @@ func parseDocs() {
 
 func needCheckUpdate() bool {
 	// Does not have record for check update.
-	stamp, err := Cfg.Int64("app", "update_check_time")
+	stamp, err := beego.AppConfig.Int64("app::update_check_time")
 	if err != nil {
 		return true
 	}
 
-	if !com.IsFile("conf/docTree.json") || !com.IsFile("conf/blogTree.json") ||
-		!com.IsFile("conf/productTree.json") {
+	if !utils.FileExists("conf/docTree.json") || !utils.FileExists("conf/blogTree.json") ||
+		!utils.FileExists("conf/productTree.json") {
 		return true
 	}
 
@@ -161,9 +140,9 @@ func initDocMap() {
 	// Documentation names.
 	docNames := make([]string, 0, 20)
 	docNames = append(docNames, strings.Split(
-		Cfg.MustValue("app", "doc_names"), "|")...)
+		beego.AppConfig.String("app::doc_names"), "|")...)
 
-	isConfExist := com.IsFile("conf/docTree.json")
+	isConfExist := utils.FileExists("conf/docTree.json")
 	if isConfExist {
 		f, err := os.Open("conf/docTree.json")
 		if err != nil {
@@ -188,7 +167,7 @@ func initDocMap() {
 	defer docLock.Unlock()
 
 	docMap = make(map[string]*docFile)
-	langs := strings.Split(Cfg.MustValue("lang", "types"), "|")
+	langs := strings.Split(beego.AppConfig.String("lang::types"), "|")
 
 	os.Mkdir("docs", os.ModePerm)
 	for _, l := range langs {
@@ -208,12 +187,12 @@ func initDocMap() {
 
 func initBlogMap() {
 	os.Mkdir("blog", os.ModePerm)
-	langs := strings.Split(Cfg.MustValue("lang", "types"), "|")
+	langs := strings.Split(beego.AppConfig.String("lang::types"), "|")
 	for _, l := range langs {
 		os.Mkdir("blog/"+l, os.ModePerm)
 	}
 
-	if !com.IsFile("conf/blogTree.json") {
+	if !utils.FileExists("conf/blogTree.json") {
 		beego.Error("models.initBlogMap -> conf/blogTree.json does not exist")
 		return
 	}
@@ -410,7 +389,7 @@ func checkFileUpdates() error {
 			Tree []*oldDocNode
 		}
 
-		err := com.HttpGetJSON(httpClient, tree.ApiUrl, &tmpTree)
+		err := getHttpJson(tree.ApiUrl, &tmpTree)
 		if err != nil {
 			return errors.New("models.checkFileUpdates -> get trees: " + err.Error())
 		}
@@ -421,7 +400,7 @@ func checkFileUpdates() error {
 		saveTree.Tree = make([]*oldDocNode, 0, len(tmpTree.Tree))
 
 		// Compare SHA.
-		files := make([]com.RawFile, 0, len(tmpTree.Tree))
+		files := make([]*rawFile, 0, len(tmpTree.Tree))
 		for _, node := range tmpTree.Tree {
 			// Skip non-md files and "README.md".
 			if node.Type != "blob" || (!strings.HasSuffix(node.Path, ".md") &&
@@ -450,25 +429,25 @@ func checkFileUpdates() error {
 		}
 
 		// Fetch files.
-		if err := com.FetchFiles(httpClient, files, nil); err != nil {
+		if err := getFiles(files); err != nil {
 			return errors.New("models.checkFileUpdates -> fetch files: " + err.Error())
 		}
 
 		// Update data.
 		for _, f := range files {
-			os.MkdirAll(path.Join(tree.Prefix, path.Dir(f.Name())), os.ModePerm)
+			os.MkdirAll(path.Join(tree.Prefix, path.Dir(f.name)), os.ModePerm)
 			suf := ".md"
-			if strings.Contains(f.Name(), "images") ||
-				strings.HasSuffix(f.Name(), ".json") {
+			if strings.Contains(f.name, "images") ||
+				strings.HasSuffix(f.name, ".json") {
 				suf = ""
 			}
-			fw, err := os.Create(tree.Prefix + f.Name() + suf)
+			fw, err := os.Create(tree.Prefix + f.name + suf)
 			if err != nil {
 				beego.Error("models.checkFileUpdates -> open file:", err.Error())
 				continue
 			}
 
-			_, err = fw.Write(f.Data())
+			_, err = fw.Write(f.data)
 			fw.Close()
 			if err != nil {
 				beego.Error("models.checkFileUpdates -> write data:", err.Error())

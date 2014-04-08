@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/Unknwon/com"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/utils"
 )
 
 type products struct {
@@ -25,7 +25,7 @@ type Project struct {
 var Products = new(products)
 
 func initProuctCase() {
-	if !com.IsFile("conf/productTree.json") {
+	if !utils.FileExists("conf/productTree.json") {
 		beego.Error("models.initBlogMap -> conf/productTree.json does not exist")
 		return
 	}
