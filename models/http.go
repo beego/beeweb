@@ -69,11 +69,14 @@ func getHttpJson(url string, v interface{}) error {
 		return err
 	}
 	defer resp.Body.Close()
+	beego.Info(url)
+	beego.Info(resp.StatusCode)
 	if resp.StatusCode == 200 {
 		err = json.NewDecoder(resp.Body).Decode(v)
 		if _, ok := err.(*json.SyntaxError); ok {
 			return errors.New("JSON syntax error at " + url)
 		}
+		return nil
 	}
 	return errors.New("can't get infomation")
 }
