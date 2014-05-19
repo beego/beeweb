@@ -28,7 +28,6 @@ func (this *VideoRouter) Get() {
 
 	df := models.GetDoc("screencasts", this.Lang)
 	this.Data["Section"] = "video toturial"
-	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
 }
