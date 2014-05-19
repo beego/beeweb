@@ -1,0 +1,24 @@
+{{template "base/base.html" .}}
+{{define "head"}}{{end}}
+{{define "meta"}}
+<title>{{.Title}} - beego: {{i18n .Lang "app_intro"}}</title>
+{{end}}
+{{define "body"}}
+<div class="container main-container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box">
+				<div class="cell slim page-box markdown">
+					<div class="page-header">
+					    <h1>
+					    	{{.Title}}
+					    	<a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{.Section}}.md" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "improve doc on github"}}</a>
+					    </h1>
+					</div>
+					{{.Data | str2html}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{end}}
