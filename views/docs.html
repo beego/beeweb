@@ -42,6 +42,21 @@
         </div>
         <div class="col-md-10 col-sm-9">
             <div class="box">
+				<div>
+					<script>
+					  (function() {
+					    var cx = '014389342508982455625:2tomkdt5uo4';
+					    var gcse = document.createElement('script');
+					    gcse.type = 'text/javascript';
+					    gcse.async = true;
+					    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+					        '//www.google.com/cse/cse.js?cx=' + cx;
+					    var s = document.getElementsByTagName('script')[0];
+					    s.parentNode.insertBefore(gcse, s);
+					  })();
+					</script>
+					<gcse:search></gcse:search>
+				</div>
                 <div class="cell slim page-box">
                     <p>
                         <a href="https://github.com/beego/beedoc/blob/master/{{.Lang}}/{{if .Doc.IsDir}}{{.Doc.FileRelPath}}{{else}}{{.Doc.RelPath}}{{end}}" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "improve doc on github"}}</a>
