@@ -51,7 +51,7 @@ func main() {
 
 	beego.Info(beego.AppName, APP_VER)
 
-	beego.AddFilter("/docs/images/:all", "BeforeRouter", routers.DocsStatic)
+	beego.InsertFilter("/docs/images/:all", beego.BeforeRouter, routers.DocsStatic)
 
 	if !routers.IsPro {
 		beego.SetStaticPath("/static_source", "static_source")
