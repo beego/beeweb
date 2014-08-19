@@ -37,7 +37,7 @@ func initialize() {
 
 	routers.IsPro = beego.RunMode == "prod"
 	if routers.IsPro {
-		beego.SetLevel(beego.LevelInfo)
+		beego.SetLevel(beego.LevelInformational)
 		os.Mkdir("./log", os.ModePerm)
 		beego.BeeLogger.SetLogger("file", `{"filename": "log/log"}`)
 	}
