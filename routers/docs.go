@@ -18,6 +18,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"github.com/beego/i18n"
 
@@ -41,8 +42,8 @@ func (this *DocsRouter) Get() {
 		return
 	}
 
-	link := this.GetString(":all")
-
+	link := this.GetString(":splat")
+	beego.Info(link)
 	var doc *models.DocNode
 	if len(link) == 0 {
 		if dRoot.Doc.HasContent() {
@@ -55,10 +56,6 @@ func (this *DocsRouter) Get() {
 		doc, _ = dRoot.GetNodeByLink(link)
 		if doc == nil {
 			doc, _ = dRoot.GetNodeByLink(link + "/")
-			if doc != nil {
-				this.Redirect("/docs/"+link+"/", 301)
-				return
-			}
 		}
 	}
 

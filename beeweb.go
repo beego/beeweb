@@ -70,7 +70,7 @@ func main() {
 	beego.Router("/about", &routers.AboutRouter{})
 	beego.Router("/donate", &routers.DonateRouter{})
 	beego.Router("/docs/", &routers.DocsRouter{})
-	beego.Router("/docs/:all", &routers.DocsRouter{})
+	beego.Router("/docs/*", &routers.DocsRouter{})
 	beego.Router("/blog", &routers.BlogRouter{})
 	beego.Router("/blog/:all", &routers.BlogRouter{})
 
