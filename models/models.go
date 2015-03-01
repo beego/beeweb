@@ -119,6 +119,15 @@ func parseDocs() {
 	if root != nil {
 		docs["en-US"] = root
 	}
+
+	root, err = ParseDocs("docs/ru-RU")
+	if err != nil {
+		beego.Error(err)
+	}
+
+	if root != nil {
+		docs["ru-RU"] = root
+	}
 }
 
 func needCheckUpdate() bool {
