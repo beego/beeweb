@@ -53,5 +53,5 @@ func (this *SamplesRouter) Get() {
 	this.Data["Title"] = df.Title
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
-	this.TplNames = "samples_" + curLang.Lang + ".html"
+	this.TplName = "samples_" + curLang.Lang + ".html"
 }

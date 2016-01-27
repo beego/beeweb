@@ -28,7 +28,7 @@ type BlogRouter struct {
 // Get implemented Get method for BlogRouter.
 func (this *BlogRouter) Get() {
 	this.Data["IsBlog"] = true
-	this.TplNames = "blog.html"
+	this.TplName = "blog.html"
 
 	reqUrl := this.Ctx.Request.URL.String()
 	fullName := reqUrl[strings.LastIndex(reqUrl, "/")+1:]

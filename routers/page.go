@@ -10,7 +10,7 @@ type PageRouter struct {
 
 func (this *PageRouter) Get() {
 	this.Data["IsTeam"] = true
-	this.TplNames = "team.html"
+	this.TplName = "team.html"
 
 	// Get language.
 	df := models.GetDoc("team", this.Lang)
@@ -24,7 +24,7 @@ type AboutRouter struct {
 
 func (this *AboutRouter) Get() {
 	this.Data["IsAbout"] = true
-	this.TplNames = "about.html"
+	this.TplName = "about.html"
 
 	// Get language.
 	df := models.GetDoc("about", this.Lang)

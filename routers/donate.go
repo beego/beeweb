@@ -26,7 +26,7 @@ type DonateRouter struct {
 // Get implemented Get method for DonateRouter.
 func (this *DonateRouter) Get() {
 	this.Data["IsDonate"] = true
-	this.TplNames = "donate.html"
+	this.TplName = "donate.html"
 
 	// Get language.
 	df := models.GetDoc("donate", this.Lang)

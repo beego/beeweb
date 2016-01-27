@@ -33,7 +33,7 @@ type DocsRouter struct {
 // Get implemented Get method for DocsRouter.
 func (this *DocsRouter) Get() {
 	this.Data["IsDocs"] = true
-	this.TplNames = "docs.html"
+	this.TplName = "docs.html"
 
 	dRoot := models.GetDocByLocale(this.Lang)
 
@@ -71,7 +71,7 @@ func (this *DocsRouter) Get() {
 }
 
 func DocsStatic(ctx *context.Context) {
-	if uri := ctx.Input.Params[":all"]; len(uri) > 0 {
+	if uri := ctx.Input.Param(":all"); len(uri) > 0 {
 		lang := ctx.GetCookie("lang")
 		if !i18n.IsExist(lang) {
 			lang = "en-US"
