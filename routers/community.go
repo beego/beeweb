@@ -26,7 +26,7 @@ type CommunityRouter struct {
 // Get implemented Get method for CommunityRouter.
 func (this *CommunityRouter) Get() {
 	this.Data["IsCommunity"] = true
-	this.TplNames = "community.html"
+	this.TplName = "community.html"
 
 	df := models.GetDoc("usecases", this.Lang)
 	this.Data["Section"] = "usecases"

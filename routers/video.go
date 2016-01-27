@@ -24,10 +24,10 @@ type VideoRouter struct {
 // Get implemented Get method for VideoRouter.
 func (this *VideoRouter) Get() {
 	this.Data["IsVideo"] = true
-	this.TplNames = "video.html"
+	this.TplName = "video.html"
 
 	df := models.GetDoc("screencasts", this.Lang)
-	this.Data["Section"] = "video toturial"
+	this.Data["Section"] = "screencasts"
 	this.Data["Data"] = string(df.Data)
 	this.Data["IsHasMarkdown"] = true
 }

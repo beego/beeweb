@@ -35,7 +35,7 @@ const (
 func initialize() {
 	models.InitModels()
 
-	routers.IsPro = beego.RunMode == "prod"
+	routers.IsPro = beego.BConfig.RunMode == "prod"
 	if routers.IsPro {
 		beego.SetLevel(beego.LevelInformational)
 		os.Mkdir("./log", os.ModePerm)
@@ -49,13 +49,13 @@ func main() {
 
 	initialize()
 
-	beego.Info(beego.AppName, APP_VER)
+	beego.Info(beego.BConfig.AppName, APP_VER)
 
 	beego.InsertFilter("/docs/images/:all", beego.BeforeRouter, routers.DocsStatic)
 
 	if !routers.IsPro {
 		beego.SetStaticPath("/static_source", "static_source")
-		beego.DirectoryIndex = true
+		beego.BConfig.WebConfig.DirectoryIndex = true
 	}
 
 	beego.SetStaticPath("/products/images", "products/images/")
