@@ -12,7 +12,7 @@
 					<div class="page-header">
 					    <h1>
 					    	{{.Title}}
-					    	<a href="https://github.com/beego/beedoc/blob/master/{{..Lang}}/{{.Section}}.md" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "improve doc on github"}}</a>
+					    	<a href="https://github.com/beego/beedoc/blob/master/{{.Lang}}/{{.Section}}.md" class="pull-right btn btn-info" target="_blank">{{i18n .Lang "improve doc on github"}}</a>
 					    </h1>
 					</div>
 					{{.Data | str2html}}
