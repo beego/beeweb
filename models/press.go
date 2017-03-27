@@ -132,12 +132,14 @@ func (d *DocRoot) walkParse() error {
 }
 
 func (d *DocRoot) sortAll(node *DocNode) {
-	for _, n := range node.Docs {
-		if n.IsDir {
-			d.sortAll(n)
+	if node != nil {
+		for _, n := range node.Docs {
+			if n.IsDir {
+				d.sortAll(n)
+			}
 		}
+		node.SortDocs()
 	}
-	node.SortDocs()
 }
 
 func (d *DocRoot) makeDirNode(path string) error {
