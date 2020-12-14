@@ -34,14 +34,14 @@
                     <div class="markdown">
                         {{if eq .Lang "zh-CN"}}
                             <p>下载安装</p>
-                            <pre lang="bash"><code>go get github.com/astaxie/beego</code></pre>
+                            <pre lang="bash"><code>go get github.com/beego/beego/v2@v2.0.0</code></pre>
                             <p>创建文件 <code>hello.go</code></p>
-                            <pre lang="go"><code>package main<br><br>import "github.com/astaxie/beego"<br><br>func main() {<br>    beego.Run()<br>}</code></pre>
+                            <pre lang="go"><code>package main<br><br>import "github.com/beego/beego/v2/server/web"<br><br>func main() {<br>    web.Run()<br>}</code></pre>
                         {{else}}
                             <p>Download and install</p>
-                            <pre lang="bash"><code>go get github.com/astaxie/beego</code></pre>
+                            <pre lang="bash"><code>go get github.com/beego/beego/v2@v2.0.0</code></pre>
                             <p>Create file <code>hello.go</code></p>
-                            <pre lang="go"><code>package main<br><br>import "github.com/astaxie/beego"<br><br>func main() {<br>    beego.Run()<br>}</code></pre>
+                            <pre lang="go"><code>package main<br><br>import "github.com/beego/beego/v2/server/web"<br><br>func main() {<br>    web.Run()<br>}</code></pre>
                         {{end}}
                     </div>
                 </div>
