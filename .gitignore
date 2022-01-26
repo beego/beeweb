@@ -1,5 +1,7 @@
+/static
+/tmp
 *.exe
-*.exe~
+*~
 website
 .DS_Store
 bee
@@ -13,4 +15,3 @@ beeweb
 /log
 bale/
 bale.go
-*.go~
